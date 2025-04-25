@@ -1,0 +1,72 @@
+name: RELEASE
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  pull-requests: write
+  deployments: write
+  checks: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: 'release'
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Release
+        uses: googleapis/release-please-action@v4
+        id: release-please
+        with:
+          token: ${{ secrets.GH_PAT }}
+          release-type: node
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        if: ${{ steps.release-please.outputs.release_created }}
+        with:
+          fetch-depth: 1
+
+      - name: Set up Pnpm
+        uses: pnpm/action-setup@v4
+        if: ${{ steps.release-please.outputs.release_created }}
+        with:
+          version: 9
+          run_install: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        if: ${{ steps.release-please.outputs.release_created }}
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'pnpm'
+          cache-dependency-path: pnpm-lock.yaml
+
+      - name: Install dependencies
+        if: ${{ steps.release-please.outputs.release_created }}
+        run: pnpm install
+
+      - name: Build
+        if: ${{ steps.release-please.outputs.release_created }}
+        run: pnpm build
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+        if: ${{ steps.release-please.outputs.release_created }}
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        if: ${{ steps.release-please.outputs.release_created }}
+        with:
+          path: './dist'
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
+        if: ${{ steps.release-please.outputs.release_created }}
