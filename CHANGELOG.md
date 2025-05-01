@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.1](https://github.com/obf-software/confi/compare/v1.1.0...v1.1.1) (2025-05-01)
+
+
+### Bug Fixes
+
+* Add missing build environment variable ([57e8899](https://github.com/obf-software/confi/commit/57e889976f7b11a106735eaaf8421ba54acebafd))
+* Bump vite version in order to address moderate vite dependency issue ([c07559b](https://github.com/obf-software/confi/commit/c07559b0bc91ee6fb748901f604dd1a3125289b6))
+
 ## [1.1.0](https://github.com/obf-software/confi/compare/v1.0.1...v1.1.0) (2025-05-01)
 
 
