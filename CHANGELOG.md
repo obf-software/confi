@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.2](https://github.com/obf-software/confi/compare/v1.1.1...v1.1.2) (2025-05-01)
+
+
+### Bug Fixes
+
+* Adjust base path fallback ([9e7589d](https://github.com/obf-software/confi/commit/9e7589db333eea0a9ea01898aa42448b3788675f))
+* Solve routing issues ([d8de153](https://github.com/obf-software/confi/commit/d8de1530a590009bd63347dd6b1b9d8094943025))
+
 ## [1.1.1](https://github.com/obf-software/confi/compare/v1.1.0...v1.1.1) (2025-05-01)
 
 
