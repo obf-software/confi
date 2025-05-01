@@ -6,9 +6,10 @@ import { MainLayout } from './components/main-layout';
 import { Home } from './pages/home';
 
 export const Provider = () => {
+  const basePath = import.meta.env.VITE_BASE_PATH ?? '/';
   const router = createBrowserRouter([
     {
-      path: '/*',
+      path: `${basePath}*`,
       element: <MainLayout />,
       children: [
         {
