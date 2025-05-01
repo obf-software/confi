@@ -50,7 +50,7 @@ importers:
         version: 19.1.2(@types/react@19.1.2)
       '@vitejs/plugin-react-swc':
         specifier: ^3.8.0
-        version: 3.9.0(@swc/helpers@0.5.17)(vite@6.3.3(@types/node@22.15.3))
+        version: 3.9.0(@swc/helpers@0.5.17)(vite@6.3.4(@types/node@22.15.3))
       eslint:
         specifier: ^9.22.0
         version: 9.25.1
@@ -73,8 +73,8 @@ importers:
         specifier: ^8.26.1
         version: 8.31.0(eslint@9.25.1)(typescript@5.7.3)
       vite:
-        specifier: ^6.3.1
-        version: 6.3.3(@types/node@22.15.3)
+        specifier: ^6.3.4
+        version: 6.3.4(@types/node@22.15.3)
 
 packages:
 
@@ -1715,8 +1715,8 @@ packages:
   uri-js@4.4.1:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
 
-  vite@6.3.3:
-    resolution: {integrity: sha512-5nXH+QsELbFKhsEfWLkHrvgRpTdGJzqOZ+utSdmPTvwHmvU6ITTm3xx+mRusihkcI8GeC7lCDyn3kDtiki9scw==}
+  vite@6.3.4:
+    resolution: {integrity: sha512-BiReIiMS2fyFqbqNT/Qqt4CVITDU9M9vE+DKcVAsB+ZV0wvTKd+3hMbkpxz1b+NmEDMegpVbisKiAZOnvO92Sw==}
     engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
     hasBin: true
     peerDependencies:
@@ -2444,10 +2444,10 @@ snapshots:
 
   '@visulima/boxen@1.0.30': {}
 
-  '@vitejs/plugin-react-swc@3.9.0(@swc/helpers@0.5.17)(vite@6.3.3(@types/node@22.15.3))':
+  '@vitejs/plugin-react-swc@3.9.0(@swc/helpers@0.5.17)(vite@6.3.4(@types/node@22.15.3))':
     dependencies:
       '@swc/core': 1.11.22(@swc/helpers@0.5.17)
-      vite: 6.3.3(@types/node@22.15.3)
+      vite: 6.3.4(@types/node@22.15.3)
     transitivePeerDependencies:
       - '@swc/helpers'
 
@@ -3681,7 +3681,7 @@ snapshots:
     dependencies:
       punycode: 2.3.1
 
-  vite@6.3.3(@types/node@22.15.3):
+  vite@6.3.4(@types/node@22.15.3):
     dependencies:
       esbuild: 0.25.3
       fdir: 6.4.4(picomatch@4.0.2)
