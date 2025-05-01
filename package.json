@@ -10,12 +10,13 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "preview": "vite preview",
-    "chakra:snippet": "pnpx @chakra-ui/cli snippet add --outdir src/components/snippets",
-    "chakra:typegen": "pnpx @chakra-ui/cli typegen src/styles/theme.ts"
+    "chakra:snippet": "chakra snippet add --outdir src/components/snippets",
+    "chakra:typegen": "chakra typegen src/styles/theme.ts"
   },
   "dependencies": {
     "@chakra-ui/react": "^3.16.1",
     "@emotion/react": "^11.14.0",
+    "@fontsource/open-sauce-one": "^5.2.5",
     "next-themes": "^0.4.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -23,6 +24,7 @@
     "react-router-dom": "^7.5.3"
   },
   "devDependencies": {
+    "@chakra-ui/cli": "^3.17.0",
     "@eslint/js": "^9.22.0",
     "@types/node": "^22.15.3",
     "@types/react": "^19.0.10",

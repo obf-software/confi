@@ -2,14 +2,14 @@ import { ChakraProvider } from '@chakra-ui/react';
 import { ColorModeProvider } from './components/snippets/color-mode';
 import { themeSystem } from './styles/theme';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { Layout } from './components/layout';
+import { MainLayout } from './components/main-layout';
 import { Home } from './pages/home';
 
 export const Provider = () => {
   const router = createBrowserRouter([
     {
       path: '/*',
-      element: <Layout />,
+      element: <MainLayout />,
       children: [
         {
           index: true,
