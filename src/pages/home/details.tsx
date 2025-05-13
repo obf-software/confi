@@ -1,16 +1,16 @@
 import {
+  Avatar,
   Box,
   Container,
   Flex,
   FlexProps,
+  Float,
+  GridItem,
   Heading,
+  Icon,
+  LinkOverlay,
   SimpleGrid,
   Text,
-  Avatar,
-  Float,
-  Icon,
-  GridItem,
-  LinkOverlay,
 } from '@chakra-ui/react';
 import React from 'react';
 import { FaLinkedinIn } from 'react-icons/fa6';

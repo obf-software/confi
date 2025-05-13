@@ -1,7 +1,8 @@
 import React from 'react';
-import { Sponsors } from './sponsors';
-import { Hero } from './hero';
+
 import { Details } from './details';
+import { Hero } from './hero';
+import { Sponsors } from './sponsors';
 
 export const Home: React.FC = () => {
   return (

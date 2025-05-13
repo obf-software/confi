@@ -11,11 +11,13 @@ import {
 } from '@chakra-ui/react';
 import React from 'react';
 import { RiArrowRightLine } from 'react-icons/ri';
+import { useNavigate } from 'react-router-dom';
 
 export type HeroProps = FlexProps;
 
 export const Hero: React.FC<HeroProps> = ({ ...flexProps }) => {
   const flexRef = React.useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   return (
     <Flex
@@ -94,6 +96,9 @@ export const Hero: React.FC<HeroProps> = ({ ...flexProps }) => {
                 '& > svg': {
                   display: 'block',
                 },
+              }}
+              onClick={() => {
+                void navigate('/search');
               }}
             >
               Buscar Oportunidades{' '}
