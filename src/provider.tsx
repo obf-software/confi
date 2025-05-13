@@ -1,13 +1,15 @@
 import { ChakraProvider } from '@chakra-ui/react';
-import { ColorModeProvider } from './components/snippets/color-mode';
-import { themeSystem } from './styles/theme';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+
+import { ColorModeProvider } from './components/color-mode';
 import { MainLayout } from './components/main-layout';
 import { Home } from './pages/home';
+import { Search } from './pages/search';
+import { themeSystem } from './styles/theme';
 
 export const Provider = () => {
-  // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
   const basePath = import.meta.env.VITE_BASE_PATH || '/';
+
   const router = createBrowserRouter([
     {
       path: `${basePath}*`,
@@ -16,6 +18,10 @@ export const Provider = () => {
         {
           index: true,
           element: <Home />,
+        },
+        {
+          path: 'search',
+          element: <Search />,
         },
       ],
     },
