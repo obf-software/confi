@@ -31,9 +31,10 @@ export default tseslint.config(
     rules: {
       ...reactHooks.configs['recommended-latest'].rules,
       ...reactRefresh.configs.vite.rules,
+      '@typescript-eslint/no-empty-object-type': 'off',
       '@typescript-eslint/prefer-nullish-coalescing': 'off',
-      'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
       '@typescript-eslint/no-unused-vars': 'off',
+      'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
       'unused-imports/no-unused-vars': 'warn',
       'unused-imports/no-unused-imports': 'error',
       'simple-import-sort/imports': 'error',
