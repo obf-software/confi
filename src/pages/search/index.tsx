@@ -1,29 +1,56 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import { zodResolver as hookformZodResolver } from '@hookform/resolvers/zod';
-import React from 'react';
-import { FormProvider, Resolver, SubmitHandler, useForm } from 'react-hook-form';
 
+import React from 'react';
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+
+import { toasterStore } from '../../components/toaster';
+import { buildAbsolutePath } from '../../helpers/build-absolute-path';
+import { zodResolver } from '../../helpers/zod-resolver';
 import { BriefingStep } from './briefing-step';
 import { DiversityStep } from './diversity-step';
 import { NameStep } from './name-step';
 import { FormData, formDataSchema, FormPageId } from './protocols';
-
-/**
- * This type casting avoid typescript server issues with the hookform/resolvers library
- */
-const zodResolver = hookformZodResolver as unknown as (
-  ...data: unknown[]
-) => Resolver<FormData, unknown, FormData>;
+import { useFindOpportunities } from './use-find-opportunities';
 
 export const Search: React.FC = () => {
   const [currentPageId, setCurrentPageId] = React.useState<FormPageId>('name');
-
   const formMethods = useForm<FormData>({
     resolver: zodResolver(formDataSchema),
+    defaultValues: {
+      organizationName: 'asdasdas',
+      organizationBriefing: 'asd',
+      activityRegion: '123',
+      organizationType: 'Informal (sem CNPJ)',
+      activityTime: 'Menos de 1 ano',
+      businessStage: 'Ideação',
+      ods: 'Pobreza - ODS 1',
+      minorityGroups: [],
+      englishLevel: 'Ainda não',
+    },
   });
+  const navigate = useNavigate();
+  const findOpportunities = useFindOpportunities();
 
-  const submitHandler: SubmitHandler<FormData> = (data) => {
-    console.log(data);
+  const submitHandler: SubmitHandler<FormData> = async (data) => {
+    await new Promise<void>((resolve) => {
+      findOpportunities.mutate(data, {
+        onSuccess: (opportunities) => {
+          void navigate(buildAbsolutePath('opportunities'), { state: { opportunities } });
+          resolve();
+        },
+        onError: (error) => {
+          toasterStore.create({
+            id: 'failed-to-find-opportunities',
+            title: 'Não foi possível buscar oportunidades',
+            description: error.message,
+            closable: true,
+            type: 'error',
+          });
+          resolve();
+        },
+      });
+    });
   };
 
   React.useEffect(() => {

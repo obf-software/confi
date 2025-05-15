@@ -15,6 +15,8 @@ import {
 import React from 'react';
 import { FaLinkedinIn } from 'react-icons/fa6';
 
+import { buildAbsolutePath } from '../../helpers/build-absolute-path';
+
 export type DetailsProps = FlexProps;
 
 export const Details: React.FC<DetailsProps> = ({ ...flexProps }) => {
@@ -80,7 +82,7 @@ export const Details: React.FC<DetailsProps> = ({ ...flexProps }) => {
                   size='full'
                 >
                   <Avatar.Fallback name='Tássia Jansen' />
-                  <Avatar.Image src='tassia.jpg' />
+                  <Avatar.Image src={buildAbsolutePath('tassia.jpg')} />
                   <Float
                     placement='bottom-end'
                     offsetX='3'

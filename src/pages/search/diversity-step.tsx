@@ -177,7 +177,6 @@ export const DiversityStep: React.FC<DiversityStep> = ({ onBack }) => {
 
             <Field
               label={<>Existem membros fundadores ou de C-level dentro das categorias a seguir?</>}
-              required
               invalid={!!formMethods.formState.errors.minorityGroups}
               errorText={formMethods.formState.errors.minorityGroups?.message}
             >
@@ -254,6 +253,7 @@ export const DiversityStep: React.FC<DiversityStep> = ({ onBack }) => {
               color='white'
               size='xl'
               type='submit'
+              loading={formMethods.formState.isSubmitting}
             >
               Buscar Oportunidades
               <RiSearchEyeLine />

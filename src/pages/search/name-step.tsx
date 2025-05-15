@@ -16,6 +16,7 @@ import { useFormContext } from 'react-hook-form';
 import { RiArrowRightLine } from 'react-icons/ri';
 
 import { Field } from '../../components/field';
+import { buildAbsolutePath } from '../../helpers/build-absolute-path';
 import { FormData } from './protocols';
 
 export interface NameStepProps {
@@ -67,7 +68,7 @@ export const NameStep: React.FC<NameStepProps> = ({ onNext }) => {
               <Image
                 display={{ base: 'block', lg: 'none' }}
                 my='4'
-                src='ilustra-01.png'
+                src={buildAbsolutePath('/ilustra-01.png')}
                 aspectRatio={1}
                 width='60%'
               />
@@ -126,7 +127,7 @@ export const NameStep: React.FC<NameStepProps> = ({ onNext }) => {
             alignContent='center'
           >
             <Image
-              src='ilustra-01.png'
+              src={buildAbsolutePath('/ilustra-01.png')}
               aspectRatio={1}
             />
           </GridItem>

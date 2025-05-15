@@ -1,6 +1,6 @@
 export type BasePath = `/${string}/` | '/';
 
-export const buildPath = (path: string): string => {
+export const buildAbsolutePath = (path: string): string => {
   let basePath = import.meta.env.VITE_BASE_PATH;
   basePath ||= '/';
   basePath = basePath.endsWith('/') ? basePath : `${basePath}/`;

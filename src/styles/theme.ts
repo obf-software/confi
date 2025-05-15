@@ -23,10 +23,10 @@ const config = defineConfig({
       colors: {
         brandPrimaryButton: {
           solid: { value: '#00C5CB' },
-          contrast: { value: '#00C5CB' },
+          contrast: { value: '#FFFFFF' },
           fg: { value: '#00C5CB' },
           muted: { value: '#00C5CB' },
-          subtle: { value: '#00C5CB' },
+          subtle: { value: '#000000' },
           emphasized: { value: '#00C5CB' },
           focusRing: { value: '#00C5CB' },
         },

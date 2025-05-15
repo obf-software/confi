@@ -11,7 +11,7 @@ export const formDataSchema = z.object({
   activityTime: z.string().min(1),
   businessStage: z.string().min(1),
   ods: z.string().min(1),
-  minorityGroups: z.string().min(1).array().min(1),
+  minorityGroups: z.string().min(1).array().default([]),
   englishLevel: z.string().min(1),
 });
 
