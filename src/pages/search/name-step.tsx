@@ -12,13 +12,19 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import React from 'react';
+import { useFormContext } from 'react-hook-form';
 import { RiArrowRightLine } from 'react-icons/ri';
+
+import { Field } from '../../components/field';
+import { FormData } from './protocols';
 
 export interface NameStepProps {
   onNext: () => void;
 }
 
 export const NameStep: React.FC<NameStepProps> = ({ onNext }) => {
+  const formMethods = useFormContext<FormData>();
+
   return (
     <Flex minH='100vh'>
       <Container
@@ -85,10 +91,17 @@ export const NameStep: React.FC<NameStepProps> = ({ onNext }) => {
                   direction={{ base: 'column', md: 'row' }}
                   align='center'
                 >
-                  <Input
-                    variant='subtle'
-                    size='2xl'
-                  />
+                  <Field
+                    required
+                    invalid={!!formMethods.formState.errors.organizationName}
+                    errorText={formMethods.formState.errors.organizationName?.message}
+                  >
+                    <Input
+                      variant='subtle'
+                      size='2xl'
+                      {...formMethods.register('organizationName')}
+                    />
+                  </Field>
 
                   <IconButton
                     aria-label='Search database'

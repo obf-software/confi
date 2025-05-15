@@ -1,22 +1,22 @@
-import { ListCollection, Portal, Select as ChakraSelect } from '@chakra-ui/react';
+import { ListCollection, Portal, Select as ChakraSelect, SelectRootProps } from '@chakra-ui/react';
 import React from 'react';
 
-export interface SelectProps {
-  label: React.ReactNode;
+export interface SelectProps extends SelectRootProps {
+  label?: React.ReactNode;
   multiple?: boolean;
-  collection: ListCollection<{ value: string }>;
+  collection: ListCollection<string>;
 }
 
-export const Select: React.FC<SelectProps> = ({ label, multiple, collection }) => {
+export const Select: React.FC<SelectProps> = ({ label, ...defaultProps }) => {
   return (
     <ChakraSelect.Root
-      multiple={multiple}
-      collection={collection}
+      {...defaultProps}
       size='lg'
       variant='subtle'
     >
       <ChakraSelect.HiddenSelect />
-      <ChakraSelect.Label>{label}</ChakraSelect.Label>
+      {label && <ChakraSelect.Label>{label}</ChakraSelect.Label>}
+
       <ChakraSelect.Control>
         <ChakraSelect.Trigger>
           <ChakraSelect.ValueText placeholder='Selecione' />
@@ -28,12 +28,12 @@ export const Select: React.FC<SelectProps> = ({ label, multiple, collection }) =
       <Portal>
         <ChakraSelect.Positioner>
           <ChakraSelect.Content>
-            {collection.items.map((response) => (
+            {defaultProps.collection.items.map((response) => (
               <ChakraSelect.Item
                 item={response}
-                key={response.value}
+                key={response}
               >
-                {response.value}
+                {response}
                 <ChakraSelect.ItemIndicator />
               </ChakraSelect.Item>
             ))}

@@ -1,45 +1,76 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
+import {} from '@hookform/resolvers';
+import { zodResolver as hookformZodResolver } from '@hookform/resolvers/zod';
 import React from 'react';
+import { FormProvider, Resolver, SubmitHandler, useForm } from 'react-hook-form';
 
 import { BriefingStep } from './briefing-step';
 import { DiversityStep } from './diversity-step';
 import { NameStep } from './name-step';
+import { FormData, formDataSchema, FormPageId } from './protocols';
 
-type FormPage = 'name' | 'diversity' | 'briefing';
+/**
+ * This type casting avoid typescript server issues with the hookform/resolvers library
+ */
+const zodResolver = hookformZodResolver as unknown as (
+  ...data: unknown[]
+) => Resolver<FormData, unknown, FormData>;
 
 export const Search: React.FC = () => {
-  const [currentPage, setCurrentPage] = React.useState<FormPage>('name');
+  const [currentPageId, setCurrentPageId] = React.useState<FormPageId>('name');
+
+  const formMethods = useForm<FormData>({
+    resolver: zodResolver(formDataSchema),
+  });
+
+  const submitHandler: SubmitHandler<FormData> = (data) => {
+    console.log(data);
+  };
+
+  React.useEffect(() => {
+    if (formMethods.formState.errors.organizationName) {
+      setCurrentPageId('name');
+      return;
+    }
+
+    if (formMethods.formState.errors.organizationBriefing) {
+      setCurrentPageId('briefing');
+      return;
+    }
+  }, [formMethods.formState.errors]);
 
   return (
     <>
-      {currentPage === 'name' && (
-        <NameStep
-          onNext={() => {
-            setCurrentPage('briefing');
-          }}
-        />
-      )}
+      <FormProvider {...formMethods}>
+        <form onSubmit={formMethods.handleSubmit(submitHandler)}>
+          {currentPageId === 'name' && (
+            <NameStep
+              onNext={() => {
+                setCurrentPageId('briefing');
+              }}
+            />
+          )}
 
-      {currentPage === 'briefing' && (
-        <BriefingStep
-          onBack={() => {
-            setCurrentPage('name');
-          }}
-          onNext={() => {
-            setCurrentPage('diversity');
-          }}
-        />
-      )}
+          {currentPageId === 'briefing' && (
+            <BriefingStep
+              onBack={() => {
+                setCurrentPageId('name');
+              }}
+              onNext={() => {
+                setCurrentPageId('diversity');
+              }}
+            />
+          )}
 
-      {currentPage === 'diversity' && (
-        <DiversityStep
-          onBack={() => {
-            setCurrentPage('briefing');
-          }}
-          onSubmit={() => {
-            console.log('submit');
-          }}
-        />
-      )}
+          {currentPageId === 'diversity' && (
+            <DiversityStep
+              onBack={() => {
+                setCurrentPageId('briefing');
+              }}
+            />
+          )}
+        </form>
+      </FormProvider>
     </>
   );
 };

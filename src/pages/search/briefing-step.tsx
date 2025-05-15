@@ -10,7 +10,11 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import React from 'react';
+import { useFormContext } from 'react-hook-form';
 import { RiArrowLeftLine, RiArrowRightLine } from 'react-icons/ri';
+
+import { Field } from '../../components/field';
+import { FormData } from './protocols';
 
 export interface BriefingStepProps {
   onBack: () => void;
@@ -18,6 +22,8 @@ export interface BriefingStepProps {
 }
 
 export const BriefingStep: React.FC<BriefingStepProps> = ({ onBack, onNext }) => {
+  const formMethods = useFormContext<FormData>();
+
   return (
     <Flex minH='100vh'>
       <Container
@@ -84,12 +90,20 @@ export const BriefingStep: React.FC<BriefingStepProps> = ({ onBack, onNext }) =>
               direction={{ base: 'column', md: 'row' }}
               align='center'
             >
-              <Textarea
-                variant='subtle'
-                size='xl'
-                height='32'
-                resize='none'
-              />
+              <Field
+                required
+                invalid={!!formMethods.formState.errors.organizationBriefing}
+                errorText={formMethods.formState.errors.organizationBriefing?.message}
+              >
+                <Textarea
+                  variant='subtle'
+                  size='xl'
+                  height='32'
+                  resize='none'
+                  {...formMethods.register('organizationBriefing')}
+                />
+              </Field>
+
               <Button
                 aria-label='Back'
                 rounded='full'
