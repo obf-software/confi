@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import {} from '@hookform/resolvers';
 import { zodResolver as hookformZodResolver } from '@hookform/resolvers/zod';
 import React from 'react';
 import { FormProvider, Resolver, SubmitHandler, useForm } from 'react-hook-form';

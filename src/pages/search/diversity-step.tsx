@@ -178,12 +178,12 @@ export const DiversityStep: React.FC<DiversityStep> = ({ onBack }) => {
             <Field
               label={<>Existem membros fundadores ou de C-level dentro das categorias a seguir?</>}
               required
-              invalid={!!formMethods.formState.errors.minorityGroup}
-              errorText={formMethods.formState.errors.minorityGroup?.message}
+              invalid={!!formMethods.formState.errors.minorityGroups}
+              errorText={formMethods.formState.errors.minorityGroups?.message}
             >
               <Controller
                 control={formMethods.control}
-                name='minorityGroup'
+                name='minorityGroups'
                 render={({ field }) => (
                   <Select
                     multiple

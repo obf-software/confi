@@ -1,18 +1,18 @@
 import { ChakraProvider } from '@chakra-ui/react';
+import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import { ColorModeProvider } from './components/color-mode';
 import { MainLayout } from './components/main-layout';
+import { buildPath } from './helpers/build-path';
 import { Home } from './pages/home';
 import { Search } from './pages/search';
 import { themeSystem } from './styles/theme';
 
-export const Provider = () => {
-  const basePath = import.meta.env.VITE_BASE_PATH || '/';
-
+export const Provider: React.FC = () => {
   const router = createBrowserRouter([
     {
-      path: `${basePath}*`,
+      path: buildPath('*'),
       element: <MainLayout />,
       children: [
         {

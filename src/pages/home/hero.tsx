@@ -13,6 +13,8 @@ import React from 'react';
 import { RiArrowRightLine } from 'react-icons/ri';
 import { useNavigate } from 'react-router-dom';
 
+import { buildPath } from '../../helpers/build-path';
+
 export type HeroProps = FlexProps;
 
 export const Hero: React.FC<HeroProps> = ({ ...flexProps }) => {
@@ -98,7 +100,7 @@ export const Hero: React.FC<HeroProps> = ({ ...flexProps }) => {
                 },
               }}
               onClick={() => {
-                void navigate('/search');
+                void navigate(buildPath('search'));
               }}
             >
               Buscar Oportunidades{' '}
