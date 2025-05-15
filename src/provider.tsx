@@ -8,6 +8,7 @@ import { MainLayout } from './components/main-layout';
 import { buildAbsolutePath } from './helpers/build-absolute-path';
 import { Home } from './pages/home';
 import { Opportunities } from './pages/opportunities';
+import { Result } from './pages/result';
 import { Search } from './pages/search';
 import { themeSystem } from './styles/theme';
 
@@ -16,7 +17,7 @@ const queryClient = new QueryClient();
 export const Provider: React.FC = () => {
   const router = createBrowserRouter([
     {
-      path: buildAbsolutePath('*'),
+      path: buildAbsolutePath('/'),
       element: <MainLayout />,
       children: [
         {
@@ -30,6 +31,10 @@ export const Provider: React.FC = () => {
         {
           path: 'opportunities',
           element: <Opportunities />,
+        },
+        {
+          path: 'result',
+          element: <Result />,
         },
       ],
     },

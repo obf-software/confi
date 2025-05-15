@@ -8,17 +8,22 @@ import { buildAbsolutePath } from '../../helpers/build-absolute-path';
 import { Opportunity } from '../../services/opportunity';
 import { OpportunityCard } from './card';
 
-export interface OpportunitiesProps {}
-
-export const Opportunities: React.FC<OpportunitiesProps> = ({}) => {
+export const Opportunities: React.FC = () => {
+  const [selectedIndexes, setSelectedIndexes] = React.useState<Record<string, boolean>>({});
   const navigate = useNavigate();
   const location = useLocation();
-  const [selectedIndexes, setSelectedIndexes] = React.useState<Record<string, boolean>>({});
   const data = location.state as { opportunities?: Opportunity[] } | null | undefined;
   const opportunities = data?.opportunities;
 
   const onSubmit = () => {
     console.log('submit', selectedIndexes, opportunities);
+
+    void navigate(buildAbsolutePath('result'), {
+      state: {
+        planningPdfFileUrl: 'https://google.com',
+        planningCalendarFileUrl: 'https://google.com',
+      },
+    });
   };
 
   const numberOfSelectedIndexes = Object.values(selectedIndexes).filter(Boolean).length;
@@ -29,9 +34,7 @@ export const Opportunities: React.FC<OpportunitiesProps> = ({}) => {
     }
   }, [navigate, opportunities]);
 
-  if (!opportunities) {
-    return <></>;
-  }
+  if (!opportunities) return null;
 
   if (opportunities.length === 0) {
     return (
@@ -139,7 +142,7 @@ export const Opportunities: React.FC<OpportunitiesProps> = ({}) => {
             size='xl'
             rounded='full'
             disabled={numberOfSelectedIndexes === 0 || numberOfSelectedIndexes > 4}
-            onSubmit={onSubmit}
+            onClick={onSubmit}
           >
             Crie meu planejamento
             <MdOutlineRocketLaunch />
