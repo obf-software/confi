@@ -5,7 +5,7 @@ import { createHashRouter, RouterProvider } from 'react-router-dom';
 
 import { ColorModeProvider } from './components/color-mode';
 import { MainLayout } from './components/main-layout';
-import { buildAbsolutePath } from './helpers/build-absolute-path';
+import { buildPath } from './helpers/build-path';
 import { Home } from './pages/home';
 import { Opportunities } from './pages/opportunities';
 import { Result } from './pages/result';
@@ -15,9 +15,11 @@ import { themeSystem } from './styles/theme';
 const queryClient = new QueryClient();
 
 export const Provider: React.FC = () => {
+  // const
+
   const router = createHashRouter([
     {
-      path: buildAbsolutePath('/'),
+      path: '*',
       element: <MainLayout />,
       children: [
         {
@@ -25,15 +27,15 @@ export const Provider: React.FC = () => {
           element: <Home />,
         },
         {
-          path: 'search',
+          path: buildPath('search', true),
           element: <Search />,
         },
         {
-          path: 'opportunities',
+          path: buildPath('opportunities', true),
           element: <Opportunities />,
         },
         {
-          path: 'result',
+          path: buildPath('result', true),
           element: <Result />,
         },
       ],

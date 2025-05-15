@@ -4,7 +4,7 @@ import { MdOutlineErrorOutline, MdOutlineRocketLaunch } from 'react-icons/md';
 import { SlRefresh } from 'react-icons/sl';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { buildAbsolutePath } from '../../helpers/build-absolute-path';
+import { buildPath } from '../../helpers/build-path';
 import { Opportunity } from '../../services/opportunity';
 import { OpportunityCard } from './card';
 
@@ -18,7 +18,7 @@ export const Opportunities: React.FC = () => {
   const onSubmit = () => {
     console.log('submit', selectedIndexes, opportunities);
 
-    void navigate(buildAbsolutePath('result'), {
+    void navigate(buildPath('result'), {
       state: {
         planningPdfFileUrl: 'https://google.com',
         planningCalendarFileUrl: 'https://google.com',
@@ -30,7 +30,7 @@ export const Opportunities: React.FC = () => {
 
   React.useEffect(() => {
     if (opportunities === undefined) {
-      void navigate(buildAbsolutePath('/'));
+      void navigate(buildPath('/'));
     }
   }, [navigate, opportunities]);
 
@@ -69,7 +69,7 @@ export const Opportunities: React.FC = () => {
                 rounded='full'
                 size='xl'
                 onClick={() => {
-                  void navigate(buildAbsolutePath('search'));
+                  void navigate(buildPath('search'));
                 }}
               >
                 Reiniciar

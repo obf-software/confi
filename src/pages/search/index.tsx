@@ -5,7 +5,7 @@ import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
 import { toasterStore } from '../../components/toaster';
-import { buildAbsolutePath } from '../../helpers/build-absolute-path';
+import { buildPath } from '../../helpers/build-path';
 import { zodResolver } from '../../helpers/zod-resolver';
 import { BriefingStep } from './briefing-step';
 import { DiversityStep } from './diversity-step';
@@ -36,7 +36,7 @@ export const Search: React.FC = () => {
     await new Promise<void>((resolve) => {
       findOpportunities.mutate(data, {
         onSuccess: (opportunities) => {
-          void navigate(buildAbsolutePath('opportunities'), { state: { opportunities } });
+          void navigate(buildPath('opportunities'), { state: { opportunities } });
           resolve();
         },
         onError: (error) => {

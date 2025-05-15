@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { buildAbsolutePath } from '../../helpers/build-absolute-path';
+import { buildPath } from '../../helpers/build-path';
 import { Details } from './details';
 import { Hero } from './hero';
 import { Sponsors } from './sponsors';
@@ -14,11 +14,11 @@ export const Home: React.FC = () => {
         items={[
           {
             name: 'Universität Leipzig: SEPT Competence Center',
-            logo: buildAbsolutePath('sept-logo.png'),
+            logo: buildPath('sept-logo.png'),
           },
           {
             name: 'Universität Leipzig',
-            logo: buildAbsolutePath('leipzig-logo.svg'),
+            logo: buildPath('leipzig-logo.svg'),
           },
         ]}
       />

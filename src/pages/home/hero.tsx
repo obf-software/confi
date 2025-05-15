@@ -13,7 +13,7 @@ import React from 'react';
 import { RiArrowRightLine } from 'react-icons/ri';
 import { useNavigate } from 'react-router-dom';
 
-import { buildAbsolutePath } from '../../helpers/build-absolute-path';
+import { buildPath } from '../../helpers/build-path';
 
 export type HeroProps = FlexProps;
 
@@ -42,7 +42,7 @@ export const Hero: React.FC<HeroProps> = ({ ...flexProps }) => {
         }}
       >
         <source
-          src={buildAbsolutePath('robot.mp4')}
+          src={buildPath('robot.mp4')}
           type={'video/mp4'}
         />
       </video>
@@ -100,7 +100,7 @@ export const Hero: React.FC<HeroProps> = ({ ...flexProps }) => {
                 },
               }}
               onClick={() => {
-                void navigate(buildAbsolutePath('search'));
+                void navigate(buildPath('search'));
               }}
             >
               Buscar Oportunidades{' '}

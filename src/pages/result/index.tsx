@@ -5,7 +5,7 @@ import { MdWhatsapp } from 'react-icons/md';
 import { SiNicehash } from 'react-icons/si';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { buildAbsolutePath } from '../../helpers/build-absolute-path';
+import { buildPath } from '../../helpers/build-path';
 
 export const Result: React.FC = () => {
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ export const Result: React.FC = () => {
 
   React.useEffect(() => {
     if (!data) {
-      void navigate(buildAbsolutePath('/'));
+      void navigate(buildPath('/'));
     }
   }, [navigate, data]);
 

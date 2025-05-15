@@ -1,6 +1,6 @@
 export type BasePath = `/${string}/` | '/';
 
-export const buildAbsolutePath = (path: string): string => {
+export const buildPath = (path: string, trimLeadingSlash?: boolean): string => {
   let basePath = import.meta.env.VITE_BASE_PATH;
   basePath ||= '/';
   basePath = basePath.endsWith('/') ? basePath : `${basePath}/`;
@@ -8,5 +8,10 @@ export const buildAbsolutePath = (path: string): string => {
 
   const pathToAppend = path.startsWith('/') ? path.substring(1) : path;
 
-  return `${basePath}${pathToAppend}`;
+  let pathToReturn = `${basePath}${pathToAppend}`;
+  if (trimLeadingSlash) {
+    pathToReturn = pathToReturn.startsWith('/') ? pathToReturn.substring(1) : pathToReturn;
+  }
+
+  return pathToReturn;
 };
