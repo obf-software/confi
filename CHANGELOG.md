@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.3.0](https://github.com/obf-software/confi/compare/v1.2.0...v1.3.0) (2025-05-15)
+
+
+### Features
+
+* Add opportunity page ([b56df0c](https://github.com/obf-software/confi/commit/b56df0cdeb04c8edc7cce3703574b84cb6f60fdc))
+
+
+### Bug Fixes
+
+* add standard way to build routes ([b9b3545](https://github.com/obf-software/confi/commit/b9b3545639b49ecb23262cf1c4d37c0fecb68a2c))
+
 ## [1.2.0](https://github.com/obf-software/confi/compare/v1.1.2...v1.2.0) (2025-05-15)
 
 
