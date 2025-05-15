@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.1](https://github.com/obf-software/confi/compare/v1.4.0...v1.4.1) (2025-05-15)
+
+
+### Bug Fixes
+
+* Change to hashRouter since github does no support browser router ([5eb9286](https://github.com/obf-software/confi/commit/5eb9286218b0f7139b6ab7317cc26ae617ea26a5))
+
 ## [1.4.0](https://github.com/obf-software/confi/compare/v1.3.0...v1.4.0) (2025-05-15)
 
 
