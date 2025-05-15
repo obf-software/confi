@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/obf-software/confi/compare/v1.1.2...v1.2.0) (2025-05-15)
+
+
+### Features
+
+* improve form layout ([fdd7a52](https://github.com/obf-software/confi/commit/fdd7a5258ee78d65e65d19956094ab06a423378b))
+
 ## [1.1.2](https://github.com/obf-software/confi/compare/v1.1.1...v1.1.2) (2025-05-01)
 
 
