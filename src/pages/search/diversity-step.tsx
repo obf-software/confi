@@ -2,16 +2,16 @@ import {
   Button,
   Container,
   Flex,
-  GridItem,
   Heading,
+  HStack,
+  IconButton,
   Input,
   SimpleGrid,
-  Stack,
   VStack,
 } from '@chakra-ui/react';
 import React from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
-import { RiArrowLeftLine, RiArrowRightLine } from 'react-icons/ri';
+import { RiArrowLeftLine, RiSearchEyeLine } from 'react-icons/ri';
 
 import { Field } from '../../components/field';
 import { Select } from '../../components/select';
@@ -38,6 +38,7 @@ export const DiversityStep: React.FC<DiversityStep> = ({ onBack }) => {
         alignItems='center'
         display='flex'
         justifyContent='center'
+        py='16'
       >
         <VStack
           align='center'
@@ -58,195 +59,184 @@ export const DiversityStep: React.FC<DiversityStep> = ({ onBack }) => {
             columns={{ base: 1, lg: 2 }}
             minW='100%'
             gap='4'
+            py='16'
           >
-            <GridItem>
-              <VStack gap='6'>
-                <Field
-                  label={<>Região de Atuação</>}
-                  required
-                  invalid={!!formMethods.formState.errors.activityRegion}
-                  errorText={formMethods.formState.errors.activityRegion?.message}
-                >
-                  <Input
-                    placeholder='Ex.: SP, RJ e PR (atualmente expandindo para o RS também)'
-                    variant='subtle'
-                    size='xl'
-                    {...formMethods.register('activityRegion')}
-                  />
-                </Field>
+            <Field
+              label={<>Região de Atuação</>}
+              required
+              invalid={!!formMethods.formState.errors.activityRegion}
+              errorText={formMethods.formState.errors.activityRegion?.message}
+            >
+              <Input
+                placeholder='Ex.: SP, RJ e PR (atualmente expandindo para o RS também)'
+                variant='subtle'
+                size='xl'
+                {...formMethods.register('activityRegion')}
+              />
+            </Field>
 
-                <Field
-                  label={<>Tipo de Organização</>}
-                  required
-                  invalid={!!formMethods.formState.errors.organizationType}
-                  errorText={formMethods.formState.errors.organizationType?.message}
-                >
-                  <Controller
-                    control={formMethods.control}
-                    name='organizationType'
-                    render={({ field }) => (
-                      <Select
-                        name={field.name}
-                        value={[field.value]}
-                        onValueChange={(e) => {
-                          const [value] = e.value;
-                          field.onChange(value);
-                        }}
-                        onBlur={field.onBlur}
-                        onInteractOutside={field.onBlur}
-                        collection={organizationTypeCollection}
-                      />
-                    )}
+            <Field
+              label={<>Tipo de Organização</>}
+              required
+              invalid={!!formMethods.formState.errors.organizationType}
+              errorText={formMethods.formState.errors.organizationType?.message}
+            >
+              <Controller
+                control={formMethods.control}
+                name='organizationType'
+                render={({ field }) => (
+                  <Select
+                    name={field.name}
+                    value={[field.value]}
+                    onValueChange={(e) => {
+                      const [value] = e.value;
+                      field.onChange(value);
+                    }}
+                    onBlur={field.onBlur}
+                    onInteractOutside={field.onBlur}
+                    collection={organizationTypeCollection}
                   />
-                </Field>
+                )}
+              />
+            </Field>
 
-                <Field
-                  label={<>Tempo de Atividade</>}
-                  required
-                  invalid={!!formMethods.formState.errors.activityTime}
-                  errorText={formMethods.formState.errors.activityTime?.message}
-                >
-                  <Controller
-                    control={formMethods.control}
-                    name='activityTime'
-                    render={({ field }) => (
-                      <Select
-                        name={field.name}
-                        value={[field.value]}
-                        onValueChange={(e) => {
-                          const [value] = e.value;
-                          field.onChange(value);
-                        }}
-                        onBlur={field.onBlur}
-                        onInteractOutside={field.onBlur}
-                        collection={activityTimeCollection}
-                      />
-                    )}
+            <Field
+              label={<>Tempo de Atividade</>}
+              required
+              invalid={!!formMethods.formState.errors.activityTime}
+              errorText={formMethods.formState.errors.activityTime?.message}
+            >
+              <Controller
+                control={formMethods.control}
+                name='activityTime'
+                render={({ field }) => (
+                  <Select
+                    name={field.name}
+                    value={[field.value]}
+                    onValueChange={(e) => {
+                      const [value] = e.value;
+                      field.onChange(value);
+                    }}
+                    onBlur={field.onBlur}
+                    onInteractOutside={field.onBlur}
+                    collection={activityTimeCollection}
                   />
-                </Field>
+                )}
+              />
+            </Field>
 
-                <Field
-                  label={<>Estágio do Negócio</>}
-                  required
-                  invalid={!!formMethods.formState.errors.businessStage}
-                  errorText={formMethods.formState.errors.businessStage?.message}
-                >
-                  <Controller
-                    control={formMethods.control}
-                    name='businessStage'
-                    render={({ field }) => (
-                      <Select
-                        name={field.name}
-                        value={[field.value]}
-                        onValueChange={(e) => {
-                          const [value] = e.value;
-                          field.onChange(value);
-                        }}
-                        onBlur={field.onBlur}
-                        onInteractOutside={field.onBlur}
-                        collection={businessStageCollection}
-                      />
-                    )}
+            <Field
+              label={<>Estágio do Negócio</>}
+              required
+              invalid={!!formMethods.formState.errors.businessStage}
+              errorText={formMethods.formState.errors.businessStage?.message}
+            >
+              <Controller
+                control={formMethods.control}
+                name='businessStage'
+                render={({ field }) => (
+                  <Select
+                    name={field.name}
+                    value={[field.value]}
+                    onValueChange={(e) => {
+                      const [value] = e.value;
+                      field.onChange(value);
+                    }}
+                    onBlur={field.onBlur}
+                    onInteractOutside={field.onBlur}
+                    collection={businessStageCollection}
                   />
-                </Field>
-              </VStack>
-            </GridItem>
+                )}
+              />
+            </Field>
 
-            <GridItem>
-              <VStack gap='6'>
-                <Field
-                  label={<>Principal Área de Impacto (de acordo com os ODS da ONU)</>}
-                  required
-                  invalid={!!formMethods.formState.errors.ods}
-                  errorText={formMethods.formState.errors.ods?.message}
-                >
-                  <Controller
-                    control={formMethods.control}
-                    name='ods'
-                    render={({ field }) => (
-                      <Select
-                        name={field.name}
-                        value={[field.value]}
-                        onValueChange={(e) => {
-                          const [value] = e.value;
-                          field.onChange(value);
-                        }}
-                        onBlur={field.onBlur}
-                        onInteractOutside={field.onBlur}
-                        collection={odsCollection}
-                      />
-                    )}
+            <Field
+              label={<>Principal Área de Impacto (de acordo com os ODS da ONU)</>}
+              required
+              invalid={!!formMethods.formState.errors.ods}
+              errorText={formMethods.formState.errors.ods?.message}
+            >
+              <Controller
+                control={formMethods.control}
+                name='ods'
+                render={({ field }) => (
+                  <Select
+                    name={field.name}
+                    value={[field.value]}
+                    onValueChange={(e) => {
+                      const [value] = e.value;
+                      field.onChange(value);
+                    }}
+                    onBlur={field.onBlur}
+                    onInteractOutside={field.onBlur}
+                    collection={odsCollection}
                   />
-                </Field>
+                )}
+              />
+            </Field>
 
-                <Field
-                  label={
-                    <>Existem membros fundadores ou de C-level dentro das categorias a seguir?</>
-                  }
-                  required
-                  invalid={!!formMethods.formState.errors.minorityGroup}
-                  errorText={formMethods.formState.errors.minorityGroup?.message}
-                >
-                  <Controller
-                    control={formMethods.control}
-                    name='minorityGroup'
-                    render={({ field }) => (
-                      <Select
-                        multiple
-                        name={field.name}
-                        value={field.value}
-                        onValueChange={({ value }) => {
-                          field.onChange(value);
-                        }}
-                        onBlur={field.onBlur}
-                        onInteractOutside={field.onBlur}
-                        collection={minorityGroupCollection}
-                      />
-                    )}
+            <Field
+              label={<>Existem membros fundadores ou de C-level dentro das categorias a seguir?</>}
+              required
+              invalid={!!formMethods.formState.errors.minorityGroup}
+              errorText={formMethods.formState.errors.minorityGroup?.message}
+            >
+              <Controller
+                control={formMethods.control}
+                name='minorityGroup'
+                render={({ field }) => (
+                  <Select
+                    multiple
+                    name={field.name}
+                    value={field.value}
+                    onValueChange={({ value }) => {
+                      field.onChange(value);
+                    }}
+                    onBlur={field.onBlur}
+                    onInteractOutside={field.onBlur}
+                    collection={minorityGroupCollection}
                   />
-                </Field>
+                )}
+              />
+            </Field>
 
-                <Field
-                  label={
-                    <>
-                      Existe alguém na sua equipe hoje capaz de lidar com os documentos do processo
-                      de inscrição em inglês (e participar de eventos nesse idioma)?
-                    </>
-                  }
-                  required
-                  invalid={!!formMethods.formState.errors.englishLevel}
-                  errorText={formMethods.formState.errors.englishLevel?.message}
-                >
-                  <Controller
-                    control={formMethods.control}
-                    name='englishLevel'
-                    render={({ field }) => (
-                      <Select
-                        name={field.name}
-                        value={[field.value]}
-                        onValueChange={(e) => {
-                          const [value] = e.value;
-                          field.onChange(value);
-                        }}
-                        onBlur={field.onBlur}
-                        onInteractOutside={field.onBlur}
-                        collection={englishLevelCollection}
-                      />
-                    )}
+            <Field
+              label={
+                <>
+                  Existe alguém na sua equipe hoje capaz de lidar com os documentos do processo de
+                  inscrição em inglês (e participar de eventos nesse idioma)?
+                </>
+              }
+              required
+              invalid={!!formMethods.formState.errors.englishLevel}
+              errorText={formMethods.formState.errors.englishLevel?.message}
+            >
+              <Controller
+                control={formMethods.control}
+                name='englishLevel'
+                render={({ field }) => (
+                  <Select
+                    name={field.name}
+                    value={[field.value]}
+                    onValueChange={(e) => {
+                      const [value] = e.value;
+                      field.onChange(value);
+                    }}
+                    onBlur={field.onBlur}
+                    onInteractOutside={field.onBlur}
+                    collection={englishLevelCollection}
                   />
-                </Field>
-              </VStack>
-            </GridItem>
+                )}
+              />
+            </Field>
           </SimpleGrid>
 
-          <Stack
-            gap='6'
-            direction={{ base: 'column', md: 'row' }}
+          <HStack
+            gap='4'
             align='center'
             justify='center'
-            w='100%'
           >
-            <Button
+            <IconButton
               aria-label='Voltar'
               rounded='full'
               colorPalette='black'
@@ -255,8 +245,7 @@ export const DiversityStep: React.FC<DiversityStep> = ({ onBack }) => {
               onClick={onBack}
             >
               <RiArrowLeftLine />
-              Anterior
-            </Button>
+            </IconButton>
 
             <Button
               aria-label='Buscar'
@@ -267,9 +256,9 @@ export const DiversityStep: React.FC<DiversityStep> = ({ onBack }) => {
               type='submit'
             >
               Buscar Oportunidades
-              <RiArrowRightLine />
+              <RiSearchEyeLine />
             </Button>
-          </Stack>
+          </HStack>
         </VStack>
       </Container>
     </Flex>

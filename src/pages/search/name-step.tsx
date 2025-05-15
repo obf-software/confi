@@ -1,9 +1,9 @@
 import {
+  Button,
   Container,
   Flex,
   GridItem,
   Heading,
-  IconButton,
   Image,
   Input,
   SimpleGrid,
@@ -29,7 +29,7 @@ export const NameStep: React.FC<NameStepProps> = ({ onNext }) => {
     <Flex minH='100vh'>
       <Container
         maxW='8xl'
-        py={'2'}
+        py='16'
       >
         <SimpleGrid
           columns={{ base: 1, lg: 2 }}
@@ -40,12 +40,6 @@ export const NameStep: React.FC<NameStepProps> = ({ onNext }) => {
               justify='space-between'
               minH={{ base: '90%', lg: '80%' }}
             >
-              <Image
-                display={{ base: 'block', lg: 'none' }}
-                src='ilustra-01.png'
-                aspectRatio={1}
-                width='70%'
-              />
               <VStack
                 textAlign={{ base: 'center', lg: 'left' }}
                 align={{ base: 'center', lg: 'flex-start' }}
@@ -69,6 +63,14 @@ export const NameStep: React.FC<NameStepProps> = ({ onNext }) => {
                   para o seu negócio de impacto
                 </Text>
               </VStack>
+
+              <Image
+                display={{ base: 'block', lg: 'none' }}
+                my='4'
+                src='ilustra-01.png'
+                aspectRatio={1}
+                width='60%'
+              />
 
               <VStack
                 textAlign={{ base: 'center', lg: 'left' }}
@@ -103,16 +105,17 @@ export const NameStep: React.FC<NameStepProps> = ({ onNext }) => {
                     />
                   </Field>
 
-                  <IconButton
-                    aria-label='Search database'
+                  <Button
+                    aria-label='Buscar'
                     rounded='full'
                     colorPalette='brandPrimaryButton'
                     color='white'
                     size='xl'
                     onClick={onNext}
                   >
+                    Iniciar
                     <RiArrowRightLine />
-                  </IconButton>
+                  </Button>
                 </Stack>
               </VStack>
             </VStack>

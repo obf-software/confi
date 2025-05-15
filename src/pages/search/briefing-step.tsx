@@ -3,6 +3,7 @@ import {
   Container,
   Flex,
   Heading,
+  HStack,
   IconButton,
   Stack,
   Text,
@@ -31,6 +32,7 @@ export const BriefingStep: React.FC<BriefingStepProps> = ({ onBack, onNext }) =>
         alignItems='center'
         display='flex'
         justifyContent='center'
+        py='16'
       >
         <VStack
           align={{ base: 'center', lg: 'flex-start' }}
@@ -104,28 +106,34 @@ export const BriefingStep: React.FC<BriefingStepProps> = ({ onBack, onNext }) =>
                 />
               </Field>
 
-              <Button
-                aria-label='Back'
-                rounded='full'
-                colorPalette='black'
-                size='xl'
-                variant='outline'
-                onClick={onBack}
+              <HStack
+                gap='4'
+                align='center'
+                justify='center'
               >
-                <RiArrowLeftLine />
-                Anterior
-              </Button>
+                <IconButton
+                  aria-label='Voltar'
+                  rounded='full'
+                  colorPalette='black'
+                  size='xl'
+                  variant='outline'
+                  onClick={onBack}
+                >
+                  <RiArrowLeftLine />
+                </IconButton>
 
-              <IconButton
-                aria-label='Search database'
-                rounded='full'
-                colorPalette='brandPrimaryButton'
-                color='white'
-                size='xl'
-                onClick={onNext}
-              >
-                <RiArrowRightLine />
-              </IconButton>
+                <Button
+                  aria-label='Buscar'
+                  rounded='full'
+                  colorPalette='brandPrimaryButton'
+                  color='white'
+                  size='xl'
+                  onClick={onNext}
+                >
+                  Próximo
+                  <RiArrowRightLine />
+                </Button>
+              </HStack>
             </Stack>
           </VStack>
         </VStack>
