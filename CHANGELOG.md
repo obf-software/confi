@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0](https://github.com/obf-software/confi/compare/v1.3.0...v1.4.0) (2025-05-15)
+
+
+### Features
+
+* Add base result page ([3ac93b9](https://github.com/obf-software/confi/commit/3ac93b9d3c5b58750ef14468d4f5be6a58a48f08))
+
 ## [1.3.0](https://github.com/obf-software/confi/compare/v1.2.0...v1.3.0) (2025-05-15)
 
 
