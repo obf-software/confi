@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.0](https://github.com/obf-software/confi/compare/v1.4.1...v1.5.0) (2025-05-15)
+
+
+### Features
+
+* Improve hash router support ([70d2c39](https://github.com/obf-software/confi/commit/70d2c39de8ab23a3dd969071b1e1028f31328c51))
+
 ## [1.4.1](https://github.com/obf-software/confi/compare/v1.4.0...v1.4.1) (2025-05-15)
 
 
