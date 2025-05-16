@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.0](https://github.com/obf-software/confi/compare/v1.7.0...v1.8.0) (2025-05-16)
+
+
+### Features
+
+* Add support for generationg planning ([d1fa638](https://github.com/obf-software/confi/commit/d1fa638f55de3cb93269b901fb57ef0caf6f7585))
+
 ## [1.7.0](https://github.com/obf-software/confi/compare/v1.6.0...v1.7.0) (2025-05-16)
 
 
