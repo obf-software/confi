@@ -1,74 +1,41 @@
+import { z } from 'zod';
+
 import {
   Opportunity,
+  opportunitySchema,
   OpportunityService,
   OpportunityServiceFindOpportunitiesInput,
 } from './protocols';
 
 export class N8nOpportunityService implements OpportunityService {
   async findOpportunities(input: OpportunityServiceFindOpportunitiesInput): Promise<Opportunity[]> {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    const response = await fetch(
+      'https://primary-production-ca8e.up.railway.app/webhook/9b100fc7-6454-449a-89e7-3b3c9c93d4de',
+      {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(input),
+      }
+    );
 
-    return Promise.resolve([
-      {
-        name: 'name1',
-        description: 'description',
-        benefits: ['benefits'],
-        enrollmentDeadline: 'enrollmentDeadline',
-        link: 'link',
-        preparationTime: 'preparationTime',
-        requiredDocumentation: 'requiredDocumentation',
-        requirements: ['requirements'],
-      },
-      {
-        name: 'name2',
-        description: 'description',
-        benefits: ['benefits'],
-        enrollmentDeadline: 'enrollmentDeadline',
-        link: 'link',
-        preparationTime: 'preparationTime',
-        requiredDocumentation: 'requiredDocumentation',
-        requirements: ['requirements'],
-      },
-      {
-        name: 'name3',
-        description: 'description',
-        benefits: ['benefits'],
-        enrollmentDeadline: 'enrollmentDeadline',
-        link: 'link',
-        preparationTime: 'preparationTime',
-        requiredDocumentation: 'requiredDocumentation',
-        requirements: ['requirements'],
-      },
-      {
-        name: 'name4',
-        description: 'description',
-        benefits: ['benefits'],
-        enrollmentDeadline: 'enrollmentDeadline',
-        link: 'link',
-        preparationTime: 'preparationTime',
-        requiredDocumentation: 'requiredDocumentation',
-        requirements: ['requirements'],
-      },
-      {
-        name: 'name5',
-        description: 'description',
-        benefits: ['benefits'],
-        enrollmentDeadline: 'enrollmentDeadline',
-        link: 'link',
-        preparationTime: 'preparationTime',
-        requiredDocumentation: 'requiredDocumentation',
-        requirements: ['requirements'],
-      },
-      {
-        name: 'name6',
-        description: 'description',
-        benefits: ['benefits'],
-        enrollmentDeadline: 'enrollmentDeadline',
-        link: 'link',
-        preparationTime: 'preparationTime',
-        requiredDocumentation: 'requiredDocumentation',
-        requirements: ['requirements'],
-      },
-    ]);
+    const rawBody: unknown = await response.json();
+    const responseSchema = z.object({
+      message: z.object({
+        content: z.object({
+          opportunities: z.array(opportunitySchema),
+        }),
+      }),
+    });
+    const { success, data, error } = responseSchema.safeParse(rawBody);
+
+    if (!success) {
+      console.error(`Não foi possível obter as oportunidades`, error);
+      return [];
+    }
+
+    return data.message.content.opportunities;
   }
 }

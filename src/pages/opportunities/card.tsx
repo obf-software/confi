@@ -50,12 +50,16 @@ export const OpportunityCard: React.FC<OpportunityCardProps> = ({
       </CheckboxCard.Control>
 
       <CheckboxCard.Addon>
-        <Link
-          href={data.link}
-          target='_blank'
-        >
-          🔗 {data.link}
-        </Link>
+        <CheckboxCard.Label>
+          <Link
+            href={data.link}
+            target='_blank'
+            overflow='clip'
+            lineBreak='anywhere'
+          >
+            🔗 {data.link}
+          </Link>
+        </CheckboxCard.Label>
       </CheckboxCard.Addon>
     </CheckboxCard.Root>
   );

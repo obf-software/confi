@@ -18,15 +18,16 @@ export const Search: React.FC = () => {
   const formMethods = useForm<FormData>({
     resolver: zodResolver(formDataSchema),
     defaultValues: {
-      organizationName: 'asdasdas',
-      organizationBriefing: 'asd',
-      activityRegion: '123',
-      organizationType: 'Informal (sem CNPJ)',
-      activityTime: 'Menos de 1 ano',
-      businessStage: 'Ideação',
-      ods: 'Pobreza - ODS 1',
-      minorityGroups: [],
-      englishLevel: 'Ainda não',
+      organizationName: 'Minha Empresa de Teste',
+      organizationBriefing:
+        'Promovemos o acesso ao aprendizado de boas práticas alimentares e também ensinamos programação para pessoas em situação de risco',
+      activityRegion: 'Curitiba e região metropolitana',
+      organizationType: 'ONG / OSCIP (Associação ou Fundação)',
+      activityTime: 'Entre 3 e 5 anos',
+      businessStage: 'Tração',
+      ods: 'Educação - ODS 4',
+      minorityGroups: ['Mulheres'],
+      englishLevel: 'Sim, com nível avançado de inglês',
     },
   });
   const navigate = useNavigate();
