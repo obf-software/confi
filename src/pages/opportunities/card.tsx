@@ -31,10 +31,10 @@ export const OpportunityCard: React.FC<OpportunityCardProps> = ({
           <CheckboxCard.Description mt='6'>{data.description}</CheckboxCard.Description>
 
           <CheckboxCard.Label mt='6'>💡 O que você ganha?</CheckboxCard.Label>
-          <CheckboxCard.Description>{data.benefits}</CheckboxCard.Description>
+          <CheckboxCard.Description>{data.benefits.join(' • ')}</CheckboxCard.Description>
 
           <CheckboxCard.Label>🎯 Requisitos</CheckboxCard.Label>
-          <CheckboxCard.Description>{data.requirements}</CheckboxCard.Description>
+          <CheckboxCard.Description>{data.requirements.join(' • ')}</CheckboxCard.Description>
 
           <CheckboxCard.Label>📅 Prazo de Inscrição</CheckboxCard.Label>
           <CheckboxCard.Description>{data.enrollmentDeadline}</CheckboxCard.Description>
