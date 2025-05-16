@@ -3,20 +3,24 @@ import React from 'react';
 import { BiCalendar, BiDownload } from 'react-icons/bi';
 import { MdWhatsapp } from 'react-icons/md';
 import { SiNicehash } from 'react-icons/si';
+import { SlRefresh } from 'react-icons/sl';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { buildPath } from '../../helpers/build-path';
+import { downloadBlob } from '../../helpers/download-blob';
 
 export const Result: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const data = location.state as
     | {
-        planningPdfFileUrl: string;
-        planningCalendarFileUrl: string;
+        calendarFile: Blob;
+        planningFile: Blob;
       }
     | null
     | undefined;
+
+  console.log(data);
 
   React.useEffect(() => {
     if (!data) {
@@ -58,35 +62,30 @@ export const Result: React.FC = () => {
               align='center'
               gap='4'
             >
-              <Link
-                href={data.planningPdfFileUrl}
-                target='_blank'
-                textDecoration='none'
+              <Button
+                colorPalette='brandPrimaryButton'
+                size='xl'
+                rounded='full'
+                onClick={() => {
+                  console.log('baixar planejamento');
+                  downloadBlob(data.planningFile, 'planejamento.pdf');
+                }}
               >
-                <Button
-                  colorPalette='brandPrimaryButton'
-                  size='xl'
-                  rounded='full'
-                >
-                  Baixar Planejamento
-                  <BiDownload />
-                </Button>
-              </Link>
+                Baixar Planejamento
+                <BiDownload />
+              </Button>
 
-              <Link
-                href={data.planningCalendarFileUrl}
-                target='_blank'
-                textDecoration='none'
+              <Button
+                colorPalette='brandPrimaryButton'
+                size='xl'
+                rounded='full'
+                onClick={() => {
+                  downloadBlob(data.calendarFile, 'planejamento.ics');
+                }}
               >
-                <Button
-                  colorPalette='brandPrimaryButton'
-                  size='xl'
-                  rounded='full'
-                >
-                  Adicionar ao Google Calendar
-                  <BiCalendar />
-                </Button>
-              </Link>
+                Adicionar ao Google Calendar
+                <BiCalendar />
+              </Button>
 
               <Link
                 href='https://wa.me/5541996892354'
@@ -102,6 +101,18 @@ export const Result: React.FC = () => {
                   <MdWhatsapp />
                 </Button>
               </Link>
+
+              <Button
+                colorPalette='brandPrimaryButton'
+                rounded='full'
+                size='xl'
+                onClick={() => {
+                  void navigate(buildPath('search'));
+                }}
+              >
+                Reiniciar
+                <SlRefresh />
+              </Button>
             </Stack>
           </EmptyState.Content>
         </EmptyState.Root>

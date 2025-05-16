@@ -4,9 +4,11 @@ import { MdOutlineErrorOutline, MdOutlineRocketLaunch } from 'react-icons/md';
 import { SlRefresh } from 'react-icons/sl';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import { toasterStore } from '../../components/toaster';
 import { buildPath } from '../../helpers/build-path';
 import { Opportunity } from '../../services/opportunity';
 import { OpportunityCard } from './card';
+import { useCreatePlanning } from './use-create-planning';
 
 export const Opportunities: React.FC = () => {
   const [selectedIndexes, setSelectedIndexes] = React.useState<Record<string, boolean>>({});
@@ -14,16 +16,43 @@ export const Opportunities: React.FC = () => {
   const location = useLocation();
   const data = location.state as { opportunities?: Opportunity[] } | null | undefined;
   const opportunities = data?.opportunities;
+  const createPlanning = useCreatePlanning();
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
   const onSubmit = () => {
-    console.log('submit', selectedIndexes, opportunities);
+    setIsLoading(true);
 
-    void navigate(buildPath('result'), {
-      state: {
-        planningPdfFileUrl: 'https://google.com',
-        planningCalendarFileUrl: 'https://google.com',
-      },
-    });
+    const selectedOpportunities = Object.entries(selectedIndexes)
+      .filter((index) => index[1])
+      .map((index) => opportunities?.[Number(index[0])])
+      .filter((o) => o !== undefined);
+
+    createPlanning.mutate(
+      { opportunities: selectedOpportunities },
+      {
+        onSuccess: (data) => {
+          setIsLoading(false);
+
+          void navigate(buildPath('result'), {
+            state: {
+              calendarFile: data.calendarFile,
+              planningFile: data.planningFile,
+            },
+          });
+        },
+        onError: (error) => {
+          setIsLoading(false);
+
+          toasterStore.create({
+            id: 'failed-to-create-planning',
+            title: 'Não foi possível criar o planejamento',
+            description: error.message,
+            closable: true,
+            type: 'error',
+          });
+        },
+      }
+    );
   };
 
   const numberOfSelectedIndexes = Object.values(selectedIndexes).filter(Boolean).length;
@@ -115,8 +144,8 @@ export const Opportunities: React.FC = () => {
         </VStack>
 
         <SimpleGrid
-          mt='16'
           columns={{ base: 1, md: 2, lg: 3 }}
+          mt='16'
           gapX='4'
           gapY='6'
         >
@@ -142,6 +171,7 @@ export const Opportunities: React.FC = () => {
             size='xl'
             rounded='full'
             disabled={numberOfSelectedIndexes === 0 || numberOfSelectedIndexes > 4}
+            loading={isLoading}
             onClick={onSubmit}
           >
             Crie meu planejamento

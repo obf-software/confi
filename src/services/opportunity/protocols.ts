@@ -12,6 +12,15 @@ export interface OpportunityServiceFindOpportunitiesInput {
   englishLevel: string;
 }
 
+export interface OpportunityServiceCreatePlanningInput {
+  opportunities: Opportunity[];
+}
+
+export interface OpportunityServiceCreatePlanningOutput {
+  calendarFile: Blob;
+  planningFile: Blob;
+}
+
 export const opportunitySchema = z.object({
   name: z.string().default('Oportunidade sem nome'),
   description: z.string().default('Descrição da oportunidade'),
@@ -27,4 +36,7 @@ export type Opportunity = z.infer<typeof opportunitySchema>;
 
 export interface OpportunityService {
   findOpportunities(input: OpportunityServiceFindOpportunitiesInput): Promise<Opportunity[]>;
+  createPlanning(
+    input: OpportunityServiceCreatePlanningInput
+  ): Promise<OpportunityServiceCreatePlanningOutput>;
 }
