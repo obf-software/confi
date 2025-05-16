@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.0](https://github.com/obf-software/confi/compare/v1.5.0...v1.6.0) (2025-05-16)
+
+
+### Features
+
+* Integrate route to allow finding an opportunity ([a696a40](https://github.com/obf-software/confi/commit/a696a408fcda6165b19a166d469db04d505460c9))
+
 ## [1.5.0](https://github.com/obf-software/confi/compare/v1.4.1...v1.5.0) (2025-05-15)
 
 
