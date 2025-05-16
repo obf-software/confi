@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.0](https://github.com/obf-software/confi/compare/v1.6.0...v1.7.0) (2025-05-16)
+
+
+### Features
+
+* add separator to opportunity card field ([9d08f33](https://github.com/obf-software/confi/commit/9d08f3351c53d67950f191586fcd8ed574bd28da))
+
 ## [1.6.0](https://github.com/obf-software/confi/compare/v1.5.0...v1.6.0) (2025-05-16)
 
 
