@@ -6,39 +6,53 @@ import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
-  { ignores: ['dist', 'node_modules', 'public'] },
+  { ignores: ['_dev', 'node_modules'] },
   {
+    name: 'base',
     extends: [
       ...tseslint.configs.recommendedTypeChecked,
       ...tseslint.configs.strictTypeChecked,
       ...tseslint.configs.stylisticTypeChecked,
     ],
-    files: ['**/*.{ts,tsx}'],
+    files: ['**/*.{ts,tsx}', 'eslint.config.mjs'],
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,
       parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        project: [
+          './tsconfig.json',
+          './packages/client/tsconfig.node.json',
+          './packages/client/tsconfig.app.json',
+          './packages/api/tsconfig.json',
+        ],
         tsconfigRootDir: import.meta.dirname,
       },
     },
     plugins: {
-      'react-hooks': reactHooks,
-      'react-refresh': reactRefresh,
       'unused-imports': unusedImports,
       'simple-import-sort': simpleImportSort,
     },
     rules: {
-      ...reactHooks.configs['recommended-latest'].rules,
-      ...reactRefresh.configs.vite.rules,
       '@typescript-eslint/no-empty-object-type': 'off',
       '@typescript-eslint/prefer-nullish-coalescing': 'off',
       '@typescript-eslint/no-unused-vars': 'off',
-      'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
       'unused-imports/no-unused-vars': 'warn',
       'unused-imports/no-unused-imports': 'error',
       'simple-import-sort/imports': 'error',
       'simple-import-sort/exports': 'error',
+    },
+  },
+  {
+    name: 'client',
+    files: ['packages/client/**/*.{ts,tsx}'],
+    plugins: {
+      'react-hooks': reactHooks,
+      'react-refresh': reactRefresh,
+    },
+    rules: {
+      ...reactHooks.configs['recommended-latest'].rules,
+      ...reactRefresh.configs.vite.rules,
+      'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     },
   }
 );

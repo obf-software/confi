@@ -1,13 +1,11 @@
+# General
 _dev
-pnpm-lock.yaml
-sst-env.d.ts
+.env.example
+.gitignore
+.npmrc
+.nvmrc
+.prettierignore
 CHANGELOG.md
-.sst
-.build
-.open-next
-.next
-out
-*.png
-*.jpg
-dist
-target
+
+# Client package
+packages/client/dist
