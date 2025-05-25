@@ -1,12 +1,12 @@
-import globals from 'globals';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
-import unusedImports from 'eslint-plugin-unused-imports';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
+import unusedImports from 'eslint-plugin-unused-imports';
+import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
-  { ignores: ['_dev', 'node_modules'] },
+  { ignores: ['_dev', 'node_modules', '**/dist/**', '**/node_modules/**'] },
   {
     name: 'base',
     extends: [

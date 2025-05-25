@@ -6,6 +6,7 @@ _dev
 .nvmrc
 .prettierignore
 CHANGELOG.md
+pnpm-lock.yaml
 
 # Client package
 packages/client/dist

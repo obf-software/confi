@@ -2,7 +2,6 @@
   "name": "@confi/api",
   "private": true,
   "version": "0.0.1",
-  "type": "module",
   "scripts": {
     "build": "nest build",
     "start": "node dist/main",
@@ -15,10 +14,18 @@
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
+    "@nestjs/config": "^4.0.2",
     "@nestjs/core": "^11.0.1",
     "@nestjs/platform-express": "^11.0.1",
+    "bson": "^6.10.3",
+    "dayjs": "^1.11.13",
+    "google-auth-library": "^9.15.1",
+    "google-spreadsheet": "^4.1.4",
+    "mongodb": "^6.16.0",
+    "openai": "^4.103.0",
     "reflect-metadata": "^0.2.2",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "zod": "^3.24.4"
   },
   "devDependencies": {
     "@nestjs/cli": "^11.0.0",
