@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { ObjectId } from 'bson';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
@@ -14,10 +15,34 @@ interface TagProps {
 }
 
 export class Tag {
+  @ApiProperty({
+    description: 'The ID of the tag',
+    example: '000000000000000000000000',
+  })
   id: string;
+
+  @ApiProperty({
+    description: 'The slug of the tag',
+    example: 'tag-slug',
+  })
   slug: string;
+
+  @ApiProperty({
+    description: 'The description of the tag',
+    example: 'This is a tag description',
+  })
   description: string;
+
+  @ApiProperty({
+    description: 'The date and time the tag was created',
+    example: '2021-01-01T00:00:00.000Z',
+  })
   createdAt: Date;
+
+  @ApiProperty({
+    description: 'The date and time the tag was updated',
+    example: '2021-01-01T00:00:00.000Z',
+  })
   updatedAt: Date;
 
   private constructor(props: TagProps) {

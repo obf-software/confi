@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { ObjectId } from 'bson';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
@@ -20,17 +21,76 @@ interface OpportunityProps {
 }
 
 export class Opportunity {
+  @ApiProperty({
+    description: 'The ID of the opportunity',
+    example: '000000000000000000000000',
+  })
   id: string;
+
+  @ApiProperty({
+    description: 'The name of the opportunity',
+    example: 'Opportunity Name',
+  })
   name: string;
+
+  @ApiProperty({
+    description: 'The description of the opportunity',
+    example: 'Opportunity Description',
+  })
   description: string;
+
+  @ApiProperty({
+    description: 'The benefits of the opportunity',
+    example: ['Benefit 1', 'Benefit 2'],
+  })
   benefits: string[];
+
+  @ApiProperty({
+    description: 'The requirements of the opportunity',
+    example: ['Requirement 1', 'Requirement 2'],
+  })
   requirements: string[];
+
+  @ApiProperty({
+    description: 'The enrollment deadline of the opportunity',
+    example: '2021-01-01',
+  })
   enrollmentDeadline: string;
+
+  @ApiProperty({
+    description: 'The preparation time of the opportunity',
+    example: '1 week',
+  })
   preparationTime: string;
+
+  @ApiProperty({
+    description: 'The required documentation of the opportunity',
+    example: ['Documentation 1', 'Documentation 2'],
+  })
   requiredDocumentation: string[];
+
+  @ApiProperty({
+    description: 'The link to the opportunity',
+    example: 'https://example.com',
+  })
   link: string | null;
+
+  @ApiProperty({
+    description: 'The date and time the opportunity was created',
+    example: '2021-01-01T00:00:00.000Z',
+  })
   createdAt: Date;
+
+  @ApiProperty({
+    description: 'The date and time the opportunity was updated',
+    example: '2021-01-01T00:00:00.000Z',
+  })
   updatedAt: Date;
+
+  @ApiProperty({
+    description: 'The tags of the opportunity',
+    example: ['tag1', 'tag2'],
+  })
   tags: string[];
 
   private constructor(props: OpportunityProps) {

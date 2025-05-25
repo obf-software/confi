@@ -2,6 +2,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 import { CreateTag } from './application/create-tag';
 import { FindOpportunities } from './application/find-opportunities';
@@ -58,6 +59,16 @@ class AppModule {}
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  const config = new DocumentBuilder()
+    .setTitle('Confi')
+    .setVersion('latest')
+    .addTag('Actions', 'Available actions')
+    .addTag('Tags', 'Manage tags')
+    .build();
+
+  SwaggerModule.setup('api-spec', app, () => SwaggerModule.createDocument(app, config));
+
   await app.listen(process.env.PORT ?? 3000);
 }
 
