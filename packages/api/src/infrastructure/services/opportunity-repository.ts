@@ -56,11 +56,7 @@ export class OpportunityRepositoryDb implements OpportunityRepository {
 
   async save(opportunity: Opportunity): Promise<void> {
     const opportunityDbModel = this.mapToDbModel(opportunity);
-    await this.collection.updateOne(
-      { _id: opportunityDbModel._id },
-      { ...opportunityDbModel },
-      { upsert: true }
-    );
+    await this.collection.insertOne(opportunityDbModel, { ignoreUndefined: true });
   }
 
   async clear(): Promise<void> {

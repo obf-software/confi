@@ -30,8 +30,6 @@ export class OpportunityTransformerOpenAi implements OpportunityTransformer {
     if (availableTags.length === 0) return;
 
     for (const opportunity of opportunities) {
-      this.logger.log('Transforming opportunity', opportunity);
-
       const prompt = this.buildPrompt(opportunity, availableTags);
       const response = await this.openai.chat.completions.create({
         model: 'gpt-4o-mini',
@@ -39,8 +37,6 @@ export class OpportunityTransformerOpenAi implements OpportunityTransformer {
         response_format: { type: 'json_object' },
         n: 1,
       });
-
-      this.logger.log('Parsing response', response);
 
       yield this.parseResponse(response, availableTags);
     }
@@ -139,7 +135,7 @@ Retorne apenas o JSON estruturado sem texto adicional.
         benefits: z.array(z.string()),
         description: z.string(),
         enrollmentDeadline: z.string(),
-        link: z.string(),
+        link: z.string().nullable(),
         name: z.string(),
         preparationTime: z.string(),
         requirements: z.array(z.string()),

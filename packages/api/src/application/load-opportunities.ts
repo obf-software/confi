@@ -26,13 +26,15 @@ export class LoadOpportunities {
   async execute(): Promise<Output> {
     this.logger.log('Loading opportunities');
 
-    const rawOpportunities = await this.opportunitySource.retrieve();
+    const [rawOpportunities, availableTags] = await Promise.all([
+      this.opportunitySource.retrieve(),
+      this.tagRepository.findAll(),
+    ]);
+
     this.logger.log(`Found ${rawOpportunities.length.toString()} opportunities`);
-
-    const availableTags = await this.tagRepository.findAll();
-    this.logger.log(`Found ${availableTags.length.toString()} tags`);
-
-    this.logger.log('Transforming opportunities');
+    this.logger.log(
+      `Found ${availableTags.length.toString()} tags: ${availableTags.map((t) => t.slug).join(', ')}`
+    );
 
     await this.opportunityRepository.clear();
     const opportunitiesIterator = this.opportunityTransformer.transform(
@@ -42,12 +44,27 @@ export class LoadOpportunities {
     const opportunities: Opportunity[] = [];
 
     for await (const opportunity of opportunitiesIterator) {
-      this.logger.log(
-        `Saving opportunity: ${opportunity.name} (tags=[${opportunity.tags.join(', ')}])`
-      );
+      if (opportunity.tags.length === 0) {
+        this.logger.warn(`Saving opportunity: ${opportunity.name} without tags`);
+      } else {
+        this.logger.log(
+          `Saving opportunity: ${opportunity.name} (tags=[${opportunity.tags.join(', ')}])`
+        );
+      }
+
       await this.opportunityRepository.save(opportunity);
       opportunities.push(opportunity);
     }
+
+    const nOpportunities = opportunities.length.toString();
+    const nOpportunitiesWithoutTags = opportunities
+      .filter((o) => o.tags.length === 0)
+      .length.toString();
+    const nOpportunitiesWithTags = opportunities.filter((o) => o.tags.length > 0).length.toString();
+
+    this.logger.log(
+      `Loaded ${nOpportunities} opportunities (${nOpportunitiesWithoutTags} without tags, ${nOpportunitiesWithTags} with tags)`
+    );
 
     return { opportunities };
   }

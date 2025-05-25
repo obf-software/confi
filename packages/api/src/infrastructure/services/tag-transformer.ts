@@ -21,9 +21,8 @@ export class TagTransformerOpenAi implements TagTransformer {
    * 4. return tags
    */
   async transform(data: Record<string, unknown>, availableTags: Tag[]): Promise<Tag[]> {
-    this.logger.log('Transforming data', data);
-
     if (availableTags.length === 0) return [];
+    if (Object.keys(data).length === 0) return [];
 
     const prompt = this.buildPrompt(data, availableTags);
     const response = await this.openai.chat.completions.create({
@@ -32,7 +31,6 @@ export class TagTransformerOpenAi implements TagTransformer {
       response_format: { type: 'json_object' },
       n: 1,
     });
-    this.logger.log('Parsing response', response);
     return this.parseResponse(response, availableTags);
   }
 
@@ -62,8 +60,10 @@ RESPONSE FORMAT:
 Return only a JSON array of tag slugs, like this: ["tag1", "tag2", "tag3"]
 Do not include any other text, explanations, or formatting.
 
-EXAMPLE RESPONSE:
-["technology", "education", "remote-work"]`;
+EXAMPLE RESPONSES (JSON):
+- Found tags: { "tags": ["technology", "education", "remote-work"] } 
+- No tags found: { "tags": [] }
+`;
   }
 
   private formatDataForAnalysis(data: Record<string, unknown>): string {
@@ -109,12 +109,21 @@ EXAMPLE RESPONSE:
     response: OpenAI.Chat.Completions.ChatCompletion,
     availableTags: Tag[]
   ): Tag[] {
-    const { success, data: tagSlugs } = z
-      .array(z.string())
-      .safeParse(JSON.parse(response.choices[0].message.content ?? '{}'));
+    const content = response.choices[0].message.content ?? '{}';
 
-    if (!success) return [];
+    const { success, data } = z
+      .object({
+        tags: z.array(z.string()).optional(),
+      })
+      .safeParse(JSON.parse(content));
 
-    return availableTags.filter((tag) => tagSlugs.includes(tag.slug));
+    if (!success) {
+      this.logger.error(`Error parsing response: ${content}`);
+      return [];
+    }
+
+    const tags = data.tags ?? [];
+
+    return availableTags.filter((tag) => tags.includes(tag.slug));
   }
 }

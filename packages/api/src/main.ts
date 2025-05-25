@@ -60,14 +60,25 @@ class AppModule {}
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  const config = new DocumentBuilder()
-    .setTitle('Confi')
-    .setVersion('latest')
-    .addTag('Actions', 'Available actions')
-    .addTag('Tags', 'Manage tags')
-    .build();
-
-  SwaggerModule.setup('api-spec', app, () => SwaggerModule.createDocument(app, config));
+  SwaggerModule.setup(
+    'api-spec',
+    app,
+    () =>
+      SwaggerModule.createDocument(
+        app,
+        new DocumentBuilder()
+          .setTitle('Confi API')
+          .setVersion('latest')
+          .addTag('Actions', 'Available actions')
+          .addTag('Tags', 'Manage tags')
+          .setContact('Confi', 'https://confi.com', 'support@confi.com')
+          .setExternalDoc('GitHub', 'https://github.com/obf-software/confi')
+          .build()
+      ),
+    {
+      customSiteTitle: 'Confi API Documentation',
+    }
+  );
 
   await app.listen(process.env.PORT ?? 3000);
 }

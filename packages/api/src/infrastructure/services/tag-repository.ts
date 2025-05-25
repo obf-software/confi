@@ -40,12 +40,9 @@ export class TagRepositoryDb implements TagRepository {
   }
 
   async save(tag: Tag): Promise<void> {
-    const tagDbModel = this.mapToDbModel(tag);
-    await this.collection.updateOne(
-      { $or: [{ _id: tagDbModel._id }, { slug: tag.slug }] },
-      { ...tagDbModel },
-      { upsert: true }
-    );
+    const existingTag = await this.collection.findOne({ slug: tag.slug });
+    if (existingTag) throw new Error('A tag with this slug already exists');
+    await this.collection.insertOne(this.mapToDbModel(tag), { ignoreUndefined: true });
   }
 
   async findAll(): Promise<Tag[]> {

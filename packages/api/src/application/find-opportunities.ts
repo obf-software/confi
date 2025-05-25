@@ -20,17 +20,24 @@ export class FindOpportunities {
   ) {}
 
   async execute(input: Input): Promise<Output> {
-    this.logger.log(`Finding opportunities for input: ${JSON.stringify(input)}`);
+    this.logger.debug(`Finding opportunities for input: ${JSON.stringify(input)}`);
 
     const availableTags = await this.tagRepository.findAll();
+
+    this.logger.debug(
+      `Found ${availableTags.length.toString()} available tags: ${availableTags.map((t) => t.slug).join(', ')}`
+    );
+
     const tags = await this.tagTransformer.transform(input.formInput, availableTags);
     const tagSlugs = tags.map((t) => t.slug);
 
-    this.logger.log(`Found ${tagSlugs.length.toString()} tags: ${tagSlugs.join(', ')}`);
+    this.logger.debug(`Inferred ${tagSlugs.length.toString()} tags: ${tagSlugs.join(', ')}`);
+
+    if (tagSlugs.length === 0) return { opportunities: [] };
 
     const opportunities = await this.opportunityRepository.findByTags(tagSlugs);
 
-    this.logger.log(`Found ${opportunities.length.toString()} opportunities`);
+    this.logger.debug(`Found ${opportunities.length.toString()} opportunities`);
 
     return { opportunities };
   }
