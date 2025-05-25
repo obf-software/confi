@@ -1,4 +1,4 @@
-import { Inject } from '@nestjs/common';
+import { Inject, Logger } from '@nestjs/common';
 import { OpenAI } from 'openai';
 import { Tag } from 'src/domain/tag';
 import { z } from 'zod';
@@ -10,6 +10,8 @@ export interface TagTransformer {
 export const TagTransformer = Symbol('TagTransformer');
 
 export class TagTransformerOpenAi implements TagTransformer {
+  private readonly logger = new Logger(TagTransformerOpenAi.name);
+
   constructor(@Inject(OpenAI) private readonly openai: OpenAI) {}
 
   /**
@@ -19,17 +21,18 @@ export class TagTransformerOpenAi implements TagTransformer {
    * 4. return tags
    */
   async transform(data: Record<string, unknown>, availableTags: Tag[]): Promise<Tag[]> {
+    this.logger.log('Transforming data', data);
+
     if (availableTags.length === 0) return [];
 
     const prompt = this.buildPrompt(data, availableTags);
-
     const response = await this.openai.chat.completions.create({
       model: 'gpt-4o-mini',
       messages: [{ role: 'user', content: prompt }],
       response_format: { type: 'json_object' },
       n: 1,
     });
-
+    this.logger.log('Parsing response', response);
     return this.parseResponse(response, availableTags);
   }
 

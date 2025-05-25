@@ -1,4 +1,4 @@
-import { Inject } from '@nestjs/common';
+import { Inject, Logger } from '@nestjs/common';
 import OpenAI from 'openai';
 import { Opportunity } from 'src/domain/opportunity';
 import { Tag } from 'src/domain/tag';
@@ -14,6 +14,8 @@ export interface OpportunityTransformer {
 export const OpportunityTransformer = Symbol('OpportunityTransformer');
 
 export class OpportunityTransformerOpenAi implements OpportunityTransformer {
+  private readonly logger = new Logger(OpportunityTransformerOpenAi.name);
+
   constructor(@Inject(OpenAI) private readonly openai: OpenAI) {}
 
   /**
@@ -28,14 +30,17 @@ export class OpportunityTransformerOpenAi implements OpportunityTransformer {
     if (availableTags.length === 0) return;
 
     for (const opportunity of opportunities) {
-      const prompt = this.buildPrompt(opportunity, availableTags);
+      this.logger.log('Transforming opportunity', opportunity);
 
+      const prompt = this.buildPrompt(opportunity, availableTags);
       const response = await this.openai.chat.completions.create({
         model: 'gpt-4o-mini',
         messages: [{ role: 'user', content: prompt }],
         response_format: { type: 'json_object' },
         n: 1,
       });
+
+      this.logger.log('Parsing response', response);
 
       yield this.parseResponse(response, availableTags);
     }

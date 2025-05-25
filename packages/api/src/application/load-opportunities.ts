@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, Logger } from '@nestjs/common';
 import { Opportunity } from 'src/domain/opportunity';
 import { OpportunityRepository } from 'src/infrastructure/services/opportunity-repository';
 import { OpportunitySource } from 'src/infrastructure/services/opportunity-source';
@@ -14,6 +14,8 @@ import { TagRepository } from 'src/infrastructure/services/tag-repository';
  */
 @Injectable()
 export class LoadOpportunities {
+  private readonly logger = new Logger(LoadOpportunities.name);
+
   constructor(
     @Inject(OpportunitySource) private readonly opportunitySource: OpportunitySource,
     @Inject(OpportunityTransformer) private readonly opportunityTransformer: OpportunityTransformer,
@@ -22,8 +24,16 @@ export class LoadOpportunities {
   ) {}
 
   async execute(): Promise<Output> {
+    this.logger.log('Loading opportunities');
+
     const rawOpportunities = await this.opportunitySource.retrieve();
+    this.logger.log(`Found ${rawOpportunities.length.toString()} opportunities`);
+
     const availableTags = await this.tagRepository.findAll();
+    this.logger.log(`Found ${availableTags.length.toString()} tags`);
+
+    this.logger.log('Transforming opportunities');
+
     await this.opportunityRepository.clear();
     const opportunitiesIterator = this.opportunityTransformer.transform(
       rawOpportunities,
@@ -32,6 +42,9 @@ export class LoadOpportunities {
     const opportunities: Opportunity[] = [];
 
     for await (const opportunity of opportunitiesIterator) {
+      this.logger.log(
+        `Saving opportunity: ${opportunity.name} (tags=[${opportunity.tags.join(', ')}])`
+      );
       await this.opportunityRepository.save(opportunity);
       opportunities.push(opportunity);
     }
