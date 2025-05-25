@@ -11,6 +11,25 @@ export class TagsController {
   @ApiOperation({
     summary: 'Create a new tag',
     description: 'Create a new tag or update an existing tag if its slug already exists',
+    requestBody: {
+      content: {
+        'application/json': {
+          schema: {
+            type: 'object',
+            properties: {
+              slug: {
+                type: 'string',
+                example: 'tag-slug',
+              },
+              description: {
+                type: 'string',
+                example: 'This is a tag description',
+              },
+            },
+          },
+        },
+      },
+    },
   })
   @ApiResponse({
     status: 200,

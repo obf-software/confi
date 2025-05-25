@@ -32,6 +32,15 @@ export class ActionsController {
     summary: 'Find opportunities',
     description:
       'Find opportunities in the database based on the provided form input. The form input is a JSON object that contains the form data.',
+    requestBody: {
+      content: {
+        'application/json': {
+          schema: {
+            type: 'object',
+          },
+        },
+      },
+    },
   })
   @ApiResponse({
     status: 200,
