@@ -9,6 +9,7 @@ export const openAIFactory: FactoryProvider = {
 
   useFactory: (configService: ConfigService) => {
     const apiKey = configService.getOrThrow('OPENAI_API_KEY') as string;
-    return new OpenAI({ apiKey });
+    const organization = configService.getOrThrow('OPENAI_ORGANIZATION') as string;
+    return new OpenAI({ apiKey, organization });
   },
 };
