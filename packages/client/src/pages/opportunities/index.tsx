@@ -6,7 +6,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import { toasterStore } from '../../components/toaster';
 import { buildPath } from '../../helpers/build-path';
-import { Opportunity } from '../../services/opportunity';
+import { Opportunity } from '../../services/api';
 import { OpportunityCard } from './card';
 import { useCreatePlanning } from './use-create-planning';
 
@@ -28,17 +28,12 @@ export const Opportunities: React.FC = () => {
       .filter((o) => o !== undefined);
 
     createPlanning.mutate(
-      { opportunities: selectedOpportunities },
+      selectedOpportunities.map((o) => o.id),
       {
-        onSuccess: (data) => {
+        onSuccess: (planning) => {
           setIsLoading(false);
 
-          void navigate(buildPath('result'), {
-            state: {
-              calendarFile: data.calendarFile,
-              planningFile: data.planningFile,
-            },
-          });
+          void navigate(buildPath('result'), { state: { planning } });
         },
         onError: (error) => {
           setIsLoading(false);

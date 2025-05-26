@@ -25,5 +25,9 @@ dist-ssr
 *.sln
 *.sw?
 
+# Environment variables
+.env
+!.env.example
+
 # Misc
 _dev
