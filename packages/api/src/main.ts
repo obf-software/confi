@@ -4,6 +4,7 @@ import { ConfigModule } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
+import { CreatePlanning } from './application/create-planning';
 import { CreateTag } from './application/create-tag';
 import { FindOpportunities } from './application/find-opportunities';
 import { LoadOpportunities } from './application/load-opportunities';
@@ -12,6 +13,7 @@ import { TagsController } from './infrastructure/controller/tags-controller';
 import { googleSpreadsheetsFactory } from './infrastructure/factory/google-spreadsheets-factory';
 import { mongoClientFactory } from './infrastructure/factory/mongo-client-factory';
 import { openAIFactory } from './infrastructure/factory/open-ai-factory';
+import { s3Factory } from './infrastructure/factory/s3-factory';
 import {
   OpportunityRepository,
   OpportunityRepositoryDb,
@@ -24,6 +26,18 @@ import {
   OpportunityTransformer,
   OpportunityTransformerOpenAi,
 } from './infrastructure/services/opportunity-transformer';
+import {
+  PlanningTransformer,
+  PlanningTransformerOpenAi,
+} from './infrastructure/services/planning-transformer';
+import {
+  IcsTransformer,
+  IcsTransformerOpenAi,
+} from './infrastructure/services/ics-transformer';
+import {
+  S3Service,
+  S3ServiceAws,
+} from './infrastructure/services/s3-service';
 import { TagRepository, TagRepositoryDb } from './infrastructure/services/tag-repository';
 import { TagTransformer, TagTransformerOpenAi } from './infrastructure/services/tag-transformer';
 
@@ -41,6 +55,9 @@ const config = () => {
     { provide: OpportunityRepository, useClass: OpportunityRepositoryDb },
     { provide: OpportunitySource, useClass: OpportunitySourceSheets },
     { provide: OpportunityTransformer, useClass: OpportunityTransformerOpenAi },
+    { provide: PlanningTransformer, useClass: PlanningTransformerOpenAi },
+    { provide: IcsTransformer, useClass: IcsTransformerOpenAi },
+    { provide: S3Service, useClass: S3ServiceAws },
     { provide: TagRepository, useClass: TagRepositoryDb },
     { provide: TagTransformer, useClass: TagTransformerOpenAi },
 
@@ -48,8 +65,10 @@ const config = () => {
     googleSpreadsheetsFactory,
     mongoClientFactory,
     openAIFactory,
+    s3Factory,
 
     // Use Cases
+    CreatePlanning,
     CreateTag,
     FindOpportunities,
     LoadOpportunities,
