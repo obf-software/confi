@@ -2,6 +2,7 @@ import { Inject, Injectable, Logger } from '@nestjs/common';
 import { ObjectId } from 'bson';
 import { Opportunity } from 'src/domain/opportunity';
 import { Planning } from 'src/domain/planning';
+import { PlanningData } from 'src/domain/planning-data';
 import { IcsTransformer } from 'src/infrastructure/services/ics-transformer';
 import { PdfGenerator } from 'src/infrastructure/services/pdf-generator';
 import { PlanningTransformer } from 'src/infrastructure/services/planning-transformer';
@@ -19,7 +20,7 @@ export class CreatePlanning {
   ) {}
 
   async execute(input: Input): Promise<Output> {
-    this.logger.debug(`Creating planning for ${input.opportunities.length} opportunities`);
+    this.logger.debug(`Creating planning for ${input.opportunities.length.toString()} opportunities`);
 
     // Generate structured planning data
     const planningData = await this.planningTransformer.transform(input.opportunities);
@@ -63,11 +64,11 @@ export class CreatePlanning {
     };
   }
 
-  private convertPlanningDataToText(planningData: any): string {
+  private convertPlanningDataToText(planningData: PlanningData): string {
     let text = 'PLANEJAMENTO DE INSCRIÇÃO - OPORTUNIDADES INTERNACIONAIS DE FUNDING\n\n';
 
     // Add opportunities info
-    planningData.opportunities.forEach((opp: any) => {
+    planningData.opportunities.forEach((opp) => {
       text += `Oportunidade: ${opp.name}\n`;
       text += `Benefícios: ${opp.benefits.join(', ')}\n`;
       text += `Prazo de Inscrição: ${opp.enrollmentDeadline}\n`;
@@ -75,13 +76,13 @@ export class CreatePlanning {
     });
 
     // Add steps
-    planningData.steps.forEach((step: any) => {
+    planningData.steps.forEach((step) => {
       text += `${step.emoji} ${step.title}\n`;
       if (step.description) {
         text += `${step.description}\n`;
       }
 
-      step.tasks.forEach((task: any) => {
+      step.tasks.forEach((task) => {
         text += `[ ] ${task.description}`;
         if (task.estimatedTime) {
           text += ` (${task.estimatedTime})`;

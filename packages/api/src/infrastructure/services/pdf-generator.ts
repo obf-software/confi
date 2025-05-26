@@ -148,22 +148,24 @@ export class PdfGeneratorPuppeteer implements PdfGenerator {
   }
 
   private groupTasksByWeek(
-    tasks: Array<{ id: string; description: string; estimatedTime?: string; week?: number }>
+    tasks: { id: string; description: string; estimatedTime?: string; week?: number }[]
   ): string {
-    const tasksByWeek = tasks.reduce(
-      (acc, task) => {
-        const week = task.week || 0;
-        if (!acc[week]) {
-          acc[week] = [];
-        }
-        acc[week].push(task);
-        return acc;
-      },
-      {} as Record<
-        number,
-        Array<{ id: string; description: string; estimatedTime?: string; week?: number }>
-      >
-    );
+    const tasksByWeek: Record<
+      number,
+      { id: string; description: string; estimatedTime?: string; week?: number }[]
+    > = {};
+
+    const allWeeks = tasks.map((t) => (t.week = t.week || 0));
+    const uniqueWeeks = Array.from(new Set(allWeeks));
+
+    uniqueWeeks.forEach((week) => {
+      tasksByWeek[week] = [];
+    });
+
+    tasks.forEach((task) => {
+      const week = task.week || 0;
+      tasksByWeek[week].push(task);
+    });
 
     const weekNumbers = Object.keys(tasksByWeek).map(Number).sort();
 
@@ -189,7 +191,7 @@ export class PdfGeneratorPuppeteer implements PdfGenerator {
 
         return `
           <div class="week-group">
-            <h4 class="week-title">📅 Semana ${weekNum}</h4>
+            <h4 class="week-title">📅 Semana ${weekNum.toString()}</h4>
             <div class="week-tasks">
               ${tasksByWeek[weekNum]
                 .map(

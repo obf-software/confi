@@ -18,7 +18,7 @@ export class PlanningTransformerOpenAi implements PlanningTransformer {
   async transform(opportunities: Opportunity[]): Promise<PlanningData> {
     const prompt = this.buildPrompt(opportunities);
 
-    this.logger.log(`Generating planning for ${opportunities.length} opportunities`);
+    this.logger.log(`Generating planning for ${opportunities.length.toString()} opportunities`);
 
     const response = await this.openai.chat.completions.create({
       model: 'gpt-4o-mini',
@@ -298,8 +298,8 @@ ${JSON.stringify(opportunitiesJson, null, 2)}`;
     try {
       return planningDataSchema.parse(JSON.parse(content));
     } catch (error) {
-      this.logger.error(`Failed to parse planning data: ${error}`);
-      throw new Error(`Failed to parse planning data: ${error}`);
+      this.logger.error(`Failed to parse planning data: ${String(error)}`);
+      throw new Error(`Failed to parse planning data: ${String(error)}`);
     }
   }
 }

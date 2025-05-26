@@ -14,6 +14,7 @@ import { googleSpreadsheetsFactory } from './infrastructure/factory/google-sprea
 import { mongoClientFactory } from './infrastructure/factory/mongo-client-factory';
 import { openAIFactory } from './infrastructure/factory/open-ai-factory';
 import { s3Factory } from './infrastructure/factory/s3-factory';
+import { IcsTransformer, IcsTransformerOpenAi } from './infrastructure/services/ics-transformer';
 import {
   OpportunityRepository,
   OpportunityRepositoryDb,
@@ -26,12 +27,11 @@ import {
   OpportunityTransformer,
   OpportunityTransformerOpenAi,
 } from './infrastructure/services/opportunity-transformer';
+import { PdfGenerator, PdfGeneratorPuppeteer } from './infrastructure/services/pdf-generator';
 import {
   PlanningTransformer,
   PlanningTransformerOpenAi,
 } from './infrastructure/services/planning-transformer';
-import { IcsTransformer, IcsTransformerOpenAi } from './infrastructure/services/ics-transformer';
-import { PdfGenerator, PdfGeneratorPuppeteer } from './infrastructure/services/pdf-generator';
 import { S3Service, S3ServiceAws } from './infrastructure/services/s3-service';
 import { TagRepository, TagRepositoryDb } from './infrastructure/services/tag-repository';
 import { TagTransformer, TagTransformerOpenAi } from './infrastructure/services/tag-transformer';

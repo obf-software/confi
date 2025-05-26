@@ -4,7 +4,6 @@ import { CreatePlanning } from 'src/application/create-planning';
 import { FindOpportunities } from 'src/application/find-opportunities';
 import { LoadOpportunities } from 'src/application/load-opportunities';
 import { Opportunity } from 'src/domain/opportunity';
-import { Planning } from 'src/domain/planning';
 
 @ApiTags('Actions')
 @Controller('api/v0/actions')
