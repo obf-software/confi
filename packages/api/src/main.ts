@@ -35,6 +35,10 @@ import {
   IcsTransformerOpenAi,
 } from './infrastructure/services/ics-transformer';
 import {
+  PdfGenerator,
+  PdfGeneratorPuppeteer,
+} from './infrastructure/services/pdf-generator';
+import {
   S3Service,
   S3ServiceAws,
 } from './infrastructure/services/s3-service';
@@ -57,6 +61,7 @@ const config = () => {
     { provide: OpportunityTransformer, useClass: OpportunityTransformerOpenAi },
     { provide: PlanningTransformer, useClass: PlanningTransformerOpenAi },
     { provide: IcsTransformer, useClass: IcsTransformerOpenAi },
+    { provide: PdfGenerator, useClass: PdfGeneratorPuppeteer },
     { provide: S3Service, useClass: S3ServiceAws },
     { provide: TagRepository, useClass: TagRepositoryDb },
     { provide: TagTransformer, useClass: TagTransformerOpenAi },
