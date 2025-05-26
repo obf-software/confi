@@ -1,4 +1,6 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { JWT } from 'google-auth-library';
 import { GoogleSpreadsheet } from 'google-spreadsheet';
 
 export interface OpportunitySource {
@@ -10,7 +12,24 @@ export const OpportunitySource = Symbol('OpportunitySource');
 
 @Injectable()
 export class OpportunitySourceSheets implements OpportunitySource {
-  constructor(@Inject(GoogleSpreadsheet) private readonly googleSheetsClient: GoogleSpreadsheet) {}
+  private readonly googleSheetsClient: GoogleSpreadsheet;
+
+  constructor(readonly configService: ConfigService) {
+    const spreadsheetId = configService.getOrThrow<string>('GOOGLE_SPREADSHEET_ID');
+    const email = configService.getOrThrow<string>('GOOGLE_SERVICE_ACCOUNT_EMAIL');
+    const key = configService.getOrThrow<string>('GOOGLE_SERVICE_ACCOUNT_KEY');
+
+    const auth = new JWT({
+      email,
+      key,
+      scopes: [
+        'https://www.googleapis.com/auth/spreadsheets',
+        'https://www.googleapis.com/auth/drive.file',
+      ],
+    });
+
+    this.googleSheetsClient = new GoogleSpreadsheet(spreadsheetId, auth);
+  }
 
   async retrieve(): Promise<Record<string, string>[]> {
     await this.googleSheetsClient.loadInfo();

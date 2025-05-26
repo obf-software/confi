@@ -36,6 +36,7 @@ export default tseslint.config(
       '@typescript-eslint/no-empty-object-type': 'off',
       '@typescript-eslint/prefer-nullish-coalescing': 'off',
       '@typescript-eslint/no-unused-vars': 'off',
+      '@typescript-eslint/no-namespace': 'off',
       'unused-imports/no-unused-vars': 'warn',
       'unused-imports/no-unused-imports': 'error',
       'simple-import-sort/imports': 'error',

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
 import { FactoryProvider, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { MongoClient } from 'mongodb';
@@ -9,8 +8,7 @@ export const mongoClientFactory: FactoryProvider = {
 
   useFactory: (configService: ConfigService) => {
     const logger = new Logger('MongoClientFactory');
-
-    const url = configService.getOrThrow('MONGO_URL') as string;
+    const url = configService.getOrThrow<string>('MONGO_URL');
     const client = new MongoClient(url);
 
     client.on('error', (error) => {

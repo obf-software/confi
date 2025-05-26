@@ -34,8 +34,9 @@ export const Sponsors: React.FC<SponsorsProps> = ({ items, ...flexProps }) => {
             gap={4}
           >
             <For each={items}>
-              {(item) => (
+              {(item, index) => (
                 <Image
+                  key={`${item.name}-${index.toString()}`}
                   src={item.logo}
                   alt={item.name}
                   maxH='36'

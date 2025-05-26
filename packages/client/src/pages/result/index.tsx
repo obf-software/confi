@@ -1,4 +1,13 @@
-import { Button, Container, EmptyState, Flex, Link, Stack, VStack } from '@chakra-ui/react';
+import {
+  Button,
+  Container,
+  DownloadTrigger,
+  EmptyState,
+  Flex,
+  Link,
+  Stack,
+  VStack,
+} from '@chakra-ui/react';
 import React from 'react';
 import { BiCalendar, BiDownload } from 'react-icons/bi';
 import { MdWhatsapp } from 'react-icons/md';
@@ -7,28 +16,21 @@ import { SlRefresh } from 'react-icons/sl';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { buildPath } from '../../helpers/build-path';
-import { downloadBlob } from '../../helpers/download-blob';
+import { Planning } from '../../services/api';
 
 export const Result: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const data = location.state as
-    | {
-        calendarFile: Blob;
-        planningFile: Blob;
-      }
-    | null
-    | undefined;
-
-  console.log(data);
+  const data = location.state as { planning?: Planning } | null | undefined;
+  const planning = data?.planning;
 
   React.useEffect(() => {
-    if (!data) {
+    if (!planning) {
       void navigate(buildPath('/'));
     }
-  }, [navigate, data]);
+  }, [navigate, planning]);
 
-  if (!data) return null;
+  if (!planning) return null;
 
   return (
     <Flex
@@ -62,30 +64,35 @@ export const Result: React.FC = () => {
               align='center'
               gap='4'
             >
-              <Button
-                colorPalette='brandPrimaryButton'
-                size='xl'
-                rounded='full'
-                onClick={() => {
-                  console.log('baixar planejamento');
-                  downloadBlob(data.planningFile, 'planejamento.pdf');
-                }}
+              <DownloadTrigger
+                fileName='planejamento.pdf'
+                data={() => fetch(planning.pdfUrl).then((res) => res.blob())}
+                mimeType='application/pdf'
               >
-                Baixar Planejamento
-                <BiDownload />
-              </Button>
+                <Button
+                  colorPalette='brandPrimaryButton'
+                  size='xl'
+                  rounded='full'
+                >
+                  Baixar Planejamento
+                  <BiDownload />
+                </Button>
+              </DownloadTrigger>
 
-              <Button
-                colorPalette='brandPrimaryButton'
-                size='xl'
-                rounded='full'
-                onClick={() => {
-                  downloadBlob(data.calendarFile, 'planejamento.ics');
-                }}
+              <DownloadTrigger
+                fileName='planejamento.ics'
+                data={() => fetch(planning.icsUrl).then((res) => res.blob())}
+                mimeType='text/calendar'
               >
-                Adicionar ao Google Calendar
-                <BiCalendar />
-              </Button>
+                <Button
+                  colorPalette='brandPrimaryButton'
+                  size='xl'
+                  rounded='full'
+                >
+                  Adicionar ao Google Calendar
+                  <BiCalendar />
+                </Button>
+              </DownloadTrigger>
 
               <Link
                 href='https://wa.me/5541996892354'

@@ -10,11 +10,13 @@ import { FindOpportunities } from './application/find-opportunities';
 import { LoadOpportunities } from './application/load-opportunities';
 import { ActionsController } from './infrastructure/controller/actions-controller';
 import { TagsController } from './infrastructure/controller/tags-controller';
-import { googleSpreadsheetsFactory } from './infrastructure/factory/google-spreadsheets-factory';
 import { mongoClientFactory } from './infrastructure/factory/mongo-client-factory';
-import { openAIFactory } from './infrastructure/factory/open-ai-factory';
-import { s3Factory } from './infrastructure/factory/s3-factory';
-import { IcsTransformer, IcsTransformerOpenAi } from './infrastructure/services/ics-transformer';
+import { openAiClientFactory } from './infrastructure/factory/open-ai-client-factory';
+import {
+  FileStorageService,
+  FileStorageServiceLocal,
+  FileStorageServiceS3,
+} from './infrastructure/services/file-storage-service';
 import {
   OpportunityRepository,
   OpportunityRepositoryDb,
@@ -32,36 +34,31 @@ import {
   PlanningTransformer,
   PlanningTransformerOpenAi,
 } from './infrastructure/services/planning-transformer';
-import { S3Service, S3ServiceAws } from './infrastructure/services/s3-service';
 import { TagRepository, TagRepositoryDb } from './infrastructure/services/tag-repository';
 import { TagTransformer, TagTransformerOpenAi } from './infrastructure/services/tag-transformer';
 
-const config = () => {
-  return {
-    port: process.env.PORT ?? 3000,
-  };
-};
+const isDevelopment = process.env.NODE_ENV !== 'production';
 
 @Module({
-  imports: [ConfigModule.forRoot({ isGlobal: true, load: [config] })],
+  imports: [ConfigModule.forRoot({ isGlobal: true })],
   controllers: [ActionsController, TagsController],
   providers: [
     // Services
+    {
+      provide: FileStorageService,
+      useClass: isDevelopment ? FileStorageServiceLocal : FileStorageServiceS3,
+    },
     { provide: OpportunityRepository, useClass: OpportunityRepositoryDb },
     { provide: OpportunitySource, useClass: OpportunitySourceSheets },
     { provide: OpportunityTransformer, useClass: OpportunityTransformerOpenAi },
-    { provide: PlanningTransformer, useClass: PlanningTransformerOpenAi },
-    { provide: IcsTransformer, useClass: IcsTransformerOpenAi },
     { provide: PdfGenerator, useClass: PdfGeneratorPuppeteer },
-    { provide: S3Service, useClass: S3ServiceAws },
+    { provide: PlanningTransformer, useClass: PlanningTransformerOpenAi },
     { provide: TagRepository, useClass: TagRepositoryDb },
     { provide: TagTransformer, useClass: TagTransformerOpenAi },
 
     // Factories
-    googleSpreadsheetsFactory,
     mongoClientFactory,
-    openAIFactory,
-    s3Factory,
+    openAiClientFactory,
 
     // Use Cases
     CreatePlanning,
@@ -74,6 +71,7 @@ class AppModule {}
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.enableCors();
 
   SwaggerModule.setup(
     'api-spec',

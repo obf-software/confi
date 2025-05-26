@@ -1,7 +1,7 @@
 import { CheckboxCard, Link } from '@chakra-ui/react';
 import React from 'react';
 
-import { Opportunity } from '../../services/opportunity';
+import { Opportunity } from '../../services/api';
 
 export interface OpportunityCardProps {
   checked?: boolean;
@@ -49,18 +49,20 @@ export const OpportunityCard: React.FC<OpportunityCardProps> = ({
         <CheckboxCard.Indicator />
       </CheckboxCard.Control>
 
-      <CheckboxCard.Addon>
-        <CheckboxCard.Label>
-          <Link
-            href={data.link}
-            target='_blank'
-            overflow='clip'
-            lineBreak='anywhere'
-          >
-            🔗 {data.link}
-          </Link>
-        </CheckboxCard.Label>
-      </CheckboxCard.Addon>
+      {data.link && (
+        <CheckboxCard.Addon>
+          <CheckboxCard.Label>
+            <Link
+              href={data.link}
+              target='_blank'
+              overflow='clip'
+              lineBreak='anywhere'
+            >
+              🔗 {data.link}
+            </Link>
+          </CheckboxCard.Label>
+        </CheckboxCard.Addon>
+      )}
     </CheckboxCard.Root>
   );
 };

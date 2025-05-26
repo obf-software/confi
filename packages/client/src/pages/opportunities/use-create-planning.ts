@@ -1,18 +1,12 @@
 import { useMutation } from '@tanstack/react-query';
 
-import { OpportunityServiceCreatePlanningInput } from '../../services/opportunity';
-import { N8nOpportunityService } from '../../services/opportunity';
+import { apiService } from '../../services/api';
 
 export const useCreatePlanning = () => {
-  const opportunitiesService = new N8nOpportunityService();
-
-  const findOpportunities = useMutation({
-    mutationFn: async (input: OpportunityServiceCreatePlanningInput) => {
-      const response = await opportunitiesService.createPlanning(input);
-      return response;
-    },
+  const createPlanning = useMutation({
+    mutationFn: async (ids: string[]) => await apiService.createPlanning(ids),
     retry: false,
   });
 
-  return findOpportunities;
+  return createPlanning;
 };

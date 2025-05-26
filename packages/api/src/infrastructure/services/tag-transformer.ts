@@ -4,6 +4,9 @@ import { Tag } from 'src/domain/tag';
 import { z } from 'zod';
 
 export interface TagTransformer {
+  /**
+   * Transform a data record to a list of tags that are relevant to the data.
+   */
   transform(data: Record<string, unknown>, availableTags: Tag[]): Promise<Tag[]>;
 }
 

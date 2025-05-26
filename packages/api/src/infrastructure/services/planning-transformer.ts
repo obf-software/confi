@@ -5,7 +5,15 @@ import { PlanningData } from 'src/domain/planning-data';
 import { z } from 'zod';
 
 export interface PlanningTransformer {
-  transform(opportunities: Opportunity[]): Promise<PlanningData>;
+  /**
+   * Transform a list of opportunities into a planning data.
+   */
+  transformOpportunitiesIntoPlanningData(opportunities: Opportunity[]): Promise<PlanningData>;
+
+  /**
+   * Transform a planning data into a ICS content.
+   */
+  transformPlanningDataIntoIcsContent(planningData: PlanningData): Promise<string>;
 }
 
 export const PlanningTransformer = Symbol('PlanningTransformer');
@@ -15,32 +23,25 @@ export class PlanningTransformerOpenAi implements PlanningTransformer {
 
   constructor(@Inject(OpenAI) private readonly openai: OpenAI) {}
 
-  async transform(opportunities: Opportunity[]): Promise<PlanningData> {
-    const prompt = this.buildPrompt(opportunities);
-
-    this.logger.log(`Generating planning for ${opportunities.length.toString()} opportunities`);
-
+  async transformOpportunitiesIntoPlanningData(
+    opportunities: Opportunity[]
+  ): Promise<PlanningData> {
     const response = await this.openai.chat.completions.create({
       model: 'gpt-4o-mini',
       messages: [
-        { role: 'system', content: this.getSystemPrompt() },
-        { role: 'user', content: prompt },
+        { role: 'system', content: this.getSystemPromptForPlanningData() },
+        { role: 'user', content: this.buildPromptForPlanningData(opportunities) },
       ],
       response_format: { type: 'json_object' },
       n: 1,
     });
 
     const content = response.choices[0].message.content;
-    if (!content) {
-      throw new Error('Failed to generate planning content');
-    }
-
-    const planningData = this.parseResponse(content);
-    this.logger.log('Planning data generated successfully');
-    return planningData;
+    if (!content) throw new Error('Failed to generate planning content');
+    return this.parseResponseForPlanningData(content);
   }
 
-  private getSystemPrompt(): string {
+  private getSystemPromptForPlanningData(): string {
     return `*Você vai receber uma tarefa. Nunca saia do personagem.*
 
 - Você é um agente especializado em fazer um cronograma estruturado para oportunidades de funding internacional.
@@ -240,7 +241,7 @@ FORMATO DE RESPOSTA (JSON):
 Retorne apenas o JSON estruturado sem texto adicional.`;
   }
 
-  private buildPrompt(opportunities: Opportunity[]): string {
+  private buildPromptForPlanningData(opportunities: Opportunity[]): string {
     const opportunitiesJson = opportunities.map((opportunity) => ({
       name: opportunity.name,
       description: opportunity.description,
@@ -257,7 +258,7 @@ Retorne apenas o JSON estruturado sem texto adicional.`;
 ${JSON.stringify(opportunitiesJson, null, 2)}`;
   }
 
-  private parseResponse(content: string): PlanningData {
+  private parseResponseForPlanningData(content: string): PlanningData {
     const planningTaskSchema = z.object({
       id: z.string(),
       description: z.string(),
@@ -301,5 +302,44 @@ ${JSON.stringify(opportunitiesJson, null, 2)}`;
       this.logger.error(`Failed to parse planning data: ${String(error)}`);
       throw new Error(`Failed to parse planning data: ${String(error)}`);
     }
+  }
+
+  async transformPlanningDataIntoIcsContent(planningData: PlanningData): Promise<string> {
+    const response = await this.openai.chat.completions.create({
+      model: 'gpt-4o-mini',
+      messages: [
+        { role: 'system', content: this.getSystemPromptForIcsContent() },
+        { role: 'user', content: this.buildPromptForIcsContent(planningData) },
+      ],
+      n: 1,
+    });
+
+    const content = response.choices[0].message.content;
+    if (!content) throw new Error('Failed to generate ICS content');
+    return content;
+  }
+
+  private getSystemPromptForIcsContent(): string {
+    return `*Você vai receber uma tarefa. Nunca saia do personagem.*
+
+- Você é um agente especializado em transformar um cronograma de atividades de oportunidades de funding internacional em um arquivo .ics (iCalendar) com a definição de todos os eventos.
+- Você vai receber um planejamento em um formato predefinido.
+- Você vai criar o arquivo .ics com base no planejamento informado
+- A resposta deve ser somente o conteúdo do arquivo .ics.
+
+- Com base no que consta no planejamento, criar um arquivo de texto com extensão .ics pronto para importar no Google Agenda.
+- o arquivo gerado deve criar um evento (dia todo) para cada um dos passos do PLANEJAMENTO (✍️ PASSO 0 - PREPARAÇÃO , 📝 PASSO 1 - CANDIDATURA, 💬 PASSO 2 - PREPARAÇÃO PARA ENTREVISTA OU PITCH, 🎤 PASSO 3 - ENTREVISTA OU PITCH,    📬 PASSO 4 - RESULTADO & PRIMEIROS AJUSTES).
+- Cada evento criado deve seguir o seguinte formato:
+
+- Título do evento (cada evento terá seu título, ex.: Passo 0 - Preparação)    
+- Data de início (data atual) - Data de finalização (prazo/data de inscrição) 
+- Evento dia todo. 
+- Descrição do evento (Links úteis: [https://link-do-edital.com] + Checklist: [ ] 📘 Leitura detalhada do edital (⏱️ 4h) — Responsável: x [ ] 🧑‍🤝‍🧑 Alinhamento da equipe (⏱️ 1h30) — Responsável: x [ ] 📂 Criação de pasta com documentos-chave (⏱️ 1h) — Responsável: x)`;
+  }
+
+  private buildPromptForIcsContent(planningData: PlanningData): string {
+    return `*Planejamento*:
+
+${JSON.stringify(planningData, null, 2)}`;
   }
 }

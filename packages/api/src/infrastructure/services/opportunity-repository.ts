@@ -8,6 +8,7 @@ export interface OpportunityRepository {
   save(opportunity: Opportunity): Promise<void>;
   clear(): Promise<void>;
   findByTags(tags: string[]): Promise<Opportunity[]>;
+  findByIds(ids: string[]): Promise<Opportunity[]>;
 }
 
 export const OpportunityRepository = Symbol('OpportunityRepository');
@@ -66,6 +67,14 @@ export class OpportunityRepositoryDb implements OpportunityRepository {
   async findByTags(tags: string[]): Promise<Opportunity[]> {
     if (tags.length === 0) return [];
     const opportunities = await this.collection.find({ tags: { $in: tags } }).toArray();
+    return opportunities.map((o) => this.mapToDomain(o));
+  }
+
+  async findByIds(ids: string[]): Promise<Opportunity[]> {
+    const validIds = ids.filter((id) => ObjectId.isValid(id)).map((id) => new ObjectId(id));
+    if (validIds.length === 0) return [];
+
+    const opportunities = await this.collection.find({ _id: { $in: validIds } }).toArray();
     return opportunities.map((o) => this.mapToDomain(o));
   }
 }

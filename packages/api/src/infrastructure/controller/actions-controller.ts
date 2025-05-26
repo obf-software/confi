@@ -4,6 +4,7 @@ import { CreatePlanning } from 'src/application/create-planning';
 import { FindOpportunities } from 'src/application/find-opportunities';
 import { LoadOpportunities } from 'src/application/load-opportunities';
 import { Opportunity } from 'src/domain/opportunity';
+import { Planning } from 'src/domain/planning';
 
 @ApiTags('Actions')
 @Controller('api/v0/actions')
@@ -50,7 +51,7 @@ export class ActionsController {
     type: [Opportunity],
   })
   @Post('find-opportunities')
-  async findOpportunitiesHandler(@Body() body: Record<string, unknown>) {
+  async findOpportunitiesHandler(@Body() body: Record<string, unknown> = {}) {
     const output = await this.findOpportunities.execute({ formInput: body });
     return output.opportunities;
   }
@@ -65,12 +66,12 @@ export class ActionsController {
           schema: {
             type: 'object',
             properties: {
-              opportunities: {
+              opportunitiesIds: {
                 type: 'array',
-                items: { $ref: '#/components/schemas/Opportunity' },
+                items: { type: 'string' },
               },
             },
-            required: ['opportunities'],
+            required: ['opportunitiesIds'],
           },
         },
       },
@@ -79,22 +80,11 @@ export class ActionsController {
   @ApiResponse({
     status: 200,
     description: 'The planning was created successfully',
-    schema: {
-      type: 'object',
-      properties: {
-        planning: { $ref: '#/components/schemas/Planning' },
-        pdfUrl: { type: 'string' },
-        icsUrl: { type: 'string' },
-      },
-    },
+    type: Planning,
   })
   @Post('create-planning')
-  async createPlanningHandler(@Body() body: { opportunities: Opportunity[] }) {
-    const output = await this.createPlanning.execute({ opportunities: body.opportunities });
-    return {
-      planning: output.planning,
-      pdfUrl: output.pdfUrl,
-      icsUrl: output.icsUrl,
-    };
+  async createPlanningHandler(@Body() body: { opportunitiesIds: string[] }) {
+    const output = await this.createPlanning.execute({ opportunitiesIds: body.opportunitiesIds });
+    return output.planning;
   }
 }
