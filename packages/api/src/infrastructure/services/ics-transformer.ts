@@ -14,14 +14,14 @@ export class IcsTransformerOpenAi implements IcsTransformer {
 
   async transform(planningContent: string): Promise<string> {
     const prompt = this.buildPrompt(planningContent);
-    
+
     this.logger.log('Generating ICS content from planning');
-    
+
     const response = await this.openai.chat.completions.create({
       model: 'gpt-4o-mini',
       messages: [
         { role: 'system', content: this.getSystemPrompt() },
-        { role: 'user', content: prompt }
+        { role: 'user', content: prompt },
       ],
       n: 1,
     });

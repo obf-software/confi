@@ -10,7 +10,7 @@ export const s3Factory: FactoryProvider = {
     const region = configService.getOrThrow('AWS_REGION') as string;
     const accessKeyId = configService.getOrThrow('AWS_ACCESS_KEY_ID') as string;
     const secretAccessKey = configService.getOrThrow('AWS_SECRET_ACCESS_KEY') as string;
-    
+
     return new S3Client({
       region,
       credentials: {

@@ -30,9 +30,9 @@ export class S3ServiceAws implements S3Service {
       });
 
       await this.s3Client.send(command);
-      
+
       const fileUrl = `https://${this.bucketName}.s3.amazonaws.com/${key}`;
-      
+
       this.logger.log(`File uploaded successfully to S3: ${fileUrl}`);
       return fileUrl;
     } catch (error) {

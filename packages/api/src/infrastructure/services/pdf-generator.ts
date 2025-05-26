@@ -22,10 +22,10 @@ export class PdfGeneratorPuppeteer implements PdfGenerator {
 
     try {
       const page = await browser.newPage();
-      
+
       const html = this.generateHtml(planningData);
       await page.setContent(html, { waitUntil: 'networkidle0' });
-      
+
       const pdfBuffer = await page.pdf({
         format: 'A4',
         printBackground: true,
@@ -81,14 +81,18 @@ export class PdfGeneratorPuppeteer implements PdfGenerator {
           </div>
           ${step.description ? `<p class="step-description">${step.description}</p>` : ''}
           
-          ${step.metadata ? `
+          ${
+            step.metadata
+              ? `
             <div class="step-metadata">
               ${step.metadata.date ? `<div class="metadata-item"><strong>Data:</strong> ${step.metadata.date}</div>` : ''}
               ${step.metadata.time ? `<div class="metadata-item"><strong>Horário:</strong> ${step.metadata.time}</div>` : ''}
               ${step.metadata.location ? `<div class="metadata-item"><strong>Local:</strong> ${step.metadata.location}</div>` : ''}
               ${step.metadata.responsible ? `<div class="metadata-item"><strong>Responsável:</strong> ${step.metadata.responsible}</div>` : ''}
             </div>
-          ` : ''}
+          `
+              : ''
+          }
 
           <div class="tasks-container">
             ${this.groupTasksByWeek(step.tasks)}
@@ -143,24 +147,33 @@ export class PdfGeneratorPuppeteer implements PdfGenerator {
     `;
   }
 
-  private groupTasksByWeek(tasks: Array<{ id: string; description: string; estimatedTime?: string; week?: number }>): string {
-    const tasksByWeek = tasks.reduce((acc, task) => {
-      const week = task.week || 0;
-      if (!acc[week]) {
-        acc[week] = [];
-      }
-      acc[week].push(task);
-      return acc;
-    }, {} as Record<number, Array<{ id: string; description: string; estimatedTime?: string; week?: number }>>);
+  private groupTasksByWeek(
+    tasks: Array<{ id: string; description: string; estimatedTime?: string; week?: number }>
+  ): string {
+    const tasksByWeek = tasks.reduce(
+      (acc, task) => {
+        const week = task.week || 0;
+        if (!acc[week]) {
+          acc[week] = [];
+        }
+        acc[week].push(task);
+        return acc;
+      },
+      {} as Record<
+        number,
+        Array<{ id: string; description: string; estimatedTime?: string; week?: number }>
+      >
+    );
 
     const weekNumbers = Object.keys(tasksByWeek).map(Number).sort();
-    
+
     return weekNumbers
       .map((weekNum) => {
         if (weekNum === 0) {
           // Tasks without week specified
           return tasksByWeek[weekNum]
-            .map((task) => `
+            .map(
+              (task) => `
               <div class="task-item">
                 <div class="task-checkbox">☐</div>
                 <div class="task-content">
@@ -169,16 +182,18 @@ export class PdfGeneratorPuppeteer implements PdfGenerator {
                   <div class="task-responsible">Responsável: _____________________</div>
                 </div>
               </div>
-            `)
+            `
+            )
             .join('');
         }
-        
+
         return `
           <div class="week-group">
             <h4 class="week-title">📅 Semana ${weekNum}</h4>
             <div class="week-tasks">
               ${tasksByWeek[weekNum]
-                .map((task) => `
+                .map(
+                  (task) => `
                   <div class="task-item">
                     <div class="task-checkbox">☐</div>
                     <div class="task-content">
@@ -187,7 +202,8 @@ export class PdfGeneratorPuppeteer implements PdfGenerator {
                       <div class="task-responsible">Responsável: _____________________</div>
                     </div>
                   </div>
-                `)
+                `
+                )
                 .join('')}
             </div>
           </div>

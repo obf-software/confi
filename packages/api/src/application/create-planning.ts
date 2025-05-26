@@ -42,7 +42,7 @@ export class CreatePlanning {
     // Upload files to S3
     const [pdfUrl, icsUrl] = await Promise.all([
       this.s3Service.uploadFile(pdfKey, pdfBuffer, 'application/pdf'),
-      this.s3Service.uploadFile(icsKey, icsContent, 'text/calendar')
+      this.s3Service.uploadFile(icsKey, icsContent, 'text/calendar'),
     ]);
 
     this.logger.debug(`Files uploaded - PDF: ${pdfUrl}, ICS: ${icsUrl}`);
@@ -65,7 +65,7 @@ export class CreatePlanning {
 
   private convertPlanningDataToText(planningData: any): string {
     let text = 'PLANEJAMENTO DE INSCRIÇÃO - OPORTUNIDADES INTERNACIONAIS DE FUNDING\n\n';
-    
+
     // Add opportunities info
     planningData.opportunities.forEach((opp: any) => {
       text += `Oportunidade: ${opp.name}\n`;
@@ -80,7 +80,7 @@ export class CreatePlanning {
       if (step.description) {
         text += `${step.description}\n`;
       }
-      
+
       step.tasks.forEach((task: any) => {
         text += `[ ] ${task.description}`;
         if (task.estimatedTime) {

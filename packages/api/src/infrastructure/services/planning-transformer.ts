@@ -17,14 +17,14 @@ export class PlanningTransformerOpenAi implements PlanningTransformer {
 
   async transform(opportunities: Opportunity[]): Promise<PlanningData> {
     const prompt = this.buildPrompt(opportunities);
-    
+
     this.logger.log(`Generating planning for ${opportunities.length} opportunities`);
-    
+
     const response = await this.openai.chat.completions.create({
       model: 'gpt-4o-mini',
       messages: [
         { role: 'system', content: this.getSystemPrompt() },
-        { role: 'user', content: prompt }
+        { role: 'user', content: prompt },
       ],
       response_format: { type: 'json_object' },
       n: 1,
@@ -241,7 +241,7 @@ Retorne apenas o JSON estruturado sem texto adicional.`;
   }
 
   private buildPrompt(opportunities: Opportunity[]): string {
-    const opportunitiesJson = opportunities.map(opportunity => ({
+    const opportunitiesJson = opportunities.map((opportunity) => ({
       name: opportunity.name,
       description: opportunity.description,
       benefits: opportunity.benefits,
@@ -249,7 +249,7 @@ Retorne apenas o JSON estruturado sem texto adicional.`;
       enrollmentDeadline: opportunity.enrollmentDeadline,
       preparationTime: opportunity.preparationTime,
       requiredDocumentation: opportunity.requiredDocumentation,
-      link: opportunity.link
+      link: opportunity.link,
     }));
 
     return `Oportunidades selecionadas:
@@ -273,12 +273,14 @@ ${JSON.stringify(opportunitiesJson, null, 2)}`;
       emoji: z.string(),
       description: z.string().optional(),
       tasks: z.array(planningTaskSchema),
-      metadata: z.object({
-        date: z.string().optional(),
-        time: z.string().optional(),
-        location: z.string().optional(),
-        responsible: z.string().optional(),
-      }).optional(),
+      metadata: z
+        .object({
+          date: z.string().optional(),
+          time: z.string().optional(),
+          location: z.string().optional(),
+          responsible: z.string().optional(),
+        })
+        .optional(),
     });
 
     const opportunityPlanningDataSchema = z.object({
