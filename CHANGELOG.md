@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.2](https://github.com/obf-software/confi/compare/v1.9.1...v1.9.2) (2025-06-03)
+
+
+### Bug Fixes
+
+* release workflow ([5a884db](https://github.com/obf-software/confi/commit/5a884db3201b5a559985b689f3711c40cc381334))
+
 ## [1.9.1](https://github.com/obf-software/confi/compare/v1.9.0...v1.9.1) (2025-06-03)
 
 
