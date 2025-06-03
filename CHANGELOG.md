@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.9.0](https://github.com/obf-software/confi/compare/v1.8.0...v1.9.0) (2025-06-03)
+
+
+### Features
+
+* add api use cases ([b8de38a](https://github.com/obf-software/confi/commit/b8de38a595bc7af08d282c419d35431f5e78eeba))
+* add body docs to controllers ([7d68228](https://github.com/obf-software/confi/commit/7d68228e4a738f329bcdd04c586006128590130f))
+* add log statements to easy allow debugging ([f9090bf](https://github.com/obf-software/confi/commit/f9090bf66eafd849d6034e6a6fb5f7531ecffaa3))
+* add openapi documentation support ([13bf766](https://github.com/obf-software/confi/commit/13bf766c171f5b532b720eaa40311b5297b9e1db))
+* add simple dockerfile for railway ([657b525](https://github.com/obf-software/confi/commit/657b525e16d221902d42e0de6c1acb2a6511ed7f))
+* add support to open ai clinet organization ([8b63e6c](https://github.com/obf-software/confi/commit/8b63e6c16c7bcc3bf700991e7a5900db767479d6))
+
+
+### Bug Fixes
+
+* adjust transformers to parse response correctly ([344a43c](https://github.com/obf-software/confi/commit/344a43cb264a5a4a0b856a48f8712408bb135b24))
+
 ## [1.8.0](https://github.com/obf-software/confi/compare/v1.7.0...v1.8.0) (2025-05-16)
 
 
