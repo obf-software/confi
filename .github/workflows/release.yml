@@ -55,6 +55,7 @@ jobs:
 
       - name: Build
         if: ${{ steps.release-please.outputs.release_created }}
+        working-directory: packages/client
         run: pnpm build
         env:
           VITE_BASE_PATH: ${{ vars.VITE_BASE_PATH }}
@@ -67,7 +68,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         if: ${{ steps.release-please.outputs.release_created }}
         with:
-          path: './dist'
+          path: './packages/client/dist'
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
