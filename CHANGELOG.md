@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.3](https://github.com/obf-software/confi/compare/v1.9.2...v1.9.3) (2025-06-03)
+
+
+### Bug Fixes
+
+* add missing envar ([38ea045](https://github.com/obf-software/confi/commit/38ea045d52833575ea49a567dcbd3588b0bcba74))
+
 ## [1.9.2](https://github.com/obf-software/confi/compare/v1.9.1...v1.9.2) (2025-06-03)
 
 
