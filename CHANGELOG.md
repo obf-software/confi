@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.4](https://github.com/obf-software/confi/compare/v1.9.3...v1.9.4) (2025-06-03)
+
+
+### Bug Fixes
+
+* adjust file download ([2230361](https://github.com/obf-software/confi/commit/223036136b8521d7d451d2350a33fb8d20d74211))
+
 ## [1.9.3](https://github.com/obf-software/confi/compare/v1.9.2...v1.9.3) (2025-06-03)
 
 
