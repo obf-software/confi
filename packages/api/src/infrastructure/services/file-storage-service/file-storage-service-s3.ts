@@ -26,18 +26,18 @@ export class FileStorageServiceS3 implements FileStorageService {
     this.bucketName = configService.getOrThrow<string>('AWS_S3_BUCKET_NAME');
   }
 
-  private generateUniqueKey(): string {
+  private generateUniqueKey(extension: string): string {
     const now = dayjs().utc();
     const year = now.year().toString();
     const month = (now.month() + 1).toString().padStart(2, '0');
     const day = now.date().toString().padStart(2, '0');
     const incrementalId = new ObjectId().toString();
 
-    return `${year}/${month}/${day}/${incrementalId}`;
+    return `${year}/${month}/${day}/${incrementalId}.${extension}`;
   }
 
   async upload(input: FileStorageService.Upload.Input): Promise<FileStorageService.Upload.Output> {
-    const key = this.generateUniqueKey();
+    const key = this.generateUniqueKey(input.extension);
     const command = new PutObjectCommand({
       Bucket: this.bucketName,
       Key: key,

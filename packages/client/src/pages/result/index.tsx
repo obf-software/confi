@@ -1,10 +1,10 @@
 import {
   Button,
   Container,
-  DownloadTrigger,
   EmptyState,
   Flex,
   Link,
+  LinkOverlay,
   Stack,
   VStack,
 } from '@chakra-ui/react';
@@ -64,10 +64,9 @@ export const Result: React.FC = () => {
               align='center'
               gap='4'
             >
-              <DownloadTrigger
-                fileName='planejamento.pdf'
-                data={() => fetch(planning.pdfUrl).then((res) => res.blob())}
-                mimeType='application/pdf'
+              <LinkOverlay
+                href={planning.pdfUrl}
+                target='_blank'
               >
                 <Button
                   colorPalette='brandPrimaryButton'
@@ -77,12 +76,11 @@ export const Result: React.FC = () => {
                   Baixar Planejamento
                   <BiDownload />
                 </Button>
-              </DownloadTrigger>
+              </LinkOverlay>
 
-              <DownloadTrigger
-                fileName='planejamento.ics'
-                data={() => fetch(planning.icsUrl).then((res) => res.blob())}
-                mimeType='text/calendar'
+              <LinkOverlay
+                href={planning.icsUrl}
+                target='_blank'
               >
                 <Button
                   colorPalette='brandPrimaryButton'
@@ -92,7 +90,7 @@ export const Result: React.FC = () => {
                   Adicionar ao Google Calendar
                   <BiCalendar />
                 </Button>
-              </DownloadTrigger>
+              </LinkOverlay>
 
               <Link
                 href='https://wa.me/5541996892354'

@@ -34,7 +34,11 @@ export class CreatePlanning {
       this.pdfGenerator
         .generatePdf(planningData)
         .then((fileBuffer) =>
-          this.fileStorageService.upload({ content: fileBuffer, contentType: 'application/pdf' })
+          this.fileStorageService.upload({
+            content: fileBuffer,
+            contentType: 'application/pdf',
+            extension: 'pdf',
+          })
         )
         .then(({ fileInfo }) => this.fileStorageService.getFileDownloadUrl({ fileInfo }))
         .then(({ url }) => url),
@@ -42,7 +46,11 @@ export class CreatePlanning {
       this.planningTransformer
         .transformPlanningDataIntoIcsContent(planningData)
         .then((icsContent) =>
-          this.fileStorageService.upload({ content: icsContent, contentType: 'text/calendar' })
+          this.fileStorageService.upload({
+            content: icsContent,
+            contentType: 'text/calendar',
+            extension: 'ics',
+          })
         )
         .then(({ fileInfo }) => this.fileStorageService.getFileDownloadUrl({ fileInfo }))
         .then(({ url }) => url),

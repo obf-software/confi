@@ -18,6 +18,7 @@ export namespace FileStorageService {
     export interface Input {
       content: string | Buffer;
       contentType: string;
+      extension: string;
     }
 
     export interface Output {
