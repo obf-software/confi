@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.1](https://github.com/obf-software/confi/compare/v1.9.0...v1.9.1) (2025-06-03)
+
+
+### Bug Fixes
+
+* trigger deployment ([a49d903](https://github.com/obf-software/confi/commit/a49d9038426ef13a20a3bc16c32b64a5e2172232))
+
 ## [1.9.0](https://github.com/obf-software/confi/compare/v1.8.0...v1.9.0) (2025-06-03)
 
 
