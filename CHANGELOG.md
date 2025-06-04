@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.5](https://github.com/obf-software/confi/compare/v1.9.4...v1.9.5) (2025-06-04)
+
+
+### Bug Fixes
+
+* adjust material download ([a6f3e0e](https://github.com/obf-software/confi/commit/a6f3e0ed6d69367c55c11ac064ba6496993e4da2))
+
 ## [1.9.4](https://github.com/obf-software/confi/compare/v1.9.3...v1.9.4) (2025-06-03)
 
 
