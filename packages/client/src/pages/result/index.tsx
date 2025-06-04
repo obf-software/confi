@@ -1,13 +1,4 @@
-import {
-  Button,
-  Container,
-  EmptyState,
-  Flex,
-  Link,
-  LinkOverlay,
-  Stack,
-  VStack,
-} from '@chakra-ui/react';
+import { Button, Container, EmptyState, Flex, Link, Stack, VStack } from '@chakra-ui/react';
 import React from 'react';
 import { BiCalendar, BiDownload } from 'react-icons/bi';
 import { MdWhatsapp } from 'react-icons/md';
@@ -64,7 +55,7 @@ export const Result: React.FC = () => {
               align='center'
               gap='4'
             >
-              <LinkOverlay
+              <Link
                 href={planning.pdfUrl}
                 target='_blank'
               >
@@ -76,9 +67,9 @@ export const Result: React.FC = () => {
                   Baixar Planejamento
                   <BiDownload />
                 </Button>
-              </LinkOverlay>
+              </Link>
 
-              <LinkOverlay
+              <Link
                 href={planning.icsUrl}
                 target='_blank'
               >
@@ -90,7 +81,7 @@ export const Result: React.FC = () => {
                   Adicionar ao Google Calendar
                   <BiCalendar />
                 </Button>
-              </LinkOverlay>
+              </Link>
 
               <Link
                 href='https://wa.me/5541996892354'
