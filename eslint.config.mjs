@@ -6,7 +6,9 @@ import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
-  { ignores: ['_dev', 'node_modules', '**/dist/**', '**/node_modules/**'] },
+  {
+    ignores: ['_dev', 'node_modules', '**/dist/**', '**/node_modules/**', '.sst'],
+  },
   {
     name: 'base',
     extends: [
@@ -19,12 +21,10 @@ export default tseslint.config(
       ecmaVersion: 2020,
       globals: globals.browser,
       parserOptions: {
-        project: [
-          './tsconfig.json',
-          './packages/client/tsconfig.node.json',
-          './packages/client/tsconfig.app.json',
-          './packages/api/tsconfig.json',
-        ],
+        projectService: {
+          defaultProject: './tsconfig.json',
+          allowDefaultProject: ['eslint.config.mjs'],
+        },
         tsconfigRootDir: import.meta.dirname,
       },
     },

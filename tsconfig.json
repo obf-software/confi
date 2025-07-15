@@ -1,18 +1,9 @@
 {
+  "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
-    "module": "ESNext",
-    "moduleResolution": "bundler",
-    "target": "ES2022",
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "allowImportingTsExtensions": true,
-    "noEmit": true,
-    "strict": true,
-    "noImplicitAny": true,
     "strictNullChecks": true,
-    "allowJs": true
+    "skipLibCheck": true,
+    "esModuleInterop": true
   },
-  "include": ["eslint.config.mjs"]
+  "exclude": ["node_modules", "dist", "_dev", "packages"]
 }
