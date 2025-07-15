@@ -19,6 +19,12 @@ const service = new sst.aws.Service('ApiService', {
     port: 8080,
   },
   link: [auth.userPool, auth.userPoolClient, appSync],
+  permissions: [
+    {
+      actions: ['bedrock:*'],
+      resources: ['*'],
+    },
+  ],
 });
 
 const apiGateway = new sst.aws.ApiGatewayV2('ApiApiGatewayV2', { vpc });

@@ -14,7 +14,6 @@ import { mongoClientFactory } from './infrastructure/factory/mongo-client-factor
 import { openAiClientFactory } from './infrastructure/factory/open-ai-client-factory';
 import {
   FileStorageService,
-  FileStorageServiceLocal,
   FileStorageServiceS3,
 } from './infrastructure/services/file-storage-service';
 import {
@@ -37,17 +36,12 @@ import {
 import { TagRepository, TagRepositoryDb } from './infrastructure/services/tag-repository';
 import { TagTransformer, TagTransformerOpenAi } from './infrastructure/services/tag-transformer';
 
-const isDevelopment = process.env.NODE_ENV !== 'production';
-
 @Module({
   imports: [ConfigModule.forRoot({ isGlobal: true })],
   controllers: [ActionsController, TagsController],
   providers: [
     // Services
-    {
-      provide: FileStorageService,
-      useClass: isDevelopment ? FileStorageServiceLocal : FileStorageServiceS3,
-    },
+    { provide: FileStorageService, useClass: FileStorageServiceS3 },
     { provide: OpportunityRepository, useClass: OpportunityRepositoryDb },
     { provide: OpportunitySource, useClass: OpportunitySourceSheets },
     { provide: OpportunityTransformer, useClass: OpportunityTransformerOpenAi },
