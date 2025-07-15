@@ -6,7 +6,7 @@ const appSync = new sst.aws.AppSync('AppSync', {
     api: {
       authenticationType: 'AMAZON_COGNITO_USER_POOLS',
       userPoolConfig: {
-        defaultAction: 'DENY',
+        defaultAction: 'ALLOW',
         userPoolId: auth.userPool.id,
         appIdClientRegex: auth.userPoolClient.id,
       },

@@ -14,7 +14,8 @@ const staticSite = new sst.aws.StaticSite('ClientStaticSite', {
     command: 'pnpm build',
   },
   environment: {
-    VITE_API_URL: api.apiGateway.url,
+    VITE_API_URL: api.url,
+    VITE_BASE_PATH: '/confi/',
     VITE_USER_POOL_ID: auth.userPool.id,
     VITE_USER_POOL_CLIENT_ID: auth.userPoolClient.id,
   },
