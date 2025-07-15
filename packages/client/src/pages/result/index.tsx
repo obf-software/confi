@@ -6,7 +6,6 @@ import { SiNicehash } from 'react-icons/si';
 import { SlRefresh } from 'react-icons/sl';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { buildPath } from '../../helpers/build-path';
 import { Planning } from '../../services/api';
 
 export const Result: React.FC = () => {
@@ -17,7 +16,7 @@ export const Result: React.FC = () => {
 
   React.useEffect(() => {
     if (!planning) {
-      void navigate(buildPath('/'));
+      void navigate('/');
     }
   }, [navigate, planning]);
 
@@ -103,7 +102,7 @@ export const Result: React.FC = () => {
                 rounded='full'
                 size='xl'
                 onClick={() => {
-                  void navigate(buildPath('search'));
+                  void navigate('/search');
                 }}
               >
                 Reiniciar

@@ -5,7 +5,6 @@ import { SlRefresh } from 'react-icons/sl';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { toasterStore } from '../../components/toaster';
-import { buildPath } from '../../helpers/build-path';
 import { Opportunity } from '../../services/api';
 import { OpportunityCard } from './card';
 import { useCreatePlanning } from './use-create-planning';
@@ -33,7 +32,7 @@ export const Opportunities: React.FC = () => {
         onSuccess: (planning) => {
           setIsLoading(false);
 
-          void navigate(buildPath('result'), { state: { planning } });
+          void navigate('/result', { state: { planning } });
         },
         onError: (error) => {
           setIsLoading(false);
@@ -54,7 +53,7 @@ export const Opportunities: React.FC = () => {
 
   React.useEffect(() => {
     if (opportunities === undefined) {
-      void navigate(buildPath('/'));
+      void navigate('/');
     }
   }, [navigate, opportunities]);
 
@@ -93,7 +92,7 @@ export const Opportunities: React.FC = () => {
                 rounded='full'
                 size='xl'
                 onClick={() => {
-                  void navigate(buildPath('search'));
+                  void navigate('/search');
                 }}
               >
                 Reiniciar

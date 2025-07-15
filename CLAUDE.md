@@ -104,7 +104,6 @@ Configure using `.env` files (see `.env.example` in each package):
 
 ### Client Environment Variables
 
-- `VITE_BASE_PATH`: Base path for deployment
 - `VITE_API_URL`: Backend API URL
 
 ## API Documentation

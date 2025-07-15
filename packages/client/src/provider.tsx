@@ -1,11 +1,10 @@
 import { ChakraProvider } from '@chakra-ui/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import React from 'react';
-import { createHashRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import { ColorModeProvider } from './components/color-mode';
 import { MainLayout } from './components/main-layout';
-import { buildPath } from './helpers/build-path';
 import { Home } from './pages/home';
 import { Opportunities } from './pages/opportunities';
 import { Result } from './pages/result';
@@ -17,9 +16,9 @@ const queryClient = new QueryClient();
 export const Provider: React.FC = () => {
   // const
 
-  const router = createHashRouter([
+  const router = createBrowserRouter([
     {
-      path: '*',
+      path: '/',
       element: <MainLayout />,
       children: [
         {
@@ -27,15 +26,15 @@ export const Provider: React.FC = () => {
           element: <Home />,
         },
         {
-          path: buildPath('search', true),
+          path: 'search',
           element: <Search />,
         },
         {
-          path: buildPath('opportunities', true),
+          path: 'opportunities',
           element: <Opportunities />,
         },
         {
-          path: buildPath('result', true),
+          path: 'result',
           element: <Result />,
         },
       ],
