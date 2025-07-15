@@ -21,6 +21,10 @@ export const planningSchema = z.object({
   id: z.string(),
   pdfUrl: z.string(),
   icsUrl: z.string(),
+  status: z.string().optional(),
+  createdAt: z.string().optional(),
+  title: z.string().optional(),
+  opportunities: z.array(z.string()).optional(),
 });
 
 export type Planning = z.infer<typeof planningSchema>;

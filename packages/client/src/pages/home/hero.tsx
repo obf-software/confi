@@ -13,7 +13,6 @@ import React from 'react';
 import { RiArrowRightLine } from 'react-icons/ri';
 import { useNavigate } from 'react-router-dom';
 
-
 export type HeroProps = FlexProps;
 
 export const Hero: React.FC<HeroProps> = ({ ...flexProps }) => {
@@ -81,10 +80,13 @@ export const Hero: React.FC<HeroProps> = ({ ...flexProps }) => {
           <Box
             w='full'
             display='flex'
+            flexDirection={{ base: 'column', md: 'row' }}
+            gap='4'
             justifyContent={{
               base: 'center',
               md: 'flex-start',
             }}
+            alignItems='center'
           >
             <Button
               colorPalette='brandPrimaryButton'
@@ -106,6 +108,23 @@ export const Hero: React.FC<HeroProps> = ({ ...flexProps }) => {
               <Icon display='none'>
                 <RiArrowRightLine />
               </Icon>
+            </Button>
+
+            <Button
+              variant='outline'
+              borderRadius='full'
+              borderColor='white'
+              color='white'
+              size='2xl'
+              px='14'
+              _hover={{
+                bg: 'whiteAlpha.200',
+              }}
+              onClick={() => {
+                void navigate('/login');
+              }}
+            >
+              Entrar na minha conta
             </Button>
           </Box>
         </VStack>

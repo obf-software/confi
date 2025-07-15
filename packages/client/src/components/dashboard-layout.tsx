@@ -1,0 +1,239 @@
+import {
+  Box,
+  Button,
+  Container,
+  Flex,
+  HStack,
+  Icon,
+  IconButton,
+  Separator,
+  Stack,
+  Text,
+  VStack,
+} from '@chakra-ui/react';
+import React from 'react';
+import { BiLogOut, BiSearch, BiUser } from 'react-icons/bi';
+import { FiMenu, FiX } from 'react-icons/fi';
+import { MdOutlineBusinessCenter } from 'react-icons/md';
+import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+
+import { useAuth } from '../contexts/auth-context';
+
+const SidebarLink: React.FC<{
+  to: string;
+  icon: React.ReactNode;
+  children: React.ReactNode;
+  onClick?: () => void;
+}> = ({ to, icon, children, onClick }) => (
+  <NavLink
+    to={to}
+    onClick={onClick}
+    style={({ isActive }) => ({
+      textDecoration: 'none',
+      display: 'block',
+      width: '100%',
+    })}
+  >
+    {({ isActive }) => (
+      <Button
+        variant='ghost'
+        justifyContent='flex-start'
+        size='lg'
+        w='full'
+        bg={isActive ? 'brandPrimaryButton.50' : 'transparent'}
+        color={isActive ? 'brandPrimaryButton.700' : 'gray.700'}
+        fontWeight={isActive ? 'semibold' : 'normal'}
+      >
+        <Icon mr='3'>{icon}</Icon>
+        {children}
+      </Button>
+    )}
+  </NavLink>
+);
+
+export const DashboardLayout: React.FC = () => {
+  const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
+  const { logout, user } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      void navigate('/');
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
+  };
+
+  const closeSidebar = () => { setIsSidebarOpen(false); };
+
+  const SidebarContent = () => (
+    <VStack
+      h='full'
+      justify='space-between'
+      align='stretch'
+      p='6'
+      bg='white'
+      borderRightWidth='1px'
+      borderColor='gray.200'
+      minW='280px'
+    >
+      <VStack
+        align='stretch'
+        gap='4'
+      >
+        <Box>
+          <Text
+            fontSize='2xl'
+            fontWeight='bold'
+            color='brandPrimaryButton.600'
+            mb='6'
+          >
+            Confi
+          </Text>
+        </Box>
+
+        <Stack gap='2'>
+          <SidebarLink
+            to='/dashboard/search'
+            icon={<BiSearch />}
+            onClick={closeSidebar}
+          >
+            Buscar Oportunidades
+          </SidebarLink>
+          <SidebarLink
+            to='/dashboard/plannings'
+            icon={<MdOutlineBusinessCenter />}
+            onClick={closeSidebar}
+          >
+            Meus Planejamentos
+          </SidebarLink>
+          <SidebarLink
+            to='/dashboard/profile'
+            icon={<BiUser />}
+            onClick={closeSidebar}
+          >
+            Perfil
+          </SidebarLink>
+        </Stack>
+      </VStack>
+
+      <VStack
+        align='stretch'
+        gap='4'
+      >
+        <Separator />
+        <Box>
+          <Text
+            fontSize='sm'
+            color='gray.600'
+            mb='2'
+          >
+            Logado como:
+          </Text>
+          <Text
+            fontSize='sm'
+            fontWeight='medium'
+            color='gray.800'
+            textOverflow='ellipsis'
+            overflow='hidden'
+            whiteSpace='nowrap'
+          >
+            {user?.username || 'Usuário'}
+          </Text>
+        </Box>
+        <Button
+          variant='ghost'
+          colorPalette='red'
+          justifyContent='flex-start'
+          size='lg'
+          onClick={() => {
+            void handleLogout();
+          }}
+        >
+          <Icon mr='3'>
+            <BiLogOut />
+          </Icon>
+          Sair
+        </Button>
+      </VStack>
+    </VStack>
+  );
+
+  return (
+    <Flex
+      h='100vh'
+      bg='gray.50'
+    >
+      {/* Mobile sidebar overlay */}
+      {isSidebarOpen && (
+        <Box
+          position='fixed'
+          inset='0'
+          bg='blackAlpha.600'
+          zIndex='overlay'
+          display={{ base: 'block', lg: 'none' }}
+          onClick={closeSidebar}
+        />
+      )}
+
+      {/* Sidebar */}
+      <Box
+        position={{ base: 'fixed', lg: 'static' }}
+        left={{ base: isSidebarOpen ? '0' : '-280px', lg: '0' }}
+        top='0'
+        h='full'
+        zIndex='modal'
+        transition='left 0.3s'
+        display={{ base: 'block', lg: 'block' }}
+      >
+        <SidebarContent />
+      </Box>
+
+      {/* Main content */}
+      <Flex
+        direction='column'
+        flex='1'
+        overflow='hidden'
+      >
+        {/* Top bar for mobile */}
+        <HStack
+          display={{ base: 'flex', lg: 'none' }}
+          justify='space-between'
+          p='4'
+          bg='white'
+          borderBottomWidth='1px'
+          borderColor='gray.200'
+        >
+          <IconButton
+            variant='ghost'
+            onClick={() => { setIsSidebarOpen(!isSidebarOpen); }}
+            aria-label='Toggle sidebar'
+          >
+            {isSidebarOpen ? <FiX /> : <FiMenu />}
+          </IconButton>
+          <Text
+            fontSize='xl'
+            fontWeight='bold'
+            color='brandPrimaryButton.600'
+          >
+            Confi
+          </Text>
+        </HStack>
+
+        {/* Page content */}
+        <Box
+          flex='1'
+          overflow='auto'
+        >
+          <Container
+            maxW='8xl'
+            py='8'
+          >
+            <Outlet />
+          </Container>
+        </Box>
+      </Flex>
+    </Flex>
+  );
+};
