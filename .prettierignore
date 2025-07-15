@@ -10,3 +10,5 @@ pnpm-lock.yaml
 
 # Client package
 packages/client/dist
+
+sst-env.d.ts

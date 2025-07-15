@@ -7,7 +7,14 @@ import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
   {
-    ignores: ['_dev', 'node_modules', '**/dist/**', '**/node_modules/**', '.sst'],
+    ignores: [
+      '_dev',
+      'node_modules',
+      '**/dist/**',
+      '**/node_modules/**',
+      '.sst',
+      '**/sst-env.d.ts',
+    ],
   },
   {
     name: 'base',

@@ -96,7 +96,7 @@ Configure using `.env` files (see `.env.example` in each package):
 
 ### API Environment Variables
 
-- `MONGO_URL`: MongoDB connection string
+- `MONGODB_URI`: MongoDB connection string
 - `GOOGLE_*`: Google Sheets credentials and spreadsheet ID
 - `OPENAI_*`: API key and organization
 - `MINIO_*` or `AWS_*`: File storage credentials

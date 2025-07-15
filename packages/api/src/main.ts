@@ -10,8 +10,8 @@ import { FindOpportunities } from './application/find-opportunities';
 import { LoadOpportunities } from './application/load-opportunities';
 import { ActionsController } from './infrastructure/controller/actions-controller';
 import { TagsController } from './infrastructure/controller/tags-controller';
+import { bedrockClientFactory } from './infrastructure/factory/bedrock-client-factory';
 import { mongoClientFactory } from './infrastructure/factory/mongo-client-factory';
-import { openAiClientFactory } from './infrastructure/factory/open-ai-client-factory';
 import {
   FileStorageService,
   FileStorageServiceS3,
@@ -26,15 +26,18 @@ import {
 } from './infrastructure/services/opportunity-source';
 import {
   OpportunityTransformer,
-  OpportunityTransformerOpenAi,
+  OpportunityTransformerAwsBedrock,
 } from './infrastructure/services/opportunity-transformer';
 import { PdfGenerator, PdfGeneratorPuppeteer } from './infrastructure/services/pdf-generator';
 import {
   PlanningTransformer,
-  PlanningTransformerOpenAi,
+  PlanningTransformerAwsBedrock,
 } from './infrastructure/services/planning-transformer';
 import { TagRepository, TagRepositoryDb } from './infrastructure/services/tag-repository';
-import { TagTransformer, TagTransformerOpenAi } from './infrastructure/services/tag-transformer';
+import {
+  TagTransformer,
+  TagTransformerAwsBedrock,
+} from './infrastructure/services/tag-transformer';
 
 @Module({
   imports: [ConfigModule.forRoot({ isGlobal: true })],
@@ -44,15 +47,15 @@ import { TagTransformer, TagTransformerOpenAi } from './infrastructure/services/
     { provide: FileStorageService, useClass: FileStorageServiceS3 },
     { provide: OpportunityRepository, useClass: OpportunityRepositoryDb },
     { provide: OpportunitySource, useClass: OpportunitySourceSheets },
-    { provide: OpportunityTransformer, useClass: OpportunityTransformerOpenAi },
+    { provide: OpportunityTransformer, useClass: OpportunityTransformerAwsBedrock },
     { provide: PdfGenerator, useClass: PdfGeneratorPuppeteer },
-    { provide: PlanningTransformer, useClass: PlanningTransformerOpenAi },
+    { provide: PlanningTransformer, useClass: PlanningTransformerAwsBedrock },
     { provide: TagRepository, useClass: TagRepositoryDb },
-    { provide: TagTransformer, useClass: TagTransformerOpenAi },
+    { provide: TagTransformer, useClass: TagTransformerAwsBedrock },
 
     // Factories
     mongoClientFactory,
-    openAiClientFactory,
+    bedrockClientFactory,
 
     // Use Cases
     CreatePlanning,

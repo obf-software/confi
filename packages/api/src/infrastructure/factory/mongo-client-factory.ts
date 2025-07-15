@@ -8,7 +8,7 @@ export const mongoClientFactory: FactoryProvider = {
 
   useFactory: (configService: ConfigService) => {
     const logger = new Logger('MongoClientFactory');
-    const url = configService.getOrThrow<string>('MONGO_URL');
+    const url = configService.getOrThrow<string>('MONGODB_URI');
     const client = new MongoClient(url);
 
     client.on('error', (error) => {

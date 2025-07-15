@@ -1,8 +1,18 @@
+import {
+  BedrockRuntimeClient,
+  InvokeModelCommand,
+  InvokeModelCommandOutput,
+} from '@aws-sdk/client-bedrock-runtime';
 import { Inject, Logger } from '@nestjs/common';
-import OpenAI from 'openai';
 import { Opportunity } from 'src/domain/opportunity';
 import { Tag } from 'src/domain/tag';
 import { z } from 'zod';
+
+interface BedrockResponse {
+  content: {
+    text: string;
+  }[];
+}
 
 export interface OpportunityTransformer {
   transform(
@@ -13,10 +23,12 @@ export interface OpportunityTransformer {
 
 export const OpportunityTransformer = Symbol('OpportunityTransformer');
 
-export class OpportunityTransformerOpenAi implements OpportunityTransformer {
-  private readonly logger = new Logger(OpportunityTransformerOpenAi.name);
+export class OpportunityTransformerAwsBedrock implements OpportunityTransformer {
+  private readonly logger = new Logger(OpportunityTransformerAwsBedrock.name);
 
-  constructor(@Inject(OpenAI) private readonly openai: OpenAI) {}
+  constructor(
+    @Inject(BedrockRuntimeClient) private readonly bedrockRuntimeClient: BedrockRuntimeClient
+  ) {}
 
   /**
    * 1. map opportunity to domain
@@ -31,12 +43,22 @@ export class OpportunityTransformerOpenAi implements OpportunityTransformer {
 
     for (const opportunity of opportunities) {
       const prompt = this.buildPrompt(opportunity, availableTags);
-      const response = await this.openai.chat.completions.create({
-        model: 'gpt-4o-mini',
-        messages: [{ role: 'user', content: prompt }],
-        response_format: { type: 'json_object' },
-        n: 1,
-      });
+      const response = await this.bedrockRuntimeClient.send(
+        new InvokeModelCommand({
+          modelId: 'anthropic.claude-3-5-sonnet-20240620-v1:0',
+          body: JSON.stringify({
+            messages: [
+              {
+                role: 'user',
+                content: prompt
+              }
+            ],
+            max_tokens: 4000,
+            temperature: 0.7,
+            anthropic_version: 'bedrock-2023-05-31'
+          })
+        })
+      );
 
       yield this.parseResponse(response, availableTags);
     }
@@ -126,10 +148,11 @@ Retorne apenas o JSON estruturado sem texto adicional.
       .join('\n');
   }
 
-  private parseResponse(
-    response: OpenAI.Chat.Completions.ChatCompletion,
-    availableTags: Tag[]
-  ): Opportunity {
+  private parseResponse(response: InvokeModelCommandOutput, availableTags: Tag[]): Opportunity {
+    const responseBody = JSON.parse(response.body.transformToString()) as BedrockResponse;
+    const content = responseBody.content[0]?.text;
+    if (!content) throw new Error('Failed to get response content');
+    
     const data = z
       .object({
         benefits: z.array(z.string()),
@@ -142,7 +165,7 @@ Retorne apenas o JSON estruturado sem texto adicional.
         requiredDocumentation: z.array(z.string()),
         tags: z.array(z.string()),
       })
-      .parse(JSON.parse(response.choices[0].message.content ?? '{}'));
+      .parse(JSON.parse(content));
 
     const tags = data.tags.filter((tag) => availableTags.some((t) => t.slug === tag));
 

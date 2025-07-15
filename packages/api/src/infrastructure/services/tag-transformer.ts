@@ -1,7 +1,17 @@
+import {
+  BedrockRuntimeClient,
+  InvokeModelCommand,
+  InvokeModelCommandOutput,
+} from '@aws-sdk/client-bedrock-runtime';
 import { Inject, Logger } from '@nestjs/common';
-import { OpenAI } from 'openai';
 import { Tag } from 'src/domain/tag';
 import { z } from 'zod';
+
+interface BedrockResponse {
+  content: {
+    text: string;
+  }[];
+}
 
 export interface TagTransformer {
   /**
@@ -12,10 +22,12 @@ export interface TagTransformer {
 
 export const TagTransformer = Symbol('TagTransformer');
 
-export class TagTransformerOpenAi implements TagTransformer {
-  private readonly logger = new Logger(TagTransformerOpenAi.name);
+export class TagTransformerAwsBedrock implements TagTransformer {
+  private readonly logger = new Logger(TagTransformerAwsBedrock.name);
 
-  constructor(@Inject(OpenAI) private readonly openai: OpenAI) {}
+  constructor(
+    @Inject(BedrockRuntimeClient) private readonly bedrockRuntimeClient: BedrockRuntimeClient
+  ) {}
 
   /**
    * 1. build prompt
@@ -28,12 +40,22 @@ export class TagTransformerOpenAi implements TagTransformer {
     if (Object.keys(data).length === 0) return [];
 
     const prompt = this.buildPrompt(data, availableTags);
-    const response = await this.openai.chat.completions.create({
-      model: 'gpt-4o-mini',
-      messages: [{ role: 'user', content: prompt }],
-      response_format: { type: 'json_object' },
-      n: 1,
-    });
+    const response = await this.bedrockRuntimeClient.send(
+      new InvokeModelCommand({
+        modelId: 'anthropic.claude-3-5-sonnet-20240620-v1:0',
+        body: JSON.stringify({
+          messages: [
+            {
+              role: 'user',
+              content: prompt
+            }
+          ],
+          max_tokens: 4000,
+          temperature: 0.7,
+          anthropic_version: 'bedrock-2023-05-31'
+        })
+      })
+    );
     return this.parseResponse(response, availableTags);
   }
 
@@ -108,11 +130,14 @@ EXAMPLE RESPONSES (JSON):
       .join('\n');
   }
 
-  private parseResponse(
-    response: OpenAI.Chat.Completions.ChatCompletion,
-    availableTags: Tag[]
-  ): Tag[] {
-    const content = response.choices[0].message.content ?? '{}';
+  private parseResponse(response: InvokeModelCommandOutput, availableTags: Tag[]): Tag[] {
+    const responseBody = JSON.parse(response.body.transformToString()) as BedrockResponse;
+    const content = responseBody.content[0]?.text;
+    
+    if (!content) {
+      this.logger.error('No content in response');
+      return [];
+    }
 
     const { success, data } = z
       .object({

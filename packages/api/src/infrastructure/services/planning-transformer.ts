@@ -1,8 +1,14 @@
+import { BedrockRuntimeClient, InvokeModelCommand } from '@aws-sdk/client-bedrock-runtime';
 import { Inject, Logger } from '@nestjs/common';
-import OpenAI from 'openai';
 import { Opportunity } from 'src/domain/opportunity';
 import { PlanningData } from 'src/domain/planning-data';
 import { z } from 'zod';
+
+interface BedrockResponse {
+  content: {
+    text: string;
+  }[];
+}
 
 export interface PlanningTransformer {
   /**
@@ -18,25 +24,35 @@ export interface PlanningTransformer {
 
 export const PlanningTransformer = Symbol('PlanningTransformer');
 
-export class PlanningTransformerOpenAi implements PlanningTransformer {
-  private readonly logger = new Logger(PlanningTransformerOpenAi.name);
+export class PlanningTransformerAwsBedrock implements PlanningTransformer {
+  private readonly logger = new Logger(PlanningTransformerAwsBedrock.name);
 
-  constructor(@Inject(OpenAI) private readonly openai: OpenAI) {}
+  constructor(
+    @Inject(BedrockRuntimeClient) private readonly bedrockRuntimeClient: BedrockRuntimeClient
+  ) {}
 
   async transformOpportunitiesIntoPlanningData(
     opportunities: Opportunity[]
   ): Promise<PlanningData> {
-    const response = await this.openai.chat.completions.create({
-      model: 'gpt-4o-mini',
-      messages: [
-        { role: 'system', content: this.getSystemPromptForPlanningData() },
-        { role: 'user', content: this.buildPromptForPlanningData(opportunities) },
-      ],
-      response_format: { type: 'json_object' },
-      n: 1,
-    });
+    const response = await this.bedrockRuntimeClient.send(
+      new InvokeModelCommand({
+        modelId: 'anthropic.claude-3-5-sonnet-20240620-v1:0',
+        body: JSON.stringify({
+          messages: [
+            {
+              role: 'user',
+              content: `${this.getSystemPromptForPlanningData()}\n\n${this.buildPromptForPlanningData(opportunities)}`
+            }
+          ],
+          max_tokens: 4000,
+          temperature: 0.7,
+          anthropic_version: 'bedrock-2023-05-31'
+        })
+      })
+    );
 
-    const content = response.choices[0].message.content;
+    const responseBody = JSON.parse(response.body.transformToString()) as BedrockResponse;
+    const content = responseBody.content[0]?.text;
     if (!content) throw new Error('Failed to generate planning content');
     return this.parseResponseForPlanningData(content);
   }
@@ -305,16 +321,25 @@ ${JSON.stringify(opportunitiesJson, null, 2)}`;
   }
 
   async transformPlanningDataIntoIcsContent(planningData: PlanningData): Promise<string> {
-    const response = await this.openai.chat.completions.create({
-      model: 'gpt-4o-mini',
-      messages: [
-        { role: 'system', content: this.getSystemPromptForIcsContent() },
-        { role: 'user', content: this.buildPromptForIcsContent(planningData) },
-      ],
-      n: 1,
-    });
+    const response = await this.bedrockRuntimeClient.send(
+      new InvokeModelCommand({
+        modelId: 'anthropic.claude-3-5-sonnet-20240620-v1:0',
+        body: JSON.stringify({
+          messages: [
+            {
+              role: 'user',
+              content: `${this.getSystemPromptForIcsContent()}\n\n${this.buildPromptForIcsContent(planningData)}`
+            }
+          ],
+          max_tokens: 4000,
+          temperature: 0.7,
+          anthropic_version: 'bedrock-2023-05-31'
+        })
+      })
+    );
 
-    const content = response.choices[0].message.content;
+    const responseBody = JSON.parse(response.body.transformToString()) as BedrockResponse;
+    const content = responseBody.content[0]?.text;
     if (!content) throw new Error('Failed to generate ICS content');
     return content;
   }
