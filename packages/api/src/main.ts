@@ -12,6 +12,7 @@ import { ActionsController } from './infrastructure/controller/actions-controlle
 import { TagsController } from './infrastructure/controller/tags-controller';
 import { bedrockClientFactory } from './infrastructure/factory/bedrock-client-factory';
 import { mongoClientFactory } from './infrastructure/factory/mongo-client-factory';
+import { s3ClientFactory } from './infrastructure/factory/s3-client-factory';
 import {
   FileStorageService,
   FileStorageServiceS3,
@@ -56,6 +57,7 @@ import {
     // Factories
     mongoClientFactory,
     bedrockClientFactory,
+    s3ClientFactory,
 
     // Use Cases
     CreatePlanning,

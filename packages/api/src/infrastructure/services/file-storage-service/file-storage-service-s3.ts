@@ -1,6 +1,6 @@
 import { GetObjectCommand, PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
-import { Injectable, Logger } from '@nestjs/common';
+import { Inject, Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ObjectId } from 'bson';
 import dayjs from 'dayjs';
@@ -13,17 +13,13 @@ dayjs.extend(utc);
 @Injectable()
 export class FileStorageServiceS3 implements FileStorageService {
   private readonly logger = new Logger(FileStorageServiceS3.name);
-  private readonly s3Client: S3Client;
   private readonly bucketName: string;
 
-  constructor(readonly configService: ConfigService) {
-    const region = configService.getOrThrow<string>('AWS_REGION');
-    const accessKeyId = configService.getOrThrow<string>('AWS_ACCESS_KEY_ID');
-    const secretAccessKey = configService.getOrThrow<string>('AWS_SECRET_ACCESS_KEY');
-
-    this.s3Client = new S3Client({ region, credentials: { accessKeyId, secretAccessKey } });
-
-    this.bucketName = configService.getOrThrow<string>('AWS_S3_BUCKET_NAME');
+  constructor(
+    @Inject(S3Client) private readonly s3Client: S3Client,
+    @Inject(ConfigService) private readonly configService: ConfigService
+  ) {
+    this.bucketName = this.configService.getOrThrow<string>('S3_BUCKET_NAME');
   }
 
   private generateUniqueKey(extension: string): string {
