@@ -25,13 +25,13 @@ export const Details: React.FC<DetailsProps> = ({ ...flexProps }) => {
     <Flex
       ref={flexRef}
       bgColor={'brand.lightBlue'}
-      py={16}
+      py='16'
       {...flexProps}
     >
       <Container maxWidth={'8xl'}>
         <SimpleGrid
           columns={{ base: 1, md: 5 }}
-          gap={{ base: 16, md: 4 }}
+          gap={{ base: '16', md: '4' }}
         >
           <GridItem colSpan={{ base: 1, md: 2 }}>
             <Heading fontWeight='semibold'>Por que Confi?</Heading>

@@ -21,7 +21,7 @@ export const Sponsors: React.FC<SponsorsProps> = ({ items, ...flexProps }) => {
     <Flex
       ref={flexRef}
       bgColor={'white'}
-      py={16}
+      py='16'
       {...flexProps}
     >
       <Container maxWidth={'8xl'}>
@@ -29,9 +29,9 @@ export const Sponsors: React.FC<SponsorsProps> = ({ items, ...flexProps }) => {
           <Heading>Apoio</Heading>
 
           <SimpleGrid
-            pt={4}
+            pt='4'
             columns={{ base: 1, sm: 2 }}
-            gap={4}
+            gap='4'
           >
             <For each={items}>
               {(item, index) => (
