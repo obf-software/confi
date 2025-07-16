@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.10.0](https://github.com/obf-software/confi/compare/v1.9.5...v1.10.0) (2025-07-16)
+
+
+### Features
+
+* **api:** add S3 bucket integration and update file storage service ([eeaa11f](https://github.com/obf-software/confi/commit/eeaa11f1cc5a65016c5bdeed23443ae5e051e9cc))
+* **api:** enhance API service configuration and environment validation ([3a81bf9](https://github.com/obf-software/confi/commit/3a81bf9b5c7dc03f7d1281b1e54a5034b976a254))
+* **api:** integrate AWS Bedrock client and update file storage service ([621f33a](https://github.com/obf-software/confi/commit/621f33a4a8aa84b0141a69dc5b4fc893f0f038c5))
+* **api:** update environment configuration and refactor transformers ([7aeac4b](https://github.com/obf-software/confi/commit/7aeac4b436edbe714a45729df0bafdf24333fb71))
+* **client:** enhance authentication and routing features ([d6f4e73](https://github.com/obf-software/confi/commit/d6f4e7386f5283e99e85d351fe8c41487abd7e86))
+* **client:** enhance authentication flow and UI components ([e1bd2fd](https://github.com/obf-software/confi/commit/e1bd2fdbd9c6391a5c09d7f379a36a806dabc194))
+* **client:** introduce animated components and enhance UI interactions ([b5f6412](https://github.com/obf-software/confi/commit/b5f6412276237a6c751eadec12fb17e4bd0654c0))
+* **client:** update dependencies and enhance UI components ([b44a1f6](https://github.com/obf-software/confi/commit/b44a1f6d03707700cbb5ba36d3eb2f28545973e6))
+* **docker:** update MongoDB initialization and remove MinIO service ([539db0b](https://github.com/obf-software/confi/commit/539db0b9afd746966838058e765b103bb40a201e))
+
 ## [1.9.5](https://github.com/obf-software/confi/compare/v1.9.4...v1.9.5) (2025-06-04)
 
 
