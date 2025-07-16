@@ -10,8 +10,11 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import React from 'react';
-import { RiArrowRightLine, RiRocketLine, RiSparklingFill } from 'react-icons/ri';
+import { RiArrowRightLine, RiRocketLine, RiSparklingFill, RiStarFill } from 'react-icons/ri';
 import { useNavigate } from 'react-router-dom';
+
+import { ColorModeButton } from '../../components/color-mode';
+import { useParallax, useScrollAnimation } from '../../hooks/use-scroll-animations';
 
 export type HeroProps = FlexProps;
 
@@ -20,13 +23,28 @@ export const Hero: React.FC<HeroProps> = ({ ...flexProps }) => {
   const navigate = useNavigate();
   const [isVideoLoaded, setIsVideoLoaded] = React.useState(false);
 
+  // Parallax and scroll effects
+  const parallaxY = useParallax(-0.3);
+  const parallaxYSlow = useParallax(-0.1);
+  const { scrollProgress } = useScrollAnimation();
+
   return (
     <Flex
       ref={flexRef}
       minH='90vh'
-      bgColor='#0A274E'
+      bg='hero.bg'
+      position='relative'
       {...flexProps}
     >
+      {/* Color Mode Toggle - Top Right */}
+      <Box
+        position='absolute'
+        top='4'
+        right='4'
+        zIndex='10'
+      >
+        <ColorModeButton />
+      </Box>
       {/* Video Background with Loading State */}
       <Box
         position='absolute'
@@ -34,7 +52,7 @@ export const Hero: React.FC<HeroProps> = ({ ...flexProps }) => {
         left='0'
         width='100%'
         height='90vh'
-        bg='linear-gradient(135deg, #0A274E 0%, #1A365D 100%)'
+        bg='hero.bg'
         opacity={isVideoLoaded ? 0 : 1}
         transition='opacity 0.5s ease-in-out'
       />
@@ -70,34 +88,83 @@ export const Hero: React.FC<HeroProps> = ({ ...flexProps }) => {
         left='0'
         width='100%'
         height='90vh'
-        bg='linear-gradient(135deg, rgba(10, 39, 78, 0.7) 0%, rgba(26, 54, 93, 0.5) 100%)'
+        bg='hero.overlay'
         animation='pulse'
       />
 
-      {/* Floating Particles */}
+      {/* Enhanced Floating Particles with Parallax */}
       <Box
         position='absolute'
-        top='20%'
-        right='10%'
+        top='15%'
+        right='8%'
         color='white'
-        opacity='0.3'
+        opacity='0.4'
         animation='float'
+        transform={`translateY(${parallaxY * 0.5}px)`}
+        transition='transform 0.1s ease-out'
       >
-        <Icon fontSize='4xl'>
+        <Icon fontSize='5xl'>
           <RiSparklingFill />
         </Icon>
       </Box>
 
       <Box
         position='absolute'
-        top='60%'
-        right='20%'
+        top='55%'
+        right='15%'
         color='white'
-        opacity='0.2'
+        opacity='0.3'
         animation='floatDelay'
+        transform={`translateY(${parallaxY * 0.8}px)`}
+        transition='transform 0.1s ease-out'
+      >
+        <Icon fontSize='4xl'>
+          <RiRocketLine />
+        </Icon>
+      </Box>
+
+      <Box
+        position='absolute'
+        top='25%'
+        left='5%'
+        color='brand.200'
+        opacity='0.2'
+        animation='floatSlow'
+        transform={`translateY(${parallaxYSlow}px)`}
+        transition='transform 0.1s ease-out'
       >
         <Icon fontSize='3xl'>
-          <RiRocketLine />
+          <RiStarFill />
+        </Icon>
+      </Box>
+
+      <Box
+        position='absolute'
+        top='75%'
+        left='15%'
+        color='brand.300'
+        opacity='0.25'
+        animation='floatFast'
+        transform={`translateY(${parallaxY * 0.6}px) rotate(${scrollProgress * 360}deg)`}
+        transition='transform 0.1s ease-out'
+      >
+        <Icon fontSize='2xl'>
+          <RiSparklingFill />
+        </Icon>
+      </Box>
+
+      <Box
+        position='absolute'
+        top='40%'
+        right='25%'
+        color='white'
+        opacity='0.15'
+        animation='floatLong'
+        transform={`translateY(${parallaxYSlow * 1.2}px)`}
+        transition='transform 0.1s ease-out'
+      >
+        <Icon fontSize='6xl'>
+          <RiStarFill />
         </Icon>
       </Box>
 

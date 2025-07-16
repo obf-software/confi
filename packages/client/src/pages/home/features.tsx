@@ -9,6 +9,8 @@ import {
   RiSparklingFill,
 } from 'react-icons/ri';
 
+import { AnimatedSection, GlassCard, ParallaxBox } from '../../components/animated-section';
+
 
 interface FeatureCardProps {
   icon: React.ReactElement;
@@ -19,19 +21,20 @@ interface FeatureCardProps {
 
 const FeatureCard: React.FC<FeatureCardProps> = ({ icon, title, description, delay = '0s' }) => {
   return (
-    <Box
-      bg='white'
-      borderRadius='2xl'
-      overflow='hidden'
-      transition='all 0.3s ease'
-      animation='fadeInUp'
-      boxShadow='0 4px 6px rgba(0, 0, 0, 0.1)'
-      _hover={{
-        transform: 'translateY(-10px)',
-        boxShadow: '0 20px 40px rgba(0, 197, 203, 0.15)',
-      }}
+    <AnimatedSection
+      animation='slideInUp'
+      delay={parseInt(delay) || 0}
+      threshold={0.1}
     >
-      <Box p='8'>
+      <GlassCard
+        intensity='medium'
+        transition='all 0.3s ease'
+        _hover={{
+          transform: 'translateY(-10px) scale(1.02)',
+          boxShadow: 'glass.shadow, 0 20px 40px rgba(0, 197, 203, 0.15)',
+        }}
+        cursor='pointer'
+      >
         <VStack
           alignItems='center'
           textAlign='center'
@@ -40,9 +43,10 @@ const FeatureCard: React.FC<FeatureCardProps> = ({ icon, title, description, del
           <Box
             p='4'
             borderRadius='full'
-            bg='linear-gradient(135deg, #00C5CB 0%, #0A274E 100%)'
-            color='white'
+            bg='brandPrimaryButton.solid'
+            color='brandPrimaryButton.contrast'
             animation='float'
+            boxShadow='0 8px 25px rgba(0, 197, 203, 0.3)'
           >
             <Icon fontSize='3xl'>{icon}</Icon>
           </Box>
@@ -50,14 +54,14 @@ const FeatureCard: React.FC<FeatureCardProps> = ({ icon, title, description, del
           <VStack gap='3'>
             <Heading
               size='lg'
-              color='#0A274E'
+              color='fg.default'
               fontWeight='bold'
             >
               {title}
             </Heading>
 
             <Text
-              color='brand.grayText'
+              color='fg.muted'
               fontSize='md'
               lineHeight='1.6'
             >
@@ -65,8 +69,8 @@ const FeatureCard: React.FC<FeatureCardProps> = ({ icon, title, description, del
             </Text>
           </VStack>
         </VStack>
-      </Box>
-    </Box>
+      </GlassCard>
+    </AnimatedSection>
   );
 };
 
@@ -102,37 +106,54 @@ export const Features: React.FC = () => {
     <Box
       position='relative'
       py='24'
-      bg='linear-gradient(135deg, #F7FAFC 0%, #EDF2F7 100%)'
+      bg='bg.surface'
       overflow='hidden'
     >
-      {/* Background Elements */}
-      <Box
+      {/* Background Elements with Parallax */}
+      <ParallaxBox
+        speed={-0.2}
         position='absolute'
         top='10%'
         left='5%'
-        color='#00C5CB'
-        opacity='0.1'
+        color='brandPrimaryButton.300'
+        opacity='0.15'
         animation='floatSlow'
         display={{ base: 'none', lg: 'block' }}
       >
         <Icon fontSize='8xl'>
           <RiSparklingFill />
         </Icon>
-      </Box>
+      </ParallaxBox>
 
-      <Box
+      <ParallaxBox
+        speed={-0.3}
         position='absolute'
         bottom='10%'
         right='5%'
-        color='#0A274E'
-        opacity='0.1'
+        color='brandPrimaryButton.400'
+        opacity='0.12'
         animation='floatDelay'
         display={{ base: 'none', lg: 'block' }}
       >
         <Icon fontSize='6xl'>
           <RiRocketLine />
         </Icon>
-      </Box>
+      </ParallaxBox>
+
+      <ParallaxBox
+        speed={-0.1}
+        position='absolute'
+        top='30%'
+        right='15%'
+        color='brandPrimaryButton.200'
+        opacity='0.08'
+        animation='floatLong'
+        display={{ base: 'none', lg: 'block' }}
+      >
+        <Icon fontSize='5xl'>
+          <RiSparklingFill />
+        </Icon>
+      </ParallaxBox>
 
       <Container maxW='8xl'>
         <VStack
@@ -140,34 +161,33 @@ export const Features: React.FC = () => {
           textAlign='center'
         >
           {/* Header */}
-          <VStack
-            gap='6'
-            animation='fadeInUp'
-          >
-            <Heading
-              size='3xl'
-              color='#0A274E'
-              fontWeight='bold'
-              background='linear-gradient(45deg, #0A274E 0%, #00C5CB 100%)'
-              backgroundClip='text'
-              css={{
-                '-webkit-background-clip': 'text',
-                '-webkit-text-fill-color': 'transparent',
-              }}
-            >
-              Por que escolher o Confi?
-            </Heading>
+          <AnimatedSection animation='fadeInUp' threshold={0.3}>
+            <VStack gap='6'>
+              <Heading
+                size='3xl'
+                color='fg.default'
+                fontWeight='bold'
+                background='linear-gradient(45deg, var(--colors-brandPrimaryButton-fg) 0%, var(--colors-brandPrimaryButton-solid) 100%)'
+                backgroundClip='text'
+                css={{
+                  '-webkit-background-clip': 'text',
+                  '-webkit-text-fill-color': 'transparent',
+                }}
+              >
+                Por que escolher o Confi?
+              </Heading>
 
-            <Text
-              fontSize='xl'
-              color='brand.grayText'
-              maxW='2xl'
-              lineHeight='1.6'
-            >
-              Descubra as funcionalidades que tornam o Confi a melhor escolha para encontrar
-              oportunidades de funding internacional.
-            </Text>
-          </VStack>
+              <Text
+                fontSize='xl'
+                color='fg.muted'
+                maxW='2xl'
+                lineHeight='1.6'
+              >
+                Descubra as funcionalidades que tornam o Confi a melhor escolha para encontrar
+                oportunidades de funding internacional.
+              </Text>
+            </VStack>
+          </AnimatedSection>
 
           {/* Features Grid */}
           <SimpleGrid
@@ -187,19 +207,21 @@ export const Features: React.FC = () => {
           </SimpleGrid>
 
           {/* CTA Section */}
-          <VStack
-            gap='6'
-            mt='8'
-            animation='fadeInUpDelayLong'
-          >
+          <AnimatedSection animation='scaleIn' threshold={0.2}>
             <Box
               p='8'
               borderRadius='2xl'
-              bg='linear-gradient(135deg, #00C5CB 0%, #0A274E 100%)'
-              color='white'
+              bg='brandPrimaryButton.solid'
+              color='brandPrimaryButton.contrast'
               textAlign='center'
               position='relative'
               overflow='hidden'
+              boxShadow='0 20px 50px rgba(0, 197, 203, 0.25)'
+              _hover={{
+                transform: 'translateY(-5px)',
+                boxShadow: '0 25px 60px rgba(0, 197, 203, 0.35)',
+              }}
+              transition='all 0.3s ease'
             >
               <VStack gap='4'>
                 <Heading
@@ -218,19 +240,30 @@ export const Features: React.FC = () => {
                 </Text>
               </VStack>
 
-              {/* Background Animation */}
+              {/* Enhanced Background Animation */}
               <Box
                 position='absolute'
                 top='-50%'
                 right='-10%'
                 width='60%'
                 height='200%'
-                opacity='0.1'
-                background='radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%)'
+                opacity='0.15'
+                background='radial-gradient(circle, rgba(255,255,255,0.4) 0%, transparent 70%)'
                 animation='floatLong'
               />
+              
+              <Box
+                position='absolute'
+                top='-30%'
+                left='-5%'
+                width='40%'
+                height='160%'
+                opacity='0.1'
+                background='radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 60%)'
+                animation='floatDelay'
+              />
             </Box>
-          </VStack>
+          </AnimatedSection>
         </VStack>
       </Container>
     </Box>

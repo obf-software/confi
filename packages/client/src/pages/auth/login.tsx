@@ -14,6 +14,7 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
+import { ColorModeButton } from '../../components/color-mode';
 import { Field } from '../../components/field';
 import { LoadingSpinner } from '../../components/loading-spinner';
 import { toasterStore } from '../../components/toaster';
@@ -67,8 +68,18 @@ export const Login: React.FC = () => {
     <Flex
       minH='100vh'
       alignItems='center'
-      bg='gray.50'
+      bg='bg.surface'
+      position='relative'
     >
+      {/* Color Mode Toggle - Top Right */}
+      <Box
+        position='absolute'
+        top='4'
+        right='4'
+        zIndex='10'
+      >
+        <ColorModeButton />
+      </Box>
       <Container maxW='md'>
         <VStack gap='8'>
           <VStack gap='2'>
@@ -80,7 +91,7 @@ export const Login: React.FC = () => {
               Faça login no <b>Confi</b>
             </Heading>
             <Text
-              color='gray.600'
+              color='fg.muted'
               textAlign='center'
             >
               Entre na sua conta para acessar suas oportunidades

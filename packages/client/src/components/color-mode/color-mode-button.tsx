@@ -8,11 +8,17 @@ type ColorModeButtonProps = Omit<IconButtonProps, 'aria-label'>;
 
 export const ColorModeButton = React.forwardRef<HTMLButtonElement, ColorModeButtonProps>(
   function ColorModeButton(props, ref) {
-    const { toggleColorMode } = useColorMode();
+    const { toggleColorMode, colorMode } = useColorMode();
+    
+    const handleClick = () => {
+      console.log('Current color mode:', colorMode);
+      toggleColorMode();
+    };
+    
     return (
       <ClientOnly fallback={<Skeleton boxSize='8' />}>
         <IconButton
-          onClick={toggleColorMode}
+          onClick={handleClick}
           variant='ghost'
           aria-label='Toggle color mode'
           size='sm'

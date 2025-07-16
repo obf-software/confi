@@ -6,6 +6,8 @@ export const ColorModeProvider: React.FC<ColorModeProviderProps> = (props) => {
   return (
     <ThemeProvider
       attribute='class'
+      defaultTheme='light'
+      themes={['light', 'dark']}
       disableTransitionOnChange
       {...props}
     />

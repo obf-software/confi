@@ -17,6 +17,7 @@ import { FiMenu, FiX } from 'react-icons/fi';
 import { MdOutlineBusinessCenter } from 'react-icons/md';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 
+import { ColorModeButton } from './color-mode';
 import { useAuth } from '../contexts/auth-context';
 
 const SidebarLink: React.FC<{
@@ -40,8 +41,8 @@ const SidebarLink: React.FC<{
         justifyContent='flex-start'
         size='lg'
         w='full'
-        bg={isActive ? 'brandPrimaryButton.50' : 'transparent'}
-        color={isActive ? 'brandPrimaryButton.700' : 'gray.700'}
+        bg={isActive ? 'brandPrimaryButton.subtle' : 'transparent'}
+        color={isActive ? 'brandPrimaryButton.emphasized' : 'fg.default'}
         fontWeight={isActive ? 'semibold' : 'normal'}
       >
         <Icon mr='3'>{icon}</Icon>
@@ -73,25 +74,25 @@ export const DashboardLayout: React.FC = () => {
       justify='space-between'
       align='stretch'
       p='6'
-      bg='white'
+      bg='bg.canvas'
       borderRightWidth='1px'
-      borderColor='gray.200'
+      borderColor='border.default'
       minW='280px'
     >
       <VStack
         align='stretch'
         gap='4'
       >
-        <Box>
+        <HStack justify='space-between' align='center'>
           <Text
             fontSize='2xl'
             fontWeight='bold'
-            color='brandPrimaryButton.600'
-            mb='6'
+            color='brandPrimaryButton.fg'
           >
             Confi
           </Text>
-        </Box>
+          <ColorModeButton />
+        </HStack>
 
         <Stack gap='2'>
           <SidebarLink
@@ -126,7 +127,7 @@ export const DashboardLayout: React.FC = () => {
         <Box>
           <Text
             fontSize='sm'
-            color='gray.600'
+            color='fg.muted'
             mb='2'
           >
             Logado como:
@@ -134,7 +135,7 @@ export const DashboardLayout: React.FC = () => {
           <Text
             fontSize='sm'
             fontWeight='medium'
-            color='gray.800'
+            color='fg.default'
             textOverflow='ellipsis'
             overflow='hidden'
             whiteSpace='nowrap'
@@ -163,7 +164,7 @@ export const DashboardLayout: React.FC = () => {
   return (
     <Flex
       h='100vh'
-      bg='gray.50'
+      bg='bg.surface'
     >
       {/* Mobile sidebar overlay */}
       {isSidebarOpen && (
@@ -201,9 +202,9 @@ export const DashboardLayout: React.FC = () => {
           display={{ base: 'flex', lg: 'none' }}
           justify='space-between'
           p='4'
-          bg='white'
+          bg='bg.canvas'
           borderBottomWidth='1px'
-          borderColor='gray.200'
+          borderColor='border.default'
         >
           <IconButton
             variant='ghost'
@@ -215,10 +216,11 @@ export const DashboardLayout: React.FC = () => {
           <Text
             fontSize='xl'
             fontWeight='bold'
-            color='brandPrimaryButton.600'
+            color='brandPrimaryButton.fg'
           >
             Confi
           </Text>
+          <ColorModeButton />
         </HStack>
 
         {/* Page content */}

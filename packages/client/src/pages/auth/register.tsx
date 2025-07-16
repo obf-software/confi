@@ -14,6 +14,7 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
+import { ColorModeButton } from '../../components/color-mode';
 import { Field } from '../../components/field';
 import { LoadingSpinner } from '../../components/loading-spinner';
 import { toasterStore } from '../../components/toaster';
@@ -133,8 +134,18 @@ export const Register: React.FC = () => {
       <Flex
         minH='100vh'
         alignItems='center'
-        bg='gray.50'
+        bg='bg.surface'
+        position='relative'
       >
+        {/* Color Mode Toggle - Top Right */}
+        <Box
+          position='absolute'
+          top='4'
+          right='4'
+          zIndex='10'
+        >
+          <ColorModeButton />
+        </Box>
         <Container maxW='md'>
           <VStack gap='8'>
             <VStack gap='2'>
@@ -146,7 +157,7 @@ export const Register: React.FC = () => {
                 Confirme sua conta
               </Heading>
               <Text
-                color='gray.600'
+                color='fg.muted'
                 textAlign='center'
               >
                 Enviamos um código de confirmação para {email}
@@ -213,8 +224,18 @@ export const Register: React.FC = () => {
     <Flex
       minH='100vh'
       alignItems='center'
-      bg='gray.50'
+      bg='bg.surface'
+      position='relative'
     >
+      {/* Color Mode Toggle - Top Right */}
+      <Box
+        position='absolute'
+        top='4'
+        right='4'
+        zIndex='10'
+      >
+        <ColorModeButton />
+      </Box>
       <Container maxW='md'>
         <VStack gap='8'>
           <VStack gap='2'>
@@ -226,7 +247,7 @@ export const Register: React.FC = () => {
               Criar conta no <b>Confi</b>
             </Heading>
             <Text
-              color='gray.600'
+              color='fg.muted'
               textAlign='center'
             >
               Crie sua conta para acessar oportunidades personalizadas
