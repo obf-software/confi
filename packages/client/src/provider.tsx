@@ -9,6 +9,7 @@ import { ColorModeProvider } from './components/color-mode';
 import { DashboardLayout } from './components/dashboard-layout';
 import { MainLayout } from './components/main-layout';
 import { ProtectedRoute } from './components/protected-route';
+import { Toaster } from './components/toaster';
 import { AuthProvider } from './contexts/auth-context';
 import { Login } from './pages/auth/login';
 import { Register } from './pages/auth/register';
@@ -39,15 +40,27 @@ export const Provider: React.FC = () => {
         },
         {
           path: 'search',
-          element: <Search />,
+          element: (
+            <ProtectedRoute>
+              <Search />
+            </ProtectedRoute>
+          ),
         },
         {
           path: 'opportunities',
-          element: <Opportunities />,
+          element: (
+            <ProtectedRoute>
+              <Opportunities />
+            </ProtectedRoute>
+          ),
         },
         {
           path: 'result',
-          element: <Result />,
+          element: (
+            <ProtectedRoute>
+              <Result />
+            </ProtectedRoute>
+          ),
         },
       ],
     },
@@ -100,6 +113,7 @@ export const Provider: React.FC = () => {
       <QueryClientProvider client={queryClient}>
         <ColorModeProvider>
           <AuthProvider>
+            <Toaster />
             <RouterProvider router={router} />
           </AuthProvider>
         </ColorModeProvider>

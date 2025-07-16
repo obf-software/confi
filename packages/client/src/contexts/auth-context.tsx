@@ -14,10 +14,28 @@ interface AuthState {
   isAuthenticated: boolean;
 }
 
+type AuthNextSignUpStep = 'CONFIRM_SIGN_UP' | 'COMPLETE_AUTO_SIGN_IN' | 'DONE';
+
+type AuthNextSignInStep =
+  | 'CONTINUE_SIGN_IN_WITH_TOTP_SETUP'
+  | 'CONTINUE_SIGN_IN_WITH_EMAIL_SETUP'
+  | 'CONFIRM_SIGN_IN_WITH_TOTP_CODE'
+  | 'CONTINUE_SIGN_IN_WITH_MFA_SELECTION'
+  | 'CONTINUE_SIGN_IN_WITH_MFA_SETUP_SELECTION'
+  | 'CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE'
+  | 'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD_REQUIRED'
+  | 'CONFIRM_SIGN_IN_WITH_SMS_CODE'
+  | 'CONFIRM_SIGN_IN_WITH_EMAIL_CODE'
+  | 'CONFIRM_SIGN_UP'
+  | 'RESET_PASSWORD'
+  | 'DONE'
+  | 'CONTINUE_SIGN_IN_WITH_FIRST_FACTOR_SELECTION'
+  | 'CONFIRM_SIGN_IN_WITH_PASSWORD';
+
 interface AuthContextType extends AuthState {
-  login: (email: string, password: string) => Promise<void>;
-  register: (email: string, password: string, name: string) => Promise<{ nextStep: unknown }>;
-  confirmRegistration: (email: string, code: string) => Promise<void>;
+  login: (email: string, password: string) => Promise<AuthNextSignInStep>;
+  register: (email: string, password: string, name: string) => Promise<AuthNextSignUpStep>;
+  confirmRegistration: (email: string, code: string) => Promise<AuthNextSignUpStep>;
   logout: () => Promise<void>;
   refreshAuthState: () => Promise<void>;
 }
@@ -61,7 +79,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   const login = async (email: string, password: string) => {
-    const { isSignedIn } = await signIn({
+    const { isSignedIn, nextStep } = await signIn({
       username: email,
       password,
     });
@@ -69,28 +87,44 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     if (isSignedIn) {
       await refreshAuthState();
     }
+
+    return nextStep.signInStep;
   };
 
   const register = async (email: string, password: string, name: string) => {
-    const { nextStep } = await signUp({
+    const { nextStep, isSignUpComplete } = await signUp({
       username: email,
       password,
       options: {
         userAttributes: {
           email,
-          name: 'teste',
+          name,
         },
+        autoSignIn: true,
       },
     });
 
-    return { nextStep };
+    if (nextStep.signUpStep === 'CONFIRM_SIGN_UP') {
+    }
+
+    if (isSignUpComplete) {
+      await refreshAuthState();
+    }
+
+    return nextStep.signUpStep;
   };
 
   const confirmRegistration = async (email: string, code: string) => {
-    await confirmSignUp({
+    const { isSignUpComplete, nextStep } = await confirmSignUp({
       username: email,
       confirmationCode: code,
     });
+
+    if (isSignUpComplete) {
+      await refreshAuthState();
+    }
+
+    return nextStep.signUpStep;
   };
 
   const logout = async () => {

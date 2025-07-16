@@ -10,11 +10,12 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
 import { Field } from '../../components/field';
+import { LoadingSpinner } from '../../components/loading-spinner';
 import { toasterStore } from '../../components/toaster';
 import { useAuth } from '../../contexts/auth-context';
 
@@ -33,30 +34,52 @@ export const Register: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [step, setStep] = useState<'register' | 'confirm'>('register');
   const [email, setEmail] = useState('');
-  const { register: registerUser, confirmRegistration } = useAuth();
+  const { register: registerUser, confirmRegistration, isAuthenticated, isLoading: authLoading } = useAuth();
   const navigate = useNavigate();
+
+  const registerForm = useForm<RegisterFormData>();
+  const confirmForm = useForm<ConfirmationFormData>();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     watch,
-  } = useForm<RegisterFormData>();
+  } = registerForm;
 
   const {
     register: registerConfirm,
     handleSubmit: handleSubmitConfirm,
     formState: { errors: confirmErrors },
-  } = useForm<ConfirmationFormData>();
+    reset: resetConfirmForm,
+  } = confirmForm;
 
   const password = watch('password');
+
+  useEffect(() => {
+    if (!authLoading && isAuthenticated) {
+      void navigate('/dashboard', { replace: true });
+    }
+  }, [isAuthenticated, authLoading, navigate]);
+
+  if (authLoading) {
+    return <LoadingSpinner />;
+  }
 
   const onSubmitRegister = async (data: RegisterFormData) => {
     setIsLoading(true);
     try {
-      await registerUser(data.email, data.password, data.name);
+      const nextStep = await registerUser(data.email, data.password, data.name);
       setEmail(data.email);
-      setStep('confirm');
+
+      if (nextStep === 'CONFIRM_SIGN_UP') {
+        resetConfirmForm();
+        setStep('confirm');
+        return;
+      }
+
+      void navigate('/login');
+
       toasterStore.create({
         id: 'register-success',
         title: 'Conta criada com sucesso',

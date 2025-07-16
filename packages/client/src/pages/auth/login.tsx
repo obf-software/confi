@@ -10,11 +10,12 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
 import { Field } from '../../components/field';
+import { LoadingSpinner } from '../../components/loading-spinner';
 import { toasterStore } from '../../components/toaster';
 import { useAuth } from '../../contexts/auth-context';
 
@@ -25,13 +26,23 @@ interface LoginFormData {
 
 export const Login: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const { login } = useAuth();
+  const { login, isAuthenticated, isLoading: authLoading } = useAuth();
   const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<LoginFormData>();
+
+  useEffect(() => {
+    if (!authLoading && isAuthenticated) {
+      void navigate('/dashboard', { replace: true });
+    }
+  }, [isAuthenticated, authLoading, navigate]);
+
+  if (authLoading) {
+    return <LoadingSpinner />;
+  }
 
   const onSubmit = async (data: LoginFormData) => {
     setIsLoading(true);

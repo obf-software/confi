@@ -2,8 +2,6 @@ import { Box, BoxProps } from '@chakra-ui/react';
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 
-import { Toaster } from './toaster';
-
 export type MainLayoutProps = BoxProps;
 
 export const MainLayout: React.FC<MainLayoutProps> = ({ ...boxProps }) => {
@@ -14,7 +12,6 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ ...boxProps }) => {
       {...boxProps}
     >
       <Outlet />
-      <Toaster />
     </Box>
   );
 };

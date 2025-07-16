@@ -101,10 +101,10 @@ export const Hero: React.FC<HeroProps> = ({ ...flexProps }) => {
                 },
               }}
               onClick={() => {
-                void navigate('/search');
+                void navigate('/login');
               }}
             >
-              Buscar Oportunidades{' '}
+              Fazer Login{' '}
               <Icon display='none'>
                 <RiArrowRightLine />
               </Icon>
@@ -121,10 +121,10 @@ export const Hero: React.FC<HeroProps> = ({ ...flexProps }) => {
                 bg: 'whiteAlpha.200',
               }}
               onClick={() => {
-                void navigate('/login');
+                void navigate('/register');
               }}
             >
-              Entrar na minha conta
+              Criar Conta
             </Button>
           </Box>
         </VStack>
