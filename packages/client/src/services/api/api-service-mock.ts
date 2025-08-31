@@ -1,4 +1,4 @@
-import { ApiService, Opportunity, OpportunitySearch, Planning, Tag, User } from './api-service';
+import { ApiService, Opportunity, OpportunitySearch, Planning, Tag, User, Evaluation } from './api-service';
 
 // Utility functions
 const success = <T>(data: T): Promise<ApiService.ApiServiceResponse<T>> =>
@@ -134,6 +134,30 @@ export class ApiServiceMock implements ApiService {
       userId: '2',
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
+    },
+  ];
+
+  private evaluations: Evaluation[] = [
+    {
+      id: '1',
+      createdAt: new Date('2024-01-20T10:30:00').toISOString(),
+      endedAt: new Date('2024-01-20T10:45:00').toISOString(),
+      status: 'COMPLETED',
+      progress: 100,
+    },
+    {
+      id: '2',
+      createdAt: new Date('2024-01-18T14:20:00').toISOString(),
+      endedAt: new Date('2024-01-18T14:32:00').toISOString(),
+      status: 'COMPLETED',
+      progress: 100,
+    },
+    {
+      id: '3',
+      createdAt: new Date('2024-01-15T09:15:00').toISOString(),
+      endedAt: new Date('2024-01-15T09:18:00').toISOString(),
+      status: 'FAILED',
+      progress: 23,
     },
   ];
 
@@ -384,5 +408,35 @@ export class ApiServiceMock implements ApiService {
   // Files
   async getFileUrl(input: ApiService.GetFileUrlInput): Promise<ApiService.GetFileUrlOutput> {
     return success('https://example.com');
+  }
+
+  // Evaluations
+  async listEvaluations(input: ApiService.ListEvaluationsInput): Promise<ApiService.ListEvaluationsOutput> {
+    return success(this.evaluations);
+  }
+
+  async createEvaluation(input: ApiService.CreateEvaluationInput): Promise<ApiService.CreateEvaluationOutput> {
+    const ids = this.evaluations.map((evaluation) => Number(evaluation.id));
+    const nextId = Math.max(...ids) + 1;
+    const evaluation: Evaluation = {
+      id: nextId.toString(),
+      createdAt: new Date().toISOString(),
+      endedAt: null,
+      status: 'IN_PROGRESS',
+      progress: 0,
+    };
+    this.evaluations.push(evaluation);
+    
+    // Simulate evaluation progress
+    setTimeout(() => {
+      const evalToUpdate = this.evaluations.find(e => e.id === evaluation.id);
+      if (evalToUpdate) {
+        evalToUpdate.progress = 100;
+        evalToUpdate.status = 'COMPLETED';
+        evalToUpdate.endedAt = new Date().toISOString();
+      }
+    }, 5000);
+    
+    return success(evaluation);
   }
 }

@@ -12,13 +12,16 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import React from 'react';
-import { BiLogOut, BiSearch, BiUser } from 'react-icons/bi';
+import { BiLogOut, BiSearch, BiUser, BiCalendar } from 'react-icons/bi';
 import { FiMenu, FiX } from 'react-icons/fi';
-import { MdOutlineBusinessCenter } from 'react-icons/md';
+import { MdOutlineBusinessCenter, MdOutlineAnalytics, MdOutlineLocalOffer, MdOutlineAutoAwesome } from 'react-icons/md';
+import { AiOutlineTag, AiOutlineFileSearch } from 'react-icons/ai';
+import { HiOutlineDocumentReport } from 'react-icons/hi';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 
 import { ColorModeButton } from './color-mode';
 import { useAuth } from '../contexts/auth-context';
+import { useCurrentUser } from '../hooks/use-current-user';
 
 const SidebarLink: React.FC<{
   to: string;
@@ -54,7 +57,8 @@ const SidebarLink: React.FC<{
 
 export const DashboardLayout: React.FC = () => {
   const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
-  const { logout, user } = useAuth();
+  const { logout } = useAuth();
+  const { user } = useCurrentUser();
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -95,16 +99,67 @@ export const DashboardLayout: React.FC = () => {
         </HStack>
 
         <Stack gap='2'>
+          {/* Admin-only menu items */}
+          {user?.role === 'ADMIN' && (
+            <>
+              <SidebarLink
+                to='/dashboard/statistics'
+                icon={<MdOutlineAnalytics />}
+                onClick={closeSidebar}
+              >
+                Estatísticas
+              </SidebarLink>
+              <SidebarLink
+                to='/dashboard/tags'
+                icon={<AiOutlineTag />}
+                onClick={closeSidebar}
+              >
+                Tags
+              </SidebarLink>
+              <SidebarLink
+                to='/dashboard/admin/evaluations'
+                icon={<MdOutlineAutoAwesome />}
+                onClick={closeSidebar}
+              >
+                Avaliações
+              </SidebarLink>
+              <SidebarLink
+                to='/dashboard/admin/opportunities'
+                icon={<MdOutlineLocalOffer />}
+                onClick={closeSidebar}
+              >
+                Oportunidades
+              </SidebarLink>
+              <SidebarLink
+                to='/dashboard/admin/opportunities-search'
+                icon={<AiOutlineFileSearch />}
+                onClick={closeSidebar}
+              >
+                Busca de Oportunidades
+              </SidebarLink>
+              <SidebarLink
+                to='/dashboard/admin/plannings'
+                icon={<HiOutlineDocumentReport />}
+                onClick={closeSidebar}
+              >
+                Planejamentos
+              </SidebarLink>
+              
+              <Separator />
+            </>
+          )}
+          
+          {/* Common menu items for all users */}
           <SidebarLink
-            to='/dashboard/search'
+            to='/dashboard/find-opportunities'
             icon={<BiSearch />}
             onClick={closeSidebar}
           >
             Buscar Oportunidades
           </SidebarLink>
           <SidebarLink
-            to='/dashboard/plannings'
-            icon={<MdOutlineBusinessCenter />}
+            to='/dashboard/my-plannings'
+            icon={<BiCalendar />}
             onClick={closeSidebar}
           >
             Meus Planejamentos
@@ -140,7 +195,7 @@ export const DashboardLayout: React.FC = () => {
             overflow='hidden'
             whiteSpace='nowrap'
           >
-            {user?.username || 'Usuário'}
+            {user?.email || 'Usuário'}
           </Text>
         </Box>
         <Button

@@ -10,9 +10,9 @@ export default $config({
     };
   },
   async run() {
-    await import('./infra/app-sync');
+    // await import('./infra/app-sync');
     await import('./infra/auth');
-    await import('./infra/api');
+    // await import('./infra/api');
     const { client } = await import('./infra/client');
 
     return {

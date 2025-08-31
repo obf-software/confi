@@ -4,14 +4,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Confi is a pnpm monorepo (v1.9.4) for opportunity search and planning, integrating AI-powered data transformation with Google Sheets as a data source.
+Confi is a pnpm monorepo (v1.9.4) for intelligent opportunity matching and planning. The system helps organizations find relevant opportunities (grants, programs, funding) by using AI to match their profile with available opportunities through an intelligent tagging system.
 
 ### Technology Stack
 
 - **Backend**: NestJS with TypeScript following hexagonal architecture
 - **Frontend**: React 19 + Vite + Chakra UI v3 + React Router
 - **Database**: MongoDB v8.0 (Docker port 52701)
-- **File Storage**: MinIO (dev) or AWS S3 (production)
+- **File Storage**: AWS S3
 - **AI**: OpenAI API for intelligent transformations
 - **PDF Generation**: Puppeteer with Chromium
 
@@ -59,12 +59,10 @@ pnpm chakra:typegen   # Generate Chakra UI types
 The API strictly follows hexagonal architecture with three layers:
 
 1. **Domain Layer** (`/domain`)
-
    - Pure business entities: Opportunity, Planning, Tag, PlanningData
    - No external dependencies
 
 2. **Application Layer** (`/application`)
-
    - Use cases orchestrating business logic:
      - `create-planning`: Generates PDF and ICS files from opportunities
      - `create-tag`: Creates categorization tags
@@ -78,10 +76,12 @@ The API strictly follows hexagonal architecture with three layers:
 
 ### Frontend Architecture
 
-- **Routing**: React Router with pages for Home, Search, Opportunities, Result
+- **Routing**: React Router with role-based protected routes (ADMIN/USER)
 - **State**: React Query for server state management
-- **UI**: Chakra UI v3 with custom theme and dark mode
+- **UI**: Chakra UI v3 with custom theme and dark mode support
 - **Forms**: Multi-step search form (Name → Briefing → Diversity)
+- **Authentication**: AWS Amplify with Cognito integration
+- **Dashboard**: Role-based navigation with admin and user sections
 
 ### Key Integrations
 
@@ -128,6 +128,84 @@ pnpm test path/to/file.spec.ts
 ```
 
 Note: Test files are not yet implemented in the codebase.
+
+## System Flow
+
+### Core Concept
+Confi uses an AI-powered tagging system to match organizations with relevant opportunities. The system works in two main phases:
+
+1. **Admin Phase**: Opportunities are discovered, reviewed, and tagged
+2. **User Phase**: Organizations search and receive matched opportunities
+
+### Detailed Flow
+
+#### 1. Opportunity Discovery (Admin)
+- Admins create **Opportunity Searches** with specific prompts
+- System performs deep research to find relevant opportunities
+- Found opportunities are created with `PENDING_REVIEW` status
+- Admins review and approve opportunities → status changes to `ACTIVE`
+
+#### 2. Tag Management (Admin)
+- Admins create **Tags** to categorize opportunities
+- Tags represent characteristics like: Technology, Education, Sustainability, etc.
+- Tags are the bridge between opportunities and user searches
+
+#### 3. Evaluation Process (Admin)
+- Admins run **Evaluations** to automatically assign tags to opportunities
+- LLM analyzes each opportunity and determines applicable tags
+- Process runs in background, processing all untagged opportunities
+- Once complete, opportunities have tags for matching
+
+#### 4. User Search Flow
+- Users provide information about their organization:
+  - Organization name and description
+  - Activity region and type
+  - Business stage and focus areas
+  - Diversity information
+- System uses LLM to determine relevant tags based on user input
+- Backend queries opportunities matching those tags
+- Returns personalized list of opportunities
+
+#### 5. Planning Generation
+- Users select relevant opportunities from search results
+- System creates a **Planning** with selected opportunities
+- Generates PDF with detailed application instructions
+- Creates ICS calendar file with important deadlines
+
+### User Roles
+
+#### ADMIN Role
+- Access to system configuration and management
+- Responsibilities:
+  - Create and manage opportunity searches
+  - Review and approve opportunities
+  - Create and manage tags
+  - Run evaluation processes
+  - Monitor system statistics
+  - View all user plannings
+
+#### USER Role
+- Access to opportunity search and planning
+- Capabilities:
+  - Search for opportunities
+  - Create plannings
+  - Download PDF/ICS files
+  - Manage profile
+
+### Dashboard Pages
+
+#### Admin Pages
+- **Estatísticas**: System overview and metrics
+- **Tags**: Create and manage categorization tags
+- **Avaliações**: Run and monitor tag assignment process
+- **Oportunidades**: Manage all opportunities in the system
+- **Busca de Oportunidades**: Configure automated opportunity searches
+- **Planejamentos**: View all user-created plannings
+
+#### Common Pages
+- **Buscar Oportunidades**: Multi-step form for finding opportunities
+- **Meus Planejamentos**: User's personal plannings
+- **Perfil**: User profile management
 
 ## Deployment
 

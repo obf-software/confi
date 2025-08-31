@@ -1,4 +1,4 @@
-import { api } from './api';
+// import { api } from './api';
 import { auth } from './auth';
 
 const staticSite = new sst.aws.StaticSite('ClientStaticSite', {
@@ -14,7 +14,8 @@ const staticSite = new sst.aws.StaticSite('ClientStaticSite', {
     command: 'pnpm build',
   },
   environment: {
-    VITE_API_URL: api.url,
+    // VITE_API_URL: api.url,
+    VITE_USE_API_MOCK: 'true',
     VITE_USER_POOL_ID: auth.userPool.id,
     VITE_USER_POOL_CLIENT_ID: auth.userPoolClient.id,
   },

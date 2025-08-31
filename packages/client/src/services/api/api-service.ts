@@ -64,6 +64,14 @@ export interface ApiService {
 
   // Files
   getFileUrl: (input: ApiService.GetFileUrlInput) => Promise<ApiService.GetFileUrlOutput>;
+
+  // Evaluations
+  listEvaluations: (
+    input: ApiService.ListEvaluationsInput
+  ) => Promise<ApiService.ListEvaluationsOutput>;
+  createEvaluation: (
+    input: ApiService.CreateEvaluationInput
+  ) => Promise<ApiService.CreateEvaluationOutput>;
 }
 
 // Dtos
@@ -85,7 +93,7 @@ export namespace ApiService {
   export type ListUsersOutput = ApiServiceResponse<User[]>;
 
   export interface GetUserInput {
-    id: string;
+    id: string | null;
   }
   export type GetUserOutput = ApiServiceResponse<User>;
 
@@ -223,6 +231,13 @@ export namespace ApiService {
     id: string;
   }
   export type GetFileUrlOutput = ApiServiceResponse<string>;
+
+  // Evaluations
+  export interface ListEvaluationsInput {}
+  export type ListEvaluationsOutput = ApiServiceResponse<Evaluation[]>;
+
+  export interface CreateEvaluationInput {}
+  export type CreateEvaluationOutput = ApiServiceResponse<Evaluation>;
 }
 
 // Models
@@ -299,4 +314,14 @@ export interface File {
   contentType: string;
   createdAt: string;
   updatedAt: string;
+}
+
+export type EvaluationStatus = 'IN_PROGRESS' | 'COMPLETED' | 'FAILED';
+
+export interface Evaluation {
+  id: string;
+  createdAt: string;
+  progress: number;
+  status: EvaluationStatus;
+  endedAt: string | null;
 }

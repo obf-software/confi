@@ -11,8 +11,18 @@ import { MainLayout } from './components/main-layout';
 import { ProtectedRoute } from './components/protected-route';
 import { Toaster } from './components/toaster';
 import { AuthProvider } from './contexts/auth-context';
+import { RoleProtectedRoute } from './components/role-protected-route';
 import { Login } from './pages/auth/login';
 import { Register } from './pages/auth/register';
+import { DashboardIndex } from './pages/dashboard';
+import { DashboardStatistics } from './pages/dashboard/statistics';
+import { DashboardTags } from './pages/dashboard/tags';
+import { DashboardAdminOpportunities } from './pages/dashboard/admin/opportunities';
+import { DashboardAdminOpportunitiesSearch } from './pages/dashboard/admin/opportunities-search';
+import { DashboardAdminPlannings } from './pages/dashboard/admin/plannings';
+import { DashboardAdminEvaluations } from './pages/dashboard/admin/evaluations';
+import { DashboardFindOpportunities } from './pages/dashboard/find-opportunities';
+import { DashboardMyPlannings } from './pages/dashboard/my-plannings';
 import { DashboardOpportunities } from './pages/dashboard/opportunities';
 import { DashboardPlannings } from './pages/dashboard/plannings';
 import { DashboardProfile } from './pages/dashboard/profile';
@@ -82,8 +92,71 @@ export const Provider: React.FC = () => {
       children: [
         {
           index: true,
-          element: <DashboardSearch />,
+          element: <DashboardIndex />,
         },
+        // Admin-only routes
+        {
+          path: 'statistics',
+          element: (
+            <RoleProtectedRoute allowedRoles={['ADMIN']}>
+              <DashboardStatistics />
+            </RoleProtectedRoute>
+          ),
+        },
+        {
+          path: 'tags',
+          element: (
+            <RoleProtectedRoute allowedRoles={['ADMIN']}>
+              <DashboardTags />
+            </RoleProtectedRoute>
+          ),
+        },
+        {
+          path: 'admin/evaluations',
+          element: (
+            <RoleProtectedRoute allowedRoles={['ADMIN']}>
+              <DashboardAdminEvaluations />
+            </RoleProtectedRoute>
+          ),
+        },
+        {
+          path: 'admin/opportunities',
+          element: (
+            <RoleProtectedRoute allowedRoles={['ADMIN']}>
+              <DashboardAdminOpportunities />
+            </RoleProtectedRoute>
+          ),
+        },
+        {
+          path: 'admin/opportunities-search',
+          element: (
+            <RoleProtectedRoute allowedRoles={['ADMIN']}>
+              <DashboardAdminOpportunitiesSearch />
+            </RoleProtectedRoute>
+          ),
+        },
+        {
+          path: 'admin/plannings',
+          element: (
+            <RoleProtectedRoute allowedRoles={['ADMIN']}>
+              <DashboardAdminPlannings />
+            </RoleProtectedRoute>
+          ),
+        },
+        // Common routes (all authenticated users)
+        {
+          path: 'find-opportunities',
+          element: <DashboardFindOpportunities />,
+        },
+        {
+          path: 'my-plannings',
+          element: <DashboardMyPlannings />,
+        },
+        {
+          path: 'profile',
+          element: <DashboardProfile />,
+        },
+        // Legacy routes (keeping for backward compatibility)
         {
           path: 'search',
           element: <DashboardSearch />,
@@ -99,10 +172,6 @@ export const Provider: React.FC = () => {
         {
           path: 'plannings',
           element: <DashboardPlannings />,
-        },
-        {
-          path: 'profile',
-          element: <DashboardProfile />,
         },
       ],
     },

@@ -5,21 +5,6 @@
 
 declare module "sst" {
   export interface Resource {
-    "ApiBucket": {
-      "name": string
-      "type": "sst.aws.Bucket"
-    }
-    "ApiService": {
-      "service": string
-      "type": "sst.aws.Service"
-    }
-    "ApiVpc": {
-      "type": "sst.aws.Vpc"
-    }
-    "AppSync": {
-      "type": "sst.aws.AppSync"
-      "url": string
-    }
     "AuthUserPool": {
       "id": string
       "type": "sst.aws.CognitoUserPool"
