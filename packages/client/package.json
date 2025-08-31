@@ -13,35 +13,27 @@
   },
   "dependencies": {
     "@aws-amplify/ui-react-core": "^3.4.3",
-    "@chakra-ui/react": "^3.16.1",
+    "@chakra-ui/react": "^3.26.0",
     "@emotion/react": "^11.14.0",
     "@fontsource/open-sauce-one": "^5.2.5",
-    "@hookform/resolvers": "^5.0.1",
-    "@tanstack/react-query": "^5.76.1",
-    "aws-amplify": "^6.15.3",
+    "@hookform/resolvers": "^5.2.1",
+    "@tanstack/react-query": "^5.85.6",
+    "@tanstack/react-router": "^1.131.30",
+    "aws-amplify": "^6.15.5",
     "next-themes": "^0.4.6",
-    "pdfmake": "^0.2.20",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-hook-form": "^7.56.3",
+    "react-hook-form": "^7.62.0",
     "react-icons": "^5.5.0",
-    "react-router-dom": "^7.5.3",
-    "zod": "^3.24.4"
+    "zod": "^4.1.5"
   },
   "devDependencies": {
-    "@chakra-ui/cli": "^3.17.0",
-    "@types/node": "^22.15.3",
-    "@types/pdfmake": "^0.2.11",
-    "@types/react": "^19.0.10",
-    "@types/react-dom": "^19.0.4",
-    "@vitejs/plugin-react-swc": "^3.8.0",
-    "typescript": "~5.7.2",
-    "vite": "^6.3.4"
-  },
-  "pnpm": {
-    "overrides": {
-      "react": "^19.0.0",
-      "react-dom": "^19.0.0"
-    }
+    "@chakra-ui/cli": "^3.26.0",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@vitejs/plugin-react-swc": "^4.0.1",
+    "typescript": "5.9.2",
+    "vite": "^7.1.3"
   }
 }

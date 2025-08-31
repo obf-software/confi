@@ -1,0 +1,73 @@
+name: CI
+
+permissions:
+  id-token: write
+  contents: read
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-core:
+    name: Validation Core
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: 'pnpm'
+          cache-dependency-path: pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm validate
+
+  validate-api:
+    name: Validation API
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "API validation skipped"
+
+  validate-client:
+    name: Validation Client
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Client validation skipped"
+
+  validate:
+    name: Validation Summary
+    if: always()
+    needs:
+      - validate-core
+      - validate-api
+      - validate-client
+    runs-on: ubuntu-latest
+    steps:
+      - name: Summary
+        run: |
+          RESULTS=( \
+            "${{ needs.validate-core.result }}" \
+            "${{ needs.validate-api.result }}" \
+            "${{ needs.validate-client.result }}" \
+          )
+
+          for RESULT in "${RESULTS[@]}"; do
+            if [[ "${RESULT}" != "success" && "${RESULT}" != "skipped" ]]; then
+              exit 1
+            fi
+          done
