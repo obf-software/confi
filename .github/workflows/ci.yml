@@ -22,7 +22,7 @@ concurrency:
 
 jobs:
   validate-core:
-    name: Validation Core
+    name: Validate Core
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -38,13 +38,13 @@ jobs:
       - run: pnpm validate
 
   validate-api:
-    name: Validation API
+    name: Validate API
     runs-on: ubuntu-latest
     steps:
       - run: echo "API validation skipped"
 
   validate-client:
-    name: Validation Client
+    name: Validate Client
     runs-on: ubuntu-latest
     steps:
       - run: echo "Client validation skipped"
