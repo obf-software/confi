@@ -9,9 +9,6 @@ const envValidation = z
     // CLOUDFLARE_TURNSTILE_SECRET_KEY: z.string().default('1x0000000000000000000000000000000AA'),
 
     MONGODB_URI: z.string(),
-    GOOGLE_SPREADSHEET_ID: z.string(),
-    GOOGLE_SERVICE_ACCOUNT_EMAIL: z.string(),
-    GOOGLE_SERVICE_ACCOUNT_KEY: z.string(),
   })
   .safeParse(process.env);
 
