@@ -17,13 +17,11 @@ import { useNavigate } from 'react-router-dom';
 import { routes } from '../../../lib/routes';
 import { useListMyPlannings } from '../../../hooks/use-list-my-plannings';
 import { toasterStore, useToaster } from '../../../contexts/toaster';
-import { useFileUrl } from '../../../hooks/use-file-url';
 
 export const DashboardMyPlannings: React.FC = () => {
   const navigate = useNavigate();
   const toaster = useToaster();
   const planningsQuery = useListMyPlannings();
-  const fileUrlMutation = useFileUrl();
   const plannings = planningsQuery.data ?? [];
 
   const getStatusBadge = (status: string) => {
@@ -211,9 +209,9 @@ export const DashboardMyPlannings: React.FC = () => {
                     variant='outline'
                     flex='1'
                     aria-label='Download pdf'
-                    disabled={planning.pdfFileId === null || planning.status !== 'COMPLETED'}
+                    disabled={planning.pdfFileUrl === null || planning.status !== 'COMPLETED'}
                     onClick={() => {
-                      if (!planning.pdfFileId) {
+                      if (!planning.pdfFileUrl) {
                         toaster.create({
                           id: 'failed-to-download-pdf',
                           title: 'Unable to download pdf',
@@ -224,31 +222,7 @@ export const DashboardMyPlannings: React.FC = () => {
                         return;
                       }
 
-                      fileUrlMutation.mutate(
-                        { id: planning.pdfFileId },
-                        {
-                          onError: (error) => {
-                            toaster.create({
-                              id: 'failed-to-download-pdf',
-                              title: 'Unable to download pdf',
-                              description: error.message,
-                              closable: true,
-                              type: 'error',
-                            });
-                          },
-                          onSuccess: (data) => {
-                            toaster.create({
-                              id: 'download-pdf',
-                              title: 'Downloading pdf',
-                              description: 'The pdf file is being downloaded',
-                              closable: true,
-                              type: 'success',
-                            });
-
-                            window.open(data, '_blank');
-                          },
-                        }
-                      );
+                      window.open(planning.pdfFileUrl, '_blank');
                     }}
                   >
                     <FiDownload />
@@ -260,9 +234,9 @@ export const DashboardMyPlannings: React.FC = () => {
                     flex='1'
                     colorPalette='gray'
                     aria-label='Download calendar'
-                    disabled={planning.icsFileId === null || planning.status !== 'COMPLETED'}
+                    disabled={planning.icsFileUrl === null || planning.status !== 'COMPLETED'}
                     onClick={() => {
-                      if (!planning.icsFileId) {
+                      if (!planning.icsFileUrl) {
                         toaster.create({
                           id: 'failed-to-download-ics',
                           title: 'Unable to download ics',
@@ -273,31 +247,7 @@ export const DashboardMyPlannings: React.FC = () => {
                         return;
                       }
 
-                      fileUrlMutation.mutate(
-                        { id: planning.icsFileId },
-                        {
-                          onError: (error) => {
-                            toaster.create({
-                              id: 'failed-to-download-ics',
-                              title: 'Unable to download ics',
-                              description: error.message,
-                              closable: true,
-                              type: 'error',
-                            });
-                          },
-                          onSuccess: (data) => {
-                            toaster.create({
-                              id: 'download-ics',
-                              title: 'Downloading ics',
-                              description: 'The ics file is being downloaded',
-                              closable: true,
-                              type: 'success',
-                            });
-
-                            window.open(data, '_blank');
-                          },
-                        }
-                      );
+                      window.open(planning.icsFileUrl, '_blank');
                     }}
                   >
                     <FiDownload />

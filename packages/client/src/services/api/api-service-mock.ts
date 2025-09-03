@@ -47,14 +47,14 @@ export class ApiServiceMock implements ApiService {
   private tags: Tag[] = [
     {
       id: '1',
-      name: 'Tag 1',
+      slug: 'Tag 1',
       description: 'Tag 1 description',
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     },
     {
       id: '2',
-      name: 'Tag 2',
+      slug: 'Tag 2',
       description: 'Tag 2 description',
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
@@ -131,8 +131,8 @@ export class ApiServiceMock implements ApiService {
       id: '1',
       title: 'Planning 1',
       opportunityIds: ['1', '2'],
-      pdfFileId: '1',
-      icsFileId: '1',
+      pdfFileUrl: 'https://example.com',
+      icsFileUrl: 'https://example.com',
       status: 'COMPLETED',
       userId: '1',
       createdAt: new Date().toISOString(),
@@ -142,8 +142,8 @@ export class ApiServiceMock implements ApiService {
       id: '2',
       title: 'Planning 2',
       opportunityIds: ['1', '2'],
-      pdfFileId: '1',
-      icsFileId: '1',
+      pdfFileUrl: null,
+      icsFileUrl: null,
       status: 'IN_PROGRESS',
       userId: '2',
       createdAt: new Date().toISOString(),
@@ -225,7 +225,7 @@ export class ApiServiceMock implements ApiService {
   async updateTag(input: ApiService.UpdateTagInput): Promise<ApiService.UpdateTagOutput> {
     const tag = this.tags.find((tag) => tag.id === input.id);
     if (!tag) return failure([{ code: 'NOT_FOUND', message: 'Tag not found' }]);
-    tag.name = input.tag.name;
+    tag.slug = input.tag.slug;
     tag.description = input.tag.description;
     return success(tag);
   }
@@ -233,9 +233,9 @@ export class ApiServiceMock implements ApiService {
   async createTag(input: ApiService.CreateTagInput): Promise<ApiService.CreateTagOutput> {
     const ids = this.tags.map((tag) => Number(tag.id));
     const nextId = Math.max(...ids) + 1;
-    const tag = {
+    const tag: Tag = {
       id: nextId.toString(),
-      name: input.tag.name,
+      slug: input.tag.slug,
       description: input.tag.description,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
@@ -429,8 +429,8 @@ export class ApiServiceMock implements ApiService {
       id: nextId.toString(),
       title: input.planning.title,
       opportunityIds: input.planning.opportunityIds,
-      pdfFileId: null,
-      icsFileId: null,
+      pdfFileUrl: null,
+      icsFileUrl: null,
       status: 'IN_PROGRESS',
       userId: 'current',
       createdAt: new Date().toISOString(),

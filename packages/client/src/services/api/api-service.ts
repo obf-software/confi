@@ -118,12 +118,12 @@ export namespace ApiService {
 
   export interface UpdateTagInput {
     id: string;
-    tag: Pick<Tag, 'name' | 'description'>;
+    tag: Pick<Tag, 'slug' | 'description'>;
   }
   export type UpdateTagOutput = ApiServiceResponse<Tag>;
 
   export interface CreateTagInput {
-    tag: Pick<Tag, 'name' | 'description'>;
+    tag: Pick<Tag, 'slug' | 'description'>;
   }
   export type CreateTagOutput = ApiServiceResponse<Tag>;
 
@@ -275,7 +275,7 @@ export interface User {
 
 export interface Tag {
   id: string;
-  name: string;
+  slug: string;
   description: string;
   createdAt: string;
   updatedAt: string;
@@ -319,8 +319,8 @@ export interface Planning {
   title: string;
   userId: string;
   opportunityIds: string[];
-  pdfFileId: string | null;
-  icsFileId: string | null;
+  pdfFileUrl: string | null;
+  icsFileUrl: string | null;
   status: PlanningStatus;
   createdAt: string;
   updatedAt: string;
