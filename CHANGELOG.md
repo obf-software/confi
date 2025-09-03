@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.10.1](https://github.com/obf-software/confi/compare/v1.10.0...v1.10.1) (2025-09-03)
+
+
+### Bug Fixes
+
+* **ci:** add missing environment variables ([b2cc46c](https://github.com/obf-software/confi/commit/b2cc46c959bfcb514a5d482fa9f4f11e1ba72573))
+
 ## [1.10.0](https://github.com/obf-software/confi/compare/v1.9.5...v1.10.0) (2025-09-03)
 
 
