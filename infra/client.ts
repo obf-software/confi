@@ -1,8 +1,13 @@
 // import { api } from './api';
 import { auth } from './auth';
+import { env } from './env';
 
 const staticSite = new sst.aws.StaticSite('ClientStaticSite', {
   path: 'packages/client',
+  domain: {
+    name: env.CLOUDFLARE_DOMAIN_NAME,
+    dns: sst.cloudflare.dns(),
+  },
   dev: {
     url: 'http://localhost:5173',
     command: 'pnpm dev',
