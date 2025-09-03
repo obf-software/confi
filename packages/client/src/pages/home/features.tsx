@@ -42,8 +42,8 @@ const FeatureCard: React.FC<FeatureCardProps> = ({ icon, title, description, del
           <Box
             p='4'
             borderRadius='full'
-            bg='brandPrimaryButton.solid'
-            color='brandPrimaryButton.contrast'
+            bg='teal.500'
+            color='white'
             animation='float'
             boxShadow='0 8px 25px rgba(0, 197, 203, 0.3)'
           >
@@ -114,7 +114,7 @@ export const Features: React.FC = () => {
         position='absolute'
         top='10%'
         left='5%'
-        color='brandPrimaryButton.300'
+        color='teal.300'
         opacity='0.15'
         animation='floatSlow'
         display={{ base: 'none', lg: 'block' }}
@@ -129,7 +129,7 @@ export const Features: React.FC = () => {
         position='absolute'
         bottom='10%'
         right='5%'
-        color='brandPrimaryButton.400'
+        color='teal.400'
         opacity='0.12'
         animation='floatDelay'
         display={{ base: 'none', lg: 'block' }}
@@ -144,7 +144,7 @@ export const Features: React.FC = () => {
         position='absolute'
         top='30%'
         right='15%'
-        color='brandPrimaryButton.200'
+        color='teal.200'
         opacity='0.08'
         animation='floatLong'
         display={{ base: 'none', lg: 'block' }}
@@ -169,7 +169,7 @@ export const Features: React.FC = () => {
                 size='3xl'
                 color='fg.default'
                 fontWeight='bold'
-                background='linear-gradient(45deg, var(--colors-brandPrimaryButton-fg) 0%, var(--colors-brandPrimaryButton-solid) 100%)'
+                background='linear-gradient(45deg, var(--colors-teal-500) 0%, var(--colors-teal-500) 100%)'
                 backgroundClip='text'
                 css={{
                   '-webkit-background-clip': 'text',
@@ -216,8 +216,8 @@ export const Features: React.FC = () => {
             <Box
               p='8'
               borderRadius='2xl'
-              bg='brandPrimaryButton.solid'
-              color='brandPrimaryButton.contrast'
+              bg='teal.500'
+              color='white'
               textAlign='center'
               position='relative'
               overflow='hidden'

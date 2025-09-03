@@ -62,7 +62,7 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, onlyAl
 
           <Button
             variant='outline'
-            colorPalette='brandPrimaryButton'
+            colorPalette='teal'
             onClick={() => {
               void signOut();
             }}

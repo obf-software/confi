@@ -145,113 +145,60 @@ const config = defineConfig({
     semanticTokens: {
       colors: {
         // Brand colors with light/dark mode support
-        brandPrimaryButton: {
-          solid: {
-            value: { _light: 'brand.500', _dark: 'brand.400' },
-          },
-          contrast: {
-            value: { _light: 'white', _dark: 'gray.900' },
-          },
-          fg: {
-            value: { _light: 'brand.500', _dark: 'brand.300' },
-          },
-          muted: {
-            value: { _light: 'brand.100', _dark: 'brand.800' },
-          },
-          subtle: {
-            value: { _light: 'brand.50', _dark: 'brand.900' },
-          },
-          emphasized: {
-            value: { _light: 'brand.600', _dark: 'brand.300' },
-          },
-          focusRing: {
-            value: { _light: 'brand.500', _dark: 'brand.400' },
-          },
-          50: { value: { _light: 'brand.50', _dark: 'brand.950' } },
-          100: { value: { _light: 'brand.100', _dark: 'brand.900' } },
-          200: { value: { _light: 'brand.200', _dark: 'brand.800' } },
-          300: { value: { _light: 'brand.300', _dark: 'brand.700' } },
-          400: { value: { _light: 'brand.400', _dark: 'brand.600' } },
-          500: { value: { _light: 'brand.500', _dark: 'brand.500' } },
-          600: { value: { _light: 'brand.600', _dark: 'brand.400' } },
-          700: { value: { _light: 'brand.700', _dark: 'brand.300' } },
-          800: { value: { _light: 'brand.800', _dark: 'brand.200' } },
-          900: { value: { _light: 'brand.900', _dark: 'brand.100' } },
-        },
+        // brandPrimaryButton: {
+        //   solid: { value: 'brand.500' },
+        //   contrast: { value: 'white' },
+        //   fg: { value: 'brand.500' },
+        //   muted: { value: 'brand.100' },
+        //   subtle: { value: 'brand.50' },
+        //   emphasized: { value: 'brand.600' },
+        //   focusRing: { value: 'brand.500' },
+        //   50: { value: 'brand.50' },
+        //   100: { value: 'brand.100' },
+        //   200: { value: 'brand.200' },
+        //   300: { value: 'brand.300' },
+        //   400: { value: 'brand.400' },
+        //   500: { value: 'brand.500' },
+        //   600: { value: 'brand.600' },
+        //   700: { value: 'brand.700' },
+        //   800: { value: 'brand.800' },
+        //   900: { value: 'brand.900' },
+        // },
         // Background colors
         bg: {
-          canvas: {
-            value: { _light: 'white', _dark: 'gray.900' },
-          },
-          surface: {
-            value: { _light: 'gray.50', _dark: 'gray.800' },
-          },
-          subtle: {
-            value: { _light: 'gray.100', _dark: 'gray.700' },
-          },
-          muted: {
-            value: { _light: 'gray.200', _dark: 'gray.600' },
-          },
+          canvas: { value: 'white' },
+          surface: { value: 'gray.50' },
+          subtle: { value: 'gray.100' },
+          muted: { value: 'gray.200' },
         },
         // Text colors
         fg: {
-          default: {
-            value: { _light: 'gray.900', _dark: 'gray.100' },
-          },
-          muted: {
-            value: { _light: 'gray.600', _dark: 'gray.400' },
-          },
-          subtle: {
-            value: { _light: 'gray.500', _dark: 'gray.500' },
-          },
-          contrast: {
-            value: { _light: 'white', _dark: 'gray.900' },
-          },
+          default: { value: 'gray.900' },
+          muted: { value: 'gray.600' },
+          subtle: { value: 'gray.500' },
+          contrast: { value: 'white' },
         },
         // Border colors
         border: {
-          default: {
-            value: { _light: 'gray.200', _dark: 'gray.700' },
-          },
-          subtle: {
-            value: { _light: 'gray.100', _dark: 'gray.800' },
-          },
-          muted: {
-            value: { _light: 'gray.300', _dark: 'gray.600' },
-          },
+          default: { value: 'gray.200' },
+          subtle: { value: 'gray.100' },
+          muted: { value: 'gray.300' },
         },
         // Hero specific colors
         hero: {
-          bg: {
-            value: { _light: '#0A274E', _dark: 'gray.900' },
-          },
-          overlay: {
-            value: { _light: 'rgba(10, 39, 78, 0.7)', _dark: 'rgba(17, 24, 39, 0.8)' },
-          },
+          bg: { value: '#0A274E' },
+          overlay: { value: 'rgba(10, 39, 78, 0.7)' },
         },
         // Glassmorphism effects
         glass: {
-          bg: {
-            value: { _light: 'rgba(255, 255, 255, 0.1)', _dark: 'rgba(17, 24, 39, 0.2)' },
-          },
-          border: {
-            value: { _light: 'rgba(255, 255, 255, 0.2)', _dark: 'rgba(156, 163, 175, 0.1)' },
-          },
-          shadow: {
-            value: {
-              _light: '0 8px 32px rgba(0, 0, 0, 0.12)',
-              _dark: '0 8px 32px rgba(0, 0, 0, 0.3)',
-            },
-          },
+          bg: { value: 'rgba(255, 255, 255, 0.1)' },
+          border: { value: 'rgba(255, 255, 255, 0.2)' },
+          shadow: { value: '0 8px 32px rgba(0, 0, 0, 0.12)' },
         },
         // Enhanced contrast colors
         surface: {
-          elevated: {
-            value: { _light: 'white', _dark: 'gray.800' },
-          },
-          overlay: {
-            value: { _light: 'rgba(255, 255, 255, 0.95)', _dark: 'rgba(31, 41, 55, 0.95)' },
-          },
+          elevated: { value: 'white' },
+          overlay: { value: 'rgba(255, 255, 255, 0.95)' },
         },
       },
     },

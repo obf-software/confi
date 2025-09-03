@@ -24,8 +24,7 @@ export const SidebarLink: React.FC<{
         justifyContent='flex-start'
         size='lg'
         w='full'
-        bg={isActive ? 'brandPrimaryButton.subtle' : 'transparent'}
-        color={isActive ? 'brandPrimaryButton.emphasized' : 'fg.default'}
+        bg={isActive ? 'bg.emphasized' : 'transparent'}
         fontWeight={isActive ? 'semibold' : 'normal'}
       >
         <Icon mr='3'>{icon}</Icon>

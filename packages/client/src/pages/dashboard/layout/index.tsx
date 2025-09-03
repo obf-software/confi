@@ -31,7 +31,7 @@ export const DashboardLayout: React.FC = () => {
   return (
     <Flex
       h='100vh'
-      bg='bg.surface'
+      // bg='white'
     >
       {/* Mobile sidebar overlay */}
       {isSidebarOpen && (
@@ -90,7 +90,7 @@ export const DashboardLayout: React.FC = () => {
           <Text
             fontSize='xl'
             fontWeight='bold'
-            color='brandPrimaryButton.fg'
+            color='teal.500'
           >
             Confi
           </Text>

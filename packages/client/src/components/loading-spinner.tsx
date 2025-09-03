@@ -11,7 +11,7 @@ export const LoadingSpinner: React.FC = () => {
       <Box textAlign='center'>
         <Spinner
           size='xl'
-          color='brandPrimaryButton.500'
+          colorScheme={'teal'}
         />
       </Box>
     </Flex>

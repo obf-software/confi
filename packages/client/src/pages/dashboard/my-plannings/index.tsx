@@ -119,7 +119,7 @@ export const DashboardMyPlannings: React.FC = () => {
                   Você ainda não criou nenhum planejamento. Comece buscando oportunidades.
                 </EmptyState.Description>
                 <Button
-                  colorPalette='brandPrimaryButton'
+                  colorPalette='teal'
                   size='lg'
                   onClick={handleNewPlanning}
                 >
@@ -152,7 +152,7 @@ export const DashboardMyPlannings: React.FC = () => {
             <Text color='fg.muted'>Visualize e gerencie seus planejamentos de oportunidades</Text>
           </Box>
           <Button
-            colorPalette='brandPrimaryButton'
+            colorPalette='teal'
             size='lg'
             onClick={handleNewPlanning}
           >

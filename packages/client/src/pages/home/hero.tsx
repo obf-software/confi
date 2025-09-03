@@ -254,7 +254,7 @@ export const Hero: React.FC<HeroProps> = ({ ...flexProps }) => {
             animation='fadeInUpDelay8'
           >
             <Button
-              colorPalette='brandPrimaryButton'
+              colorPalette='teal'
               variant='solid'
               borderRadius='full'
               color='white'

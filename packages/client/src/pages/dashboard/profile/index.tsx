@@ -1,4 +1,4 @@
-import { Button, Card, Heading, Input, Stack, Text, VStack } from '@chakra-ui/react';
+import { Box, Button, Card, Heading, Input, Stack, Text, VStack } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -68,25 +68,16 @@ export const DashboardProfile: React.FC = () => {
       gap='6'
       maxW='2xl'
     >
-      <VStack
-        align='flex-start'
-        gap='2'
-      >
+      <Box>
         <Heading
-          as='h1'
-          fontSize='4xl'
-          lineHeight='1'
-          fontWeight='normal'
+          size='2xl'
+          color='fg.emphasized'
+          mb='2'
         >
-          Meu <b>Perfil</b>
+          Meu Perfil
         </Heading>
-        <Text
-          fontSize='lg'
-          colorPalette={'gray'}
-        >
-          Atualize suas informações pessoais e de contato
-        </Text>
-      </VStack>
+        <Text color='fg.muted'>Visualize e gerencie suas informações pessoais</Text>
+      </Box>
 
       <Card.Root
         width='full'

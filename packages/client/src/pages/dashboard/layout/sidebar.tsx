@@ -38,9 +38,9 @@ export const SidebarContent: React.FC<SidebarContentProps> = ({
       justify='space-between'
       align='stretch'
       p='6'
-      bg='bg.canvas'
+      bg='bg.panel'
       borderRightWidth='1px'
-      borderColor='border.default'
+      borderColor='border.emphasized'
       minW='280px'
     >
       <VStack
@@ -54,7 +54,7 @@ export const SidebarContent: React.FC<SidebarContentProps> = ({
           <Text
             fontSize='2xl'
             fontWeight='bold'
-            color='brandPrimaryButton.fg'
+            color='teal'
           >
             Confi
           </Text>
