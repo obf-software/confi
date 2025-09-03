@@ -18,54 +18,64 @@ export const formDataSchema = z.object({
 export type FormData = z.infer<typeof formDataSchema>;
 
 export const organizationTypeCollection = createListCollection({
-  items: ['Informal (sem CNPJ)', 'Negócio', 'ONG / OSCIP (Associação ou Fundação)', 'Cooperativa'],
+  items: [
+    'Informal (no CNPJ)',
+    'Business',
+    'NGO / OSCIP (Association or Foundation)',
+    'Cooperative',
+  ],
 });
 
 export const activityTimeCollection = createListCollection({
-  items: ['Menos de 1 ano', 'Entre 1 e 3 anos', 'Entre 3 e 5 anos', 'Mais de 5 anos'],
+  items: [
+    'Less than 1 year',
+    'Between 1 and 3 years',
+    'Between 3 and 5 years',
+    'More than 5 years',
+  ],
 });
 
 export const businessStageCollection = createListCollection({
-  items: ['Ideação', 'Validação', 'Tração', 'Escala'],
+  items: ['Ideation', 'Validation', 'Traction', 'Scale'],
 });
 
 export const odsCollection = createListCollection({
   items: [
     'Pobreza - ODS 1',
     'Fome - ODS 2',
-    'Saúde - ODS 3',
-    'Educação - ODS 4',
-    'Gênero - ODS 5',
-    'Água - ODS 6',
+    'Health - SDG 3',
+    'Education - SDG 4',
+    'Gender - SDG 5',
+    'Water - SDG 6',
     'Energia - ODS 7',
-    'Trabalho - ODS 8',
-    'Inovação - ODS 9',
-    'Desigualdade - ODS 10',
+    'Work - SDG 8',
+    'Innovation - SDG 9',
+    'Inequality - SDG 10',
     'Cidades - ODS 11',
     'Consumo - ODS 12',
     'Clima - ODS 13',
-    'Vida Marinha - ODS 14',
-    'Vida Terrestre - ODS 15',
+    'Marine Life - SDG 14',
+    'Terrestrial Life - SDG 15',
     'Paz - ODS 16',
-    'Parcerias - ODS 17',
+    'Partnerships - SDG 17',
   ],
 });
 
 export const minorityGroupCollection = createListCollection({
   items: [
-    'Mulheres',
-    'População Indígena',
-    'Jovem (15-29 anos)',
+    'Women',
+    'Indigenous Population',
+    'Young (15-29 years)',
     'LGBTQIA+',
-    'Pretos/Pardos',
-    'Cidadão da União Europeia',
+    'Black/Brown',
+    'European Union Citizen',
   ],
 });
 
 export const englishLevelCollection = createListCollection({
   items: [
-    'Sim, com nível intermediário de inglês',
-    'Sim, com nível avançado de inglês',
-    'Ainda não',
+    'Yes, with intermediate level of English',
+    'Yes, with advanced level of English',
+    'Not yet',
   ],
 });

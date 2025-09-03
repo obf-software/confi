@@ -51,8 +51,7 @@ export const DiversityStep: React.FC<DiversityStep> = ({ onBack }) => {
             fontWeight='normal'
             lineHeight='1'
           >
-            Algumas perguntinhas importantes para fazermos o match correto de oportunidades pra
-            vocês
+            Some important questions to make the right match of opportunities for you
           </Heading>
 
           <SimpleGrid
@@ -62,13 +61,13 @@ export const DiversityStep: React.FC<DiversityStep> = ({ onBack }) => {
             py='16'
           >
             <Field
-              label={<>Região de Atuação</>}
+              label={<>Region of Activity</>}
               required
               invalid={!!formMethods.formState.errors.activityRegion}
               errorText={formMethods.formState.errors.activityRegion?.message}
             >
               <Input
-                placeholder='Ex.: SP, RJ e PR (atualmente expandindo para o RS também)'
+                placeholder='Ex.: SP, RJ and PR (currently expanding to RS as well)'
                 variant='outline'
                 size='xl'
                 {...formMethods.register('activityRegion')}
@@ -76,7 +75,7 @@ export const DiversityStep: React.FC<DiversityStep> = ({ onBack }) => {
             </Field>
 
             <Field
-              label={<>Tipo de Organização</>}
+              label={<>Organization Type</>}
               required
               invalid={!!formMethods.formState.errors.organizationType}
               errorText={formMethods.formState.errors.organizationType?.message}
@@ -101,7 +100,7 @@ export const DiversityStep: React.FC<DiversityStep> = ({ onBack }) => {
             </Field>
 
             <Field
-              label={<>Tempo de Atividade</>}
+              label={<>Activity Time</>}
               required
               invalid={!!formMethods.formState.errors.activityTime}
               errorText={formMethods.formState.errors.activityTime?.message}
@@ -126,7 +125,7 @@ export const DiversityStep: React.FC<DiversityStep> = ({ onBack }) => {
             </Field>
 
             <Field
-              label={<>Estágio do Negócio</>}
+              label={<>Business Stage</>}
               required
               invalid={!!formMethods.formState.errors.businessStage}
               errorText={formMethods.formState.errors.businessStage?.message}
@@ -151,7 +150,7 @@ export const DiversityStep: React.FC<DiversityStep> = ({ onBack }) => {
             </Field>
 
             <Field
-              label={<>Principal Área de Impacto (de acordo com os ODS da ONU)</>}
+              label={<>Main Impact Area (according to UN SDGs)</>}
               required
               invalid={!!formMethods.formState.errors.ods}
               errorText={formMethods.formState.errors.ods?.message}
@@ -176,7 +175,7 @@ export const DiversityStep: React.FC<DiversityStep> = ({ onBack }) => {
             </Field>
 
             <Field
-              label={<>Existem membros fundadores ou de C-level dentro das categorias a seguir?</>}
+              label={<>Are there founding or C-level members within the following categories?</>}
               invalid={!!formMethods.formState.errors.minorityGroups}
               errorText={formMethods.formState.errors.minorityGroups?.message}
             >
@@ -202,8 +201,8 @@ export const DiversityStep: React.FC<DiversityStep> = ({ onBack }) => {
             <Field
               label={
                 <>
-                  Existe alguém na sua equipe hoje capaz de lidar com os documentos do processo de
-                  inscrição em inglês (e participar de eventos nesse idioma)?
+                  Is there someone on your team today capable of handling the application process
+                  documents in English (and participating in events in that language)?
                 </>
               }
               required
@@ -236,7 +235,7 @@ export const DiversityStep: React.FC<DiversityStep> = ({ onBack }) => {
             justify='center'
           >
             <IconButton
-              aria-label='Voltar'
+              aria-label='Back'
               rounded='full'
               colorPalette='black'
               size='xl'
@@ -247,14 +246,14 @@ export const DiversityStep: React.FC<DiversityStep> = ({ onBack }) => {
             </IconButton>
 
             <Button
-              aria-label='Buscar'
+              aria-label='Search'
               rounded='full'
               colorPalette='teal'
               size='xl'
               type='submit'
               loading={formMethods.formState.isSubmitting}
             >
-              Buscar Oportunidades
+              Search Opportunities
               <RiSearchEyeLine />
             </Button>
           </HStack>

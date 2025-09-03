@@ -58,7 +58,7 @@ export const DashboardAdminOpportunities: React.FC = () => {
             colorPalette='green'
             variant='subtle'
           >
-            Ativa
+            Active
           </Badge>
         );
       case 'PENDING_REVIEW':
@@ -67,7 +67,7 @@ export const DashboardAdminOpportunities: React.FC = () => {
             colorPalette='yellow'
             variant='subtle'
           >
-            Em Revisão
+            Under Review
           </Badge>
         );
       case 'DISABLED':
@@ -76,7 +76,7 @@ export const DashboardAdminOpportunities: React.FC = () => {
             colorPalette='gray'
             variant='subtle'
           >
-            Desativada
+            Disabled
           </Badge>
         );
       default:
@@ -97,28 +97,28 @@ export const DashboardAdminOpportunities: React.FC = () => {
               color='fg.emphasized'
               mb='2'
             >
-              Oportunidades
+              Opportunities
             </Heading>
-            <Text color='fg.muted'>Gerencie todas as oportunidades cadastradas no sistema</Text>
+            <Text color='fg.muted'>Manage all opportunities registered in the system</Text>
           </Box>
           <Button
             colorPalette='teal'
             size='lg'
           >
             <FiPlus />
-            Nova Oportunidade
+            New Opportunity
           </Button>
         </HStack>
 
         <HStack gap='4'>
           <Input
-            placeholder='Buscar oportunidades...'
+            placeholder='Search opportunities...'
             size='lg'
             flex='1'
           />
           <IconButton
             size='lg'
-            aria-label='Buscar'
+            aria-label='Search'
           >
             <FiSearch />
           </IconButton>
@@ -136,12 +136,12 @@ export const DashboardAdminOpportunities: React.FC = () => {
           >
             <Table.Header>
               <Table.Row>
-                <Table.ColumnHeader>Nome</Table.ColumnHeader>
-                <Table.ColumnHeader>Prazo</Table.ColumnHeader>
+                <Table.ColumnHeader>Name</Table.ColumnHeader>
+                <Table.ColumnHeader>Deadline</Table.ColumnHeader>
                 <Table.ColumnHeader>Status</Table.ColumnHeader>
                 <Table.ColumnHeader>Tags</Table.ColumnHeader>
-                <Table.ColumnHeader>Origem</Table.ColumnHeader>
-                <Table.ColumnHeader width='120px'>Ações</Table.ColumnHeader>
+                <Table.ColumnHeader>Source</Table.ColumnHeader>
+                <Table.ColumnHeader width='120px'>Actions</Table.ColumnHeader>
               </Table.Row>
             </Table.Header>
             <Table.Body>
@@ -169,7 +169,7 @@ export const DashboardAdminOpportunities: React.FC = () => {
                         variant='subtle'
                         size='sm'
                       >
-                        Busca automática
+                        Automatic search
                       </Badge>
                     ) : (
                       <Badge
@@ -186,14 +186,14 @@ export const DashboardAdminOpportunities: React.FC = () => {
                       <IconButton
                         variant='ghost'
                         size='sm'
-                        aria-label='Visualizar'
+                        aria-label='View'
                       >
                         <FiEye />
                       </IconButton>
                       <IconButton
                         variant='ghost'
                         size='sm'
-                        aria-label='Editar'
+                        aria-label='Edit'
                       >
                         <FiEdit2 />
                       </IconButton>
@@ -201,7 +201,7 @@ export const DashboardAdminOpportunities: React.FC = () => {
                         variant='ghost'
                         size='sm'
                         colorPalette='red'
-                        aria-label='Excluir'
+                        aria-label='Delete'
                       >
                         <FiTrash2 />
                       </IconButton>

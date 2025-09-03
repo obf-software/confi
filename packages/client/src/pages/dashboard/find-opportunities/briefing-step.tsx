@@ -46,7 +46,7 @@ export const BriefingStep: React.FC<BriefingStepProps> = ({ onBack, onNext }) =>
             lineHeight='1'
             width='70%'
           >
-            Agora conta pra mim:
+            Now tell me:
           </Heading>
 
           <Heading
@@ -56,7 +56,7 @@ export const BriefingStep: React.FC<BriefingStepProps> = ({ onBack, onNext }) =>
             lineHeight='1'
             width='70%'
           >
-            O que é que vocês fazem?
+            What do you do?
           </Heading>
 
           <Text
@@ -66,9 +66,9 @@ export const BriefingStep: React.FC<BriefingStepProps> = ({ onBack, onNext }) =>
             lineHeight='1'
             width='85%'
           >
-            pode explicar de forma resumida, numa frase como "damos às periferias de SP acesso à
-            educação de qualidade por meio de cursos acessíveis" - mas lembre-se: quanto mais
-            informações, melhor o match!
+            you can explain briefly, in a sentence like "we give SP peripheries access to quality
+            education through accessible courses" - but remember: the more information, the better
+            the match!
           </Text>
 
           <VStack
@@ -113,7 +113,7 @@ export const BriefingStep: React.FC<BriefingStepProps> = ({ onBack, onNext }) =>
                 justify='center'
               >
                 <IconButton
-                  aria-label='Voltar'
+                  aria-label='Back'
                   rounded='full'
                   colorPalette='black'
                   size='xl'
@@ -124,13 +124,13 @@ export const BriefingStep: React.FC<BriefingStepProps> = ({ onBack, onNext }) =>
                 </IconButton>
 
                 <Button
-                  aria-label='Buscar'
+                  aria-label='Search'
                   rounded='full'
                   colorPalette='teal'
                   size='xl'
                   onClick={onNext}
                 >
-                  Próximo
+                  Next
                   <RiArrowRightLine />
                 </Button>
               </HStack>

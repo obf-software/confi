@@ -27,9 +27,9 @@ export const DashboardAdminHome: React.FC = () => {
             color='fg.emphasized'
             mb='2'
           >
-            Estatísticas
+            Home
           </Heading>
-          <Text color='fg.muted'>Visão geral do sistema e guia de administração</Text>
+          <Text color='fg.muted'>System overview and administration guide</Text>
         </Box>
 
         <SimpleGrid
@@ -39,11 +39,11 @@ export const DashboardAdminHome: React.FC = () => {
           <Card.Root>
             <Card.Body>
               <Stat.Root>
-                <Stat.Label>Total de Oportunidades</Stat.Label>
+                <Stat.Label>Total Opportunities</Stat.Label>
                 <Stat.ValueText>124</Stat.ValueText>
                 <Stat.HelpText>
                   <Stat.UpIndicator />
-                  23% desde o último mês
+                  23% since last month
                 </Stat.HelpText>
               </Stat.Root>
             </Card.Body>
@@ -52,11 +52,11 @@ export const DashboardAdminHome: React.FC = () => {
           <Card.Root>
             <Card.Body>
               <Stat.Root>
-                <Stat.Label>Planejamentos Criados</Stat.Label>
+                <Stat.Label>Plannings Created</Stat.Label>
                 <Stat.ValueText>45</Stat.ValueText>
                 <Stat.HelpText>
                   <Stat.UpIndicator />
-                  12% desde o último mês
+                  12% since last month
                 </Stat.HelpText>
               </Stat.Root>
             </Card.Body>
@@ -65,10 +65,10 @@ export const DashboardAdminHome: React.FC = () => {
           <Card.Root>
             <Card.Body>
               <Stat.Root>
-                <Stat.Label>Usuários Ativos</Stat.Label>
+                <Stat.Label>Active Users</Stat.Label>
                 <Stat.ValueText>28</Stat.ValueText>
                 <Stat.HelpText>
-                  <Stat.UpIndicator />8 novos esta semana
+                  <Stat.UpIndicator />8 new this week
                 </Stat.HelpText>
               </Stat.Root>
             </Card.Body>
@@ -77,9 +77,9 @@ export const DashboardAdminHome: React.FC = () => {
           <Card.Root>
             <Card.Body>
               <Stat.Root>
-                <Stat.Label>Tags Criadas</Stat.Label>
+                <Stat.Label>Created Tags</Stat.Label>
                 <Stat.ValueText>67</Stat.ValueText>
-                <Stat.HelpText>Categorizando oportunidades</Stat.HelpText>
+                <Stat.HelpText>Categorizing opportunities</Stat.HelpText>
               </Stat.Root>
             </Card.Body>
           </Card.Root>
@@ -87,11 +87,11 @@ export const DashboardAdminHome: React.FC = () => {
           <Card.Root>
             <Card.Body>
               <Stat.Root>
-                <Stat.Label>Buscas Realizadas</Stat.Label>
+                <Stat.Label>Searches Performed</Stat.Label>
                 <Stat.ValueText>312</Stat.ValueText>
                 <Stat.HelpText>
                   <Stat.UpIndicator />
-                  18% desde o último mês
+                  18% since last month
                 </Stat.HelpText>
               </Stat.Root>
             </Card.Body>
@@ -100,9 +100,9 @@ export const DashboardAdminHome: React.FC = () => {
           <Card.Root>
             <Card.Body>
               <Stat.Root>
-                <Stat.Label>Taxa de Conversão</Stat.Label>
+                <Stat.Label>Conversion Rate</Stat.Label>
                 <Stat.ValueText>68%</Stat.ValueText>
-                <Stat.HelpText>Buscas em planejamentos</Stat.HelpText>
+                <Stat.HelpText>Searches to plannings</Stat.HelpText>
               </Stat.Root>
             </Card.Body>
           </Card.Root>
@@ -115,13 +115,13 @@ export const DashboardAdminHome: React.FC = () => {
               size='lg'
               color='fg.emphasized'
             >
-              Como o Sistema Funciona
+              How the System Works
             </Heading>
             <Text
               color='fg.muted'
               mt='2'
             >
-              O Confi conecta organizações a oportunidades relevantes usando inteligência artificial
+              Confi connects organizations to relevant opportunities using artificial intelligence
             </Text>
           </Card.Header>
           <Card.Body>
@@ -137,7 +137,7 @@ export const DashboardAdminHome: React.FC = () => {
                     variant='solid'
                     size='lg'
                   >
-                    Fluxo do Administrador
+                    Administrator Flow
                   </Badge>
                 </HStack>
 
@@ -160,7 +160,7 @@ export const DashboardAdminHome: React.FC = () => {
                       fontSize='xs'
                       fontWeight='semibold'
                     >
-                      Buscar
+                      Search
                     </Text>
                   </VStack>
 
@@ -184,7 +184,7 @@ export const DashboardAdminHome: React.FC = () => {
                       fontSize='xs'
                       fontWeight='semibold'
                     >
-                      Revisar
+                      Review
                     </Text>
                   </VStack>
 
@@ -233,7 +233,7 @@ export const DashboardAdminHome: React.FC = () => {
                       fontWeight='semibold'
                       color='purple.500'
                     >
-                      Avaliar
+                      Evaluate
                     </Text>
                   </VStack>
 
@@ -257,7 +257,7 @@ export const DashboardAdminHome: React.FC = () => {
                       fontSize='xs'
                       fontWeight='semibold'
                     >
-                      Disponível
+                      Available
                     </Text>
                   </VStack>
                 </HStack>
@@ -273,14 +273,14 @@ export const DashboardAdminHome: React.FC = () => {
                       color='fg.emphasized'
                       fontSize='sm'
                     >
-                      1. Buscar
+                      1. Search
                     </Text>
                     <Text
                       fontSize='xs'
                       color='fg.muted'
                       mt='1'
                     >
-                      Crie buscas com prompts específicos para encontrar oportunidades
+                      Create searches with specific prompts to find opportunities
                     </Text>
                   </Box>
                   <Box>
@@ -289,14 +289,14 @@ export const DashboardAdminHome: React.FC = () => {
                       color='fg.emphasized'
                       fontSize='sm'
                     >
-                      2. Revisar
+                      2. Review
                     </Text>
                     <Text
                       fontSize='xs'
                       color='fg.muted'
                       mt='1'
                     >
-                      Aprove oportunidades encontradas antes de disponibilizar
+                      Approve opportunities found before making them available
                     </Text>
                   </Box>
                   <Box>
@@ -305,14 +305,14 @@ export const DashboardAdminHome: React.FC = () => {
                       color='fg.emphasized'
                       fontSize='sm'
                     >
-                      3. Criar Tags
+                      3. Create Tags
                     </Text>
                     <Text
                       fontSize='xs'
                       color='fg.muted'
                       mt='1'
                     >
-                      Defina categorias para classificar as oportunidades
+                      Define categories to classify opportunities
                     </Text>
                   </Box>
                   <Box>
@@ -321,14 +321,14 @@ export const DashboardAdminHome: React.FC = () => {
                       color='fg.emphasized'
                       fontSize='sm'
                     >
-                      4. Avaliar
+                      4. Evaluate
                     </Text>
                     <Text
                       fontSize='xs'
                       color='fg.muted'
                       mt='1'
                     >
-                      IA atribui tags automaticamente às oportunidades
+                      IA assigns tags automatically to opportunities
                     </Text>
                   </Box>
                   <Box>
@@ -337,14 +337,14 @@ export const DashboardAdminHome: React.FC = () => {
                       color='fg.emphasized'
                       fontSize='sm'
                     >
-                      5. Disponível
+                      5. Available
                     </Text>
                     <Text
                       fontSize='xs'
                       color='fg.muted'
                       mt='1'
                     >
-                      Sistema pronto para usuários buscarem oportunidades
+                      System ready for users to search for opportunities
                     </Text>
                   </Box>
                 </SimpleGrid>
@@ -358,7 +358,7 @@ export const DashboardAdminHome: React.FC = () => {
                     variant='solid'
                     size='lg'
                   >
-                    Fluxo do Usuário
+                    User Flow
                   </Badge>
                 </HStack>
 
@@ -381,7 +381,7 @@ export const DashboardAdminHome: React.FC = () => {
                       fontSize='xs'
                       fontWeight='semibold'
                     >
-                      Buscar
+                      Search
                     </Text>
                   </VStack>
 
@@ -406,7 +406,7 @@ export const DashboardAdminHome: React.FC = () => {
                       fontSize='xs'
                       fontWeight='semibold'
                     >
-                      Selecionar
+                      Select
                     </Text>
                   </VStack>
 
@@ -432,7 +432,7 @@ export const DashboardAdminHome: React.FC = () => {
                       fontWeight='semibold'
                       color='blue.500'
                     >
-                      Planejar
+                      Plan
                     </Text>
                   </VStack>
                 </HStack>
@@ -448,14 +448,14 @@ export const DashboardAdminHome: React.FC = () => {
                       color='fg.emphasized'
                       fontSize='sm'
                     >
-                      1. Buscar Oportunidades
+                      1. Search Opportunities
                     </Text>
                     <Text
                       fontSize='xs'
                       color='fg.muted'
                       mt='1'
                     >
-                      Preenche formulário com informações da organização
+                      Fill out the form with organization information
                     </Text>
                   </Box>
                   <Box>
@@ -464,14 +464,14 @@ export const DashboardAdminHome: React.FC = () => {
                       color='fg.emphasized'
                       fontSize='sm'
                     >
-                      2. Selecionar Relevantes
+                      2. Select Relevant
                     </Text>
                     <Text
                       fontSize='xs'
                       color='fg.muted'
                       mt='1'
                     >
-                      Escolhe oportunidades mais adequadas ao perfil
+                      Choose relevant opportunities
                     </Text>
                   </Box>
                   <Box>
@@ -480,14 +480,14 @@ export const DashboardAdminHome: React.FC = () => {
                       color='fg.emphasized'
                       fontSize='sm'
                     >
-                      3. Gerar Planejamento
+                      3. Generate Planning
                     </Text>
                     <Text
                       fontSize='xs'
                       color='fg.muted'
                       mt='1'
                     >
-                      Recebe PDF com instruções e calendário de prazos
+                      Receive PDF with instructions and deadline calendar
                     </Text>
                   </Box>
                 </SimpleGrid>
@@ -503,7 +503,7 @@ export const DashboardAdminHome: React.FC = () => {
               size='lg'
               color='fg.emphasized'
             >
-              Suas Responsabilidades como Administrador
+              Your Responsibilities as Administrator
             </Heading>
           </Card.Header>
           <Card.Body>
@@ -520,15 +520,15 @@ export const DashboardAdminHome: React.FC = () => {
                     fontWeight='semibold'
                     color='fg.emphasized'
                   >
-                    Manter Oportunidades Atualizadas
+                    Keep Opportunities Updated
                   </Text>
                 </HStack>
                 <Text
                   fontSize='sm'
                   color='fg.muted'
                 >
-                  Execute buscas regularmente para encontrar novas oportunidades. Revise e aprove
-                  antes de disponibilizar aos usuários.
+                  Execute searches regularly to find new opportunities. Review and approve before
+                  making them available to users.
                 </Text>
               </Box>
 
@@ -541,15 +541,15 @@ export const DashboardAdminHome: React.FC = () => {
                     fontWeight='semibold'
                     color='fg.emphasized'
                   >
-                    Gerenciar Sistema de Tags
+                    Manage Tagging System
                   </Text>
                 </HStack>
                 <Text
                   fontSize='sm'
                   color='fg.muted'
                 >
-                  Crie tags que representem bem as categorias de oportunidades. Quanto melhores as
-                  tags, mais preciso será o matching.
+                  Create tags that represent well the categories of opportunities. The better the
+                  tags, the more accurate the matching will be.
                 </Text>
               </Box>
 
@@ -562,15 +562,15 @@ export const DashboardAdminHome: React.FC = () => {
                     fontWeight='semibold'
                     color='fg.emphasized'
                   >
-                    Executar Avaliações
+                    Run Evaluations
                   </Text>
                 </HStack>
                 <Text
                   fontSize='sm'
                   color='fg.muted'
                 >
-                  Rode o processo de avaliação sempre que houver oportunidades sem tags. Isso
-                  garante que usuários encontrem resultados.
+                  Run the evaluation process whenever there are opportunities without tags. This
+                  ensures that users find results.
                 </Text>
               </Box>
 
@@ -583,15 +583,15 @@ export const DashboardAdminHome: React.FC = () => {
                     fontWeight='semibold'
                     color='fg.emphasized'
                   >
-                    Monitorar Qualidade
+                    Monitor Quality
                   </Text>
                 </HStack>
                 <Text
                   fontSize='sm'
                   color='fg.muted'
                 >
-                  Acompanhe as estatísticas e planejamentos criados. Ajuste tags e buscas baseado no
-                  que os usuários estão procurando.
+                  Monitor the statistics and plannings created. Adjust tags and searches based on
+                  what users are looking for.
                 </Text>
               </Box>
             </SimpleGrid>
@@ -602,11 +602,10 @@ export const DashboardAdminHome: React.FC = () => {
         <Alert.Root status='info'>
           <Alert.Indicator />
           <Alert.Content>
-            <Alert.Title>Dica de Início Rápido</Alert.Title>
+            <Alert.Title>Quick Start Tip</Alert.Title>
             <Alert.Description>
-              Para começar: 1) Crie uma busca de oportunidades, 2) Revise e aprove as encontradas,
-              3) Crie tags relevantes, 4) Execute uma avaliação. Pronto! O sistema está configurado
-              para os usuários.
+              To get started: 1) Create an opportunity search, 2) Review and approve those found, 3)
+              Create relevant tags, 4) Run an evaluation. Done! The system is configured for users.
             </Alert.Description>
           </Alert.Content>
         </Alert.Root>

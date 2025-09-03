@@ -51,8 +51,8 @@ export const NameStep: React.FC<NameStepProps> = ({ onNext }) => {
                   fontWeight='normal'
                   lineHeight='1'
                 >
-                  Vou te ajudar a encontrar oportunidades de <br />
-                  <b>funding internacional</b>
+                  I'll help you find <br />
+                  <b>international funding</b> opportunities
                 </Heading>
 
                 <Text
@@ -60,7 +60,7 @@ export const NameStep: React.FC<NameStepProps> = ({ onNext }) => {
                   fontWeight='normal'
                   lineHeight='1'
                 >
-                  para o seu negócio de impacto
+                  for your impact business
                 </Text>
               </VStack>
 
@@ -83,7 +83,7 @@ export const NameStep: React.FC<NameStepProps> = ({ onNext }) => {
                   fontWeight='normal'
                   lineHeight='1'
                 >
-                  Qual é o nome do seu negócio?
+                  What is the name of your business?
                 </Text>
 
                 <Stack
@@ -107,13 +107,13 @@ export const NameStep: React.FC<NameStepProps> = ({ onNext }) => {
                   </Field>
 
                   <Button
-                    aria-label='Buscar'
+                    aria-label='Search'
                     rounded='full'
                     colorPalette='teal'
                     size='xl'
                     onClick={onNext}
                   >
-                    Iniciar
+                    Start
                     <RiArrowRightLine />
                   </Button>
                 </Stack>

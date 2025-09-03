@@ -42,17 +42,16 @@ export const DashboardProfile: React.FC = () => {
 
       toaster.create({
         id: 'profile-success',
-        title: 'Perfil atualizado',
-        description: 'Suas informações foram atualizadas com sucesso',
+        title: 'Profile updated',
+        description: 'Your information has been successfully updated',
         closable: true,
         type: 'success',
       });
     } catch (error: unknown) {
-      const errorMessage =
-        error instanceof Error ? error.message : 'Não foi possível atualizar as informações';
+      const errorMessage = error instanceof Error ? error.message : 'Unable to update information';
       toaster.create({
         id: 'profile-error',
-        title: 'Erro ao atualizar perfil',
+        title: 'Error updating profile',
         description: errorMessage,
         closable: true,
         type: 'error',
@@ -74,9 +73,9 @@ export const DashboardProfile: React.FC = () => {
           color='fg.emphasized'
           mb='2'
         >
-          Meu Perfil
+          My Profile
         </Heading>
-        <Text color='fg.muted'>Visualize e gerencie suas informações pessoais</Text>
+        <Text color='fg.muted'>View and manage your personal information</Text>
       </Box>
 
       <Card.Root
@@ -84,7 +83,7 @@ export const DashboardProfile: React.FC = () => {
         variant='elevated'
       >
         <Card.Header>
-          <Heading size='lg'>Informações Pessoais</Heading>
+          <Heading size='lg'>Personal Information</Heading>
         </Card.Header>
 
         <Card.Body>
@@ -95,7 +94,7 @@ export const DashboardProfile: React.FC = () => {
           >
             <Stack gap='6'>
               <Field
-                label='Nome completo'
+                label='Full name'
                 required
                 disabled
                 invalid={!!errors.name}
@@ -104,10 +103,10 @@ export const DashboardProfile: React.FC = () => {
                 <Input
                   colorPalette={'teal'}
                   {...register('name', {
-                    required: 'Nome é obrigatório',
+                    required: 'Name is required',
                     minLength: {
                       value: 2,
-                      message: 'Nome deve ter pelo menos 2 caracteres',
+                      message: 'Name must have at least 2 characters',
                     },
                   })}
                 />
@@ -124,7 +123,7 @@ export const DashboardProfile: React.FC = () => {
                   type='email'
                   colorPalette={'teal'}
                   {...register('email', {
-                    required: 'Email é obrigatório',
+                    required: 'Email is required',
                   })}
                 />
                 <Text
@@ -132,7 +131,7 @@ export const DashboardProfile: React.FC = () => {
                   colorPalette={'gray'}
                   mt='1'
                 >
-                  O email não pode ser alterado
+                  Email cannot be changed
                 </Text>
               </Field>
 
@@ -147,15 +146,15 @@ export const DashboardProfile: React.FC = () => {
                   colorPalette={'teal'}
                   {...register('phone', {
                     pattern: {
-                      value: /^\(\d{2}\)\s\d{4,5}-\d{4}$/,
-                      message: 'Formato inválido. Use (11) 99999-9999',
+                      value: /^\+?[\d\s()-]+$/,
+                      message: 'Invalid phone number',
                     },
                   })}
                 />
               </Field>
 
               <Field
-                label='Organização'
+                label='Organization'
                 disabled
                 invalid={!!errors.organization}
                 errorText={errors.organization?.message}
@@ -167,7 +166,7 @@ export const DashboardProfile: React.FC = () => {
               </Field>
 
               <Field
-                label='Cargo'
+                label='Position'
                 disabled
                 invalid={!!errors.position}
                 errorText={errors.position?.message}
@@ -186,7 +185,7 @@ export const DashboardProfile: React.FC = () => {
                 disabled
                 alignSelf='flex-start'
               >
-                Salvar alterações
+                Save changes
               </Button>
             </Stack>
           </form>

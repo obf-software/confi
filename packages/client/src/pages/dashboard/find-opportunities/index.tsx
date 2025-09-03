@@ -40,7 +40,7 @@ export const DashboardFindOpportunities: React.FC = () => {
         onError: (error) => {
           toaster.create({
             id: 'failed-to-find-opportunities',
-            title: 'Não foi possível buscar oportunidades',
+            title: 'Unable to search for opportunities',
             description: error.message,
             closable: true,
             type: 'error',

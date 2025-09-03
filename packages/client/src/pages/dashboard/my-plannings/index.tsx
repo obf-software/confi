@@ -14,6 +14,7 @@ import {
 } from '@chakra-ui/react';
 import { FiPlus, FiDownload, FiEye, FiTrash2, FiCalendar, FiFileText } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
+import { routes } from '../../../lib/routes';
 
 export const DashboardMyPlannings: React.FC = () => {
   const navigate = useNavigate();
@@ -57,7 +58,7 @@ export const DashboardMyPlannings: React.FC = () => {
             colorPalette='green'
             variant='subtle'
           >
-            Concluído
+            Completed
           </Badge>
         );
       case 'IN_PROGRESS':
@@ -66,7 +67,7 @@ export const DashboardMyPlannings: React.FC = () => {
             colorPalette='blue'
             variant='subtle'
           >
-            Em Progresso
+            In Progress
           </Badge>
         );
       case 'FAILED':
@@ -75,7 +76,7 @@ export const DashboardMyPlannings: React.FC = () => {
             colorPalette='red'
             variant='subtle'
           >
-            Falhou
+            Failed
           </Badge>
         );
       default:
@@ -84,7 +85,7 @@ export const DashboardMyPlannings: React.FC = () => {
   };
 
   const handleNewPlanning = () => {
-    navigate('/dashboard/find-opportunities');
+    navigate(routes.dashboard.findOpportunities);
   };
 
   if (plannings.length === 0) {
@@ -100,9 +101,9 @@ export const DashboardMyPlannings: React.FC = () => {
               color='fg.emphasized'
               mb='2'
             >
-              Meus Planejamentos
+              My Plannings
             </Heading>
-            <Text color='fg.muted'>Visualize e gerencie seus planejamentos de oportunidades</Text>
+            <Text color='fg.muted'>View and manage your opportunity plannings</Text>
           </Box>
 
           <EmptyState.Root>
@@ -114,9 +115,9 @@ export const DashboardMyPlannings: React.FC = () => {
                 >
                   <FiFileText />
                 </Box>
-                <EmptyState.Title>Nenhum planejamento encontrado</EmptyState.Title>
+                <EmptyState.Title>No plannings found</EmptyState.Title>
                 <EmptyState.Description>
-                  Você ainda não criou nenhum planejamento. Comece buscando oportunidades.
+                  You haven't created any plannings yet. Start by searching for opportunities.
                 </EmptyState.Description>
                 <Button
                   colorPalette='teal'
@@ -124,7 +125,7 @@ export const DashboardMyPlannings: React.FC = () => {
                   onClick={handleNewPlanning}
                 >
                   <FiPlus />
-                  Buscar Oportunidades
+                  Search Opportunities
                 </Button>
               </VStack>
             </EmptyState.Content>
@@ -147,9 +148,9 @@ export const DashboardMyPlannings: React.FC = () => {
               color='fg.emphasized'
               mb='2'
             >
-              Meus Planejamentos
+              My Plannings
             </Heading>
-            <Text color='fg.muted'>Visualize e gerencie seus planejamentos de oportunidades</Text>
+            <Text color='fg.muted'>View and manage your opportunity plannings</Text>
           </Box>
           <Button
             colorPalette='teal'
@@ -157,7 +158,7 @@ export const DashboardMyPlannings: React.FC = () => {
             onClick={handleNewPlanning}
           >
             <FiPlus />
-            Novo Planejamento
+            New Planning
           </Button>
         </HStack>
 
@@ -184,7 +185,7 @@ export const DashboardMyPlannings: React.FC = () => {
                       fontSize='sm'
                       color='fg.muted'
                     >
-                      Criado em {new Date(planning.createdAt).toLocaleDateString('pt-BR')}
+                      Created on {new Date(planning.createdAt).toLocaleDateString('en-US')}
                     </Text>
                   </VStack>
                   {getStatusBadge(planning.status)}
@@ -197,7 +198,7 @@ export const DashboardMyPlannings: React.FC = () => {
                   gap='3'
                 >
                   <HStack justify='space-between'>
-                    <Text color='fg.muted'>Oportunidades:</Text>
+                    <Text color='fg.muted'>Opportunities:</Text>
                     <Badge
                       colorPalette='blue'
                       variant='subtle'
@@ -222,7 +223,7 @@ export const DashboardMyPlannings: React.FC = () => {
                         size='sm'
                       >
                         <FiCalendar />
-                        Calendário
+                        Calendar
                       </Badge>
                     )}
                   </HStack>
@@ -239,13 +240,13 @@ export const DashboardMyPlannings: React.FC = () => {
                     flex='1'
                   >
                     <FiEye />
-                    Visualizar
+                    View
                   </Button>
                   {planning.status === 'COMPLETED' && (
                     <IconButton
                       variant='solid'
                       colorPalette='blue'
-                      aria-label='Baixar arquivos'
+                      aria-label='Download files'
                     >
                       <FiDownload />
                     </IconButton>
@@ -253,7 +254,7 @@ export const DashboardMyPlannings: React.FC = () => {
                   <IconButton
                     variant='ghost'
                     colorPalette='red'
-                    aria-label='Excluir'
+                    aria-label='Delete'
                   >
                     <FiTrash2 />
                   </IconButton>

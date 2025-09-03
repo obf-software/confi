@@ -41,14 +41,14 @@ export const DashboardAdminTags: React.FC = () => {
             >
               Tags
             </Heading>
-            <Text color='fg.muted'>Gerencie as tags para categorizar oportunidades</Text>
+            <Text color='fg.muted'>Manage tags to categorize opportunities</Text>
           </Box>
           <Button
             colorPalette='teal'
             size='lg'
           >
             <FiPlus />
-            Nova Tag
+            New Tag
           </Button>
         </HStack>
 
@@ -64,10 +64,10 @@ export const DashboardAdminTags: React.FC = () => {
           >
             <Table.Header>
               <Table.Row>
-                <Table.ColumnHeader>Nome</Table.ColumnHeader>
-                <Table.ColumnHeader>Descrição</Table.ColumnHeader>
-                <Table.ColumnHeader>Oportunidades</Table.ColumnHeader>
-                <Table.ColumnHeader width='100px'>Ações</Table.ColumnHeader>
+                <Table.ColumnHeader>Name</Table.ColumnHeader>
+                <Table.ColumnHeader>Description</Table.ColumnHeader>
+                <Table.ColumnHeader>Opportunities</Table.ColumnHeader>
+                <Table.ColumnHeader width='100px'>Actions</Table.ColumnHeader>
               </Table.Row>
             </Table.Header>
             <Table.Body>
@@ -88,7 +88,7 @@ export const DashboardAdminTags: React.FC = () => {
                       <IconButton
                         variant='ghost'
                         size='sm'
-                        aria-label='Editar tag'
+                        aria-label='Edit tag'
                       >
                         <FiEdit2 />
                       </IconButton>
@@ -96,7 +96,7 @@ export const DashboardAdminTags: React.FC = () => {
                         variant='ghost'
                         size='sm'
                         colorPalette='red'
-                        aria-label='Excluir tag'
+                        aria-label='Delete tag'
                       >
                         <FiTrash2 />
                       </IconButton>
