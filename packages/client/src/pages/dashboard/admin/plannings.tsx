@@ -18,7 +18,7 @@ export const DashboardAdminPlannings: React.FC = () => {
   const plannings = [
     {
       id: '1',
-      title: 'Planejamento Q1 2024',
+      title: 'Planning Q1 2024',
       user: 'João Silva',
       opportunities: 5,
       status: 'COMPLETED',
@@ -28,7 +28,7 @@ export const DashboardAdminPlannings: React.FC = () => {
     },
     {
       id: '2',
-      title: 'Oportunidades de Inovação',
+      title: 'Innovation Opportunities',
       user: 'Maria Santos',
       opportunities: 8,
       status: 'IN_PROGRESS',
@@ -38,7 +38,7 @@ export const DashboardAdminPlannings: React.FC = () => {
     },
     {
       id: '3',
-      title: 'Editais Educação 2024',
+      title: 'Education Editais 2024',
       user: 'Pedro Costa',
       opportunities: 3,
       status: 'COMPLETED',
@@ -48,7 +48,7 @@ export const DashboardAdminPlannings: React.FC = () => {
     },
     {
       id: '4',
-      title: 'Projetos Sustentáveis',
+      title: 'Sustainability Projects',
       user: 'Ana Oliveira',
       opportunities: 6,
       status: 'FAILED',
@@ -66,7 +66,7 @@ export const DashboardAdminPlannings: React.FC = () => {
             colorPalette='green'
             variant='subtle'
           >
-            Concluído
+            Completed
           </Badge>
         );
       case 'IN_PROGRESS':
@@ -75,7 +75,7 @@ export const DashboardAdminPlannings: React.FC = () => {
             colorPalette='blue'
             variant='subtle'
           >
-            Em Progresso
+            In Progress
           </Badge>
         );
       case 'FAILED':
@@ -84,7 +84,7 @@ export const DashboardAdminPlannings: React.FC = () => {
             colorPalette='red'
             variant='subtle'
           >
-            Falhou
+            Failed
           </Badge>
         );
       default:
@@ -104,20 +104,22 @@ export const DashboardAdminPlannings: React.FC = () => {
             color='fg.emphasized'
             mb='2'
           >
-            Planejamentos
+            Plannings
           </Heading>
-          <Text color='fg.muted'>Visualize todos os planejamentos criados pelos usuários</Text>
+          <Text color='fg.muted'>View all plannings created by users</Text>
         </Box>
 
         <HStack gap='4'>
           <Input
-            placeholder='Buscar planejamentos...'
+            placeholder='Search plannings...'
             size='lg'
             flex='1'
           />
           <IconButton
             size='lg'
-            aria-label='Buscar'
+            aria-label='Search'
+            variant='outline'
+            colorPalette='black'
           >
             <FiSearch />
           </IconButton>
@@ -125,16 +127,16 @@ export const DashboardAdminPlannings: React.FC = () => {
 
         <Tabs.Root defaultValue='all'>
           <Tabs.List>
-            <Tabs.Trigger value='all'>Todos</Tabs.Trigger>
-            <Tabs.Trigger value='completed'>Concluídos</Tabs.Trigger>
-            <Tabs.Trigger value='in_progress'>Em Progresso</Tabs.Trigger>
-            <Tabs.Trigger value='failed'>Com Falha</Tabs.Trigger>
+            <Tabs.Trigger value='all'>All</Tabs.Trigger>
+            <Tabs.Trigger value='completed'>Completed</Tabs.Trigger>
+            <Tabs.Trigger value='in_progress'>In Progress</Tabs.Trigger>
+            <Tabs.Trigger value='failed'>Failed</Tabs.Trigger>
           </Tabs.List>
 
           <Tabs.Content value='all'>
             <Box
               borderWidth='1px'
-              borderColor='border.default'
+              borderColor='border.emphasized'
               borderRadius='lg'
               overflow='hidden'
               mt='4'
@@ -142,16 +144,17 @@ export const DashboardAdminPlannings: React.FC = () => {
               <Table.Root
                 size='lg'
                 variant='outline'
+                bg='bg.panel'
               >
                 <Table.Header>
                   <Table.Row>
-                    <Table.ColumnHeader>Título</Table.ColumnHeader>
-                    <Table.ColumnHeader>Usuário</Table.ColumnHeader>
-                    <Table.ColumnHeader>Oportunidades</Table.ColumnHeader>
+                    <Table.ColumnHeader>Title</Table.ColumnHeader>
+                    <Table.ColumnHeader>User</Table.ColumnHeader>
+                    <Table.ColumnHeader>Opportunities</Table.ColumnHeader>
                     <Table.ColumnHeader>Status</Table.ColumnHeader>
-                    <Table.ColumnHeader>Criado em</Table.ColumnHeader>
-                    <Table.ColumnHeader>Arquivos</Table.ColumnHeader>
-                    <Table.ColumnHeader width='120px'>Ações</Table.ColumnHeader>
+                    <Table.ColumnHeader>Created At</Table.ColumnHeader>
+                    <Table.ColumnHeader>Files</Table.ColumnHeader>
+                    <Table.ColumnHeader width='120px'>Actions</Table.ColumnHeader>
                   </Table.Row>
                 </Table.Header>
                 <Table.Body>
@@ -169,7 +172,7 @@ export const DashboardAdminPlannings: React.FC = () => {
                       </Table.Cell>
                       <Table.Cell>{getStatusBadge(planning.status)}</Table.Cell>
                       <Table.Cell>
-                        {new Date(planning.createdAt).toLocaleDateString('pt-BR')}
+                        {new Date(planning.createdAt).toLocaleDateString('en-US')}
                       </Table.Cell>
                       <Table.Cell>
                         <HStack gap='2'>
@@ -197,7 +200,7 @@ export const DashboardAdminPlannings: React.FC = () => {
                           <IconButton
                             variant='ghost'
                             size='sm'
-                            aria-label='Visualizar'
+                            aria-label='View'
                           >
                             <FiEye />
                           </IconButton>
@@ -205,7 +208,7 @@ export const DashboardAdminPlannings: React.FC = () => {
                             <IconButton
                               variant='ghost'
                               size='sm'
-                              aria-label='Baixar arquivos'
+                              aria-label='Download files'
                               colorPalette='blue'
                             >
                               <FiDownload />
@@ -215,7 +218,7 @@ export const DashboardAdminPlannings: React.FC = () => {
                             variant='ghost'
                             size='sm'
                             colorPalette='red'
-                            aria-label='Excluir'
+                            aria-label='Delete'
                           >
                             <FiTrash2 />
                           </IconButton>
@@ -233,7 +236,7 @@ export const DashboardAdminPlannings: React.FC = () => {
               color='fg.muted'
               mt='4'
             >
-              Mostrando apenas planejamentos concluídos...
+              Showing only completed plannings...
             </Text>
           </Tabs.Content>
 
@@ -242,7 +245,7 @@ export const DashboardAdminPlannings: React.FC = () => {
               color='fg.muted'
               mt='4'
             >
-              Mostrando apenas planejamentos em progresso...
+              Showing only in progress plannings...
             </Text>
           </Tabs.Content>
 
@@ -251,7 +254,7 @@ export const DashboardAdminPlannings: React.FC = () => {
               color='fg.muted'
               mt='4'
             >
-              Mostrando apenas planejamentos com falha...
+              Showing only failed plannings...
             </Text>
           </Tabs.Content>
         </Tabs.Root>

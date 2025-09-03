@@ -9,21 +9,22 @@ import {
   IconButton,
   HStack,
   Badge,
+  Input,
 } from '@chakra-ui/react';
-import { FiEdit2, FiTrash2, FiPlus } from 'react-icons/fi';
+import { FiEdit2, FiTrash2, FiPlus, FiSearch } from 'react-icons/fi';
 
 export const DashboardAdminTags: React.FC = () => {
   // Mock data for demonstration
   const tags = [
     {
       id: '1',
-      name: 'Tecnologia',
-      description: 'Oportunidades relacionadas a tecnologia',
+      name: 'Technology',
+      description: 'Opportunities related to technology',
       count: 45,
     },
-    { id: '2', name: 'Educação', description: 'Oportunidades educacionais', count: 32 },
-    { id: '3', name: 'Saúde', description: 'Oportunidades na área de saúde', count: 28 },
-    { id: '4', name: 'Sustentabilidade', description: 'Projetos sustentáveis', count: 19 },
+    { id: '2', name: 'Education', description: 'Education opportunities', count: 32 },
+    { id: '3', name: 'Health', description: 'Opportunities in the health area', count: 28 },
+    { id: '4', name: 'Sustainability', description: 'Sustainability projects', count: 19 },
   ];
 
   return (
@@ -52,15 +53,32 @@ export const DashboardAdminTags: React.FC = () => {
           </Button>
         </HStack>
 
+        <HStack gap='4'>
+          <Input
+            placeholder='Search tags...'
+            size='lg'
+            flex='1'
+          />
+          <IconButton
+            size='lg'
+            aria-label='Search'
+            variant='outline'
+            colorPalette='black'
+          >
+            <FiSearch />
+          </IconButton>
+        </HStack>
+
         <Box
           borderWidth='1px'
-          borderColor='border.default'
+          borderColor='border.emphasized'
           borderRadius='lg'
           overflow='hidden'
         >
           <Table.Root
             size='lg'
             variant='outline'
+            bg='bg.panel'
           >
             <Table.Header>
               <Table.Row>

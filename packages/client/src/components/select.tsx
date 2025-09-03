@@ -19,7 +19,10 @@ export const Select: React.FC<SelectProps> = ({ label, ...defaultProps }) => {
 
       <ChakraSelect.Control>
         <ChakraSelect.Trigger>
-          <ChakraSelect.ValueText placeholder='Selecione' />
+          <ChakraSelect.ValueText
+            placeholder='Select'
+            color='fg.muted'
+          />
         </ChakraSelect.Trigger>
         <ChakraSelect.IndicatorGroup>
           <ChakraSelect.Indicator />

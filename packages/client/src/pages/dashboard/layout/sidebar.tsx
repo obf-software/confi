@@ -73,13 +73,6 @@ export const SidebarContent: React.FC<SidebarContentProps> = ({
                 Home
               </SidebarLink>
               <SidebarLink
-                to={routes.dashboard.admin.tags}
-                icon={<AiOutlineTag />}
-                onClick={onCloseSidebar}
-              >
-                Tags
-              </SidebarLink>
-              <SidebarLink
                 to={routes.dashboard.admin.opportunities}
                 icon={<MdOutlineLocalOffer />}
                 onClick={onCloseSidebar}
@@ -92,6 +85,13 @@ export const SidebarContent: React.FC<SidebarContentProps> = ({
                 onClick={onCloseSidebar}
               >
                 Plannings
+              </SidebarLink>
+              <SidebarLink
+                to={routes.dashboard.admin.tags}
+                icon={<AiOutlineTag />}
+                onClick={onCloseSidebar}
+              >
+                Tags
               </SidebarLink>
               <SidebarLink
                 to={routes.dashboard.admin.aiSearch}
@@ -122,7 +122,7 @@ export const SidebarContent: React.FC<SidebarContentProps> = ({
           </SidebarLink>
           <SidebarLink
             to={routes.dashboard.myPlannings}
-            icon={<BiCalendar />}
+            icon={<HiOutlineDocumentReport />}
             onClick={onCloseSidebar}
           >
             My Plannings

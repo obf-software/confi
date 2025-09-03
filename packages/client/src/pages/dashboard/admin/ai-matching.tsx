@@ -24,7 +24,7 @@ export const DashboardAdminAiMatching: React.FC = () => {
     status: 'IN_PROGRESS',
     progress: 65,
     startedAt: '2024-01-20T10:30:00',
-    estimatedTime: '15 minutos',
+    estimatedTime: '15 minutes',
     processedOpportunities: 78,
     totalOpportunities: 120,
   };
@@ -130,10 +130,10 @@ export const DashboardAdminAiMatching: React.FC = () => {
               color='fg.emphasized'
               mb='2'
             >
-              Avaliações
+              AI Matching
             </Heading>
             <Text color='fg.muted'>
-              Gerencie o processo de avaliação e atribuição automática de tags às oportunidades
+              Manage the evaluation process and automatic tag assignment to opportunities
             </Text>
           </Box>
           <Button
@@ -142,7 +142,7 @@ export const DashboardAdminAiMatching: React.FC = () => {
             disabled={currentEvaluation?.status === 'IN_PROGRESS'}
           >
             <FiPlay />
-            Nova Avaliação
+            New Evaluation
           </Button>
         </HStack>
 
@@ -153,10 +153,10 @@ export const DashboardAdminAiMatching: React.FC = () => {
               <FiAlertCircle />
             </Alert.Indicator>
             <Alert.Content>
-              <Alert.Title>Oportunidades sem tags</Alert.Title>
+              <Alert.Title>Opportunities without tags</Alert.Title>
               <Alert.Description>
-                Existem {stats.untaggedOpportunities} oportunidades sem tags. Execute uma nova
-                avaliação para atribuir tags automaticamente.
+                There are {stats.untaggedOpportunities} opportunities without tags. Run a new
+                evaluation to automatically assign tags.
               </Alert.Description>
             </Alert.Content>
           </Alert.Root>
@@ -167,6 +167,7 @@ export const DashboardAdminAiMatching: React.FC = () => {
           <Card.Root
             borderColor='blue.200'
             borderWidth='2px'
+            bg='bg.info'
           >
             <Card.Header>
               <HStack justify='space-between'>
@@ -186,14 +187,13 @@ export const DashboardAdminAiMatching: React.FC = () => {
                       fontSize='lg'
                       color='fg.emphasized'
                     >
-                      Avaliação em Progresso
+                      Evaluation in Progress
                     </Text>
                     <Text
                       fontSize='sm'
                       color='fg.muted'
                     >
-                      Iniciada às{' '}
-                      {new Date(currentEvaluation.startedAt).toLocaleTimeString('pt-BR')}
+                      Started at {new Date(currentEvaluation.startedAt).toLocaleTimeString('en-US')}
                     </Text>
                   </VStack>
                 </HStack>
@@ -205,7 +205,7 @@ export const DashboardAdminAiMatching: React.FC = () => {
                     fontSize='sm'
                     color='fg.muted'
                   >
-                    Tempo estimado
+                    Estimated Time
                   </Text>
                   <Text fontWeight='medium'>{currentEvaluation.estimatedTime}</Text>
                 </VStack>
@@ -222,8 +222,8 @@ export const DashboardAdminAiMatching: React.FC = () => {
                       fontSize='sm'
                       color='fg.muted'
                     >
-                      Progresso: {currentEvaluation.processedOpportunities} de{' '}
-                      {currentEvaluation.totalOpportunities} oportunidades
+                      Progress: {currentEvaluation.processedOpportunities} of{' '}
+                      {currentEvaluation.totalOpportunities} opportunities
                     </Text>
                     <Text
                       fontWeight='medium'
@@ -252,7 +252,7 @@ export const DashboardAdminAiMatching: React.FC = () => {
           columns={{ base: 1, md: 2, lg: 4 }}
           gap='4'
         >
-          <Card.Root>
+          <Card.Root bg='bg.emphasized'>
             <Card.Body>
               <VStack
                 align='start'
@@ -262,7 +262,7 @@ export const DashboardAdminAiMatching: React.FC = () => {
                   fontSize='sm'
                   color='fg.muted'
                 >
-                  Total de Oportunidades
+                  Total Opportunities
                 </Text>
                 <Text
                   fontSize='2xl'
@@ -275,7 +275,7 @@ export const DashboardAdminAiMatching: React.FC = () => {
             </Card.Body>
           </Card.Root>
 
-          <Card.Root>
+          <Card.Root bg='bg.emphasized'>
             <Card.Body>
               <VStack
                 align='start'
@@ -285,7 +285,7 @@ export const DashboardAdminAiMatching: React.FC = () => {
                   fontSize='sm'
                   color='fg.muted'
                 >
-                  Sem Tags
+                  No Tags
                 </Text>
                 <Text
                   fontSize='2xl'
@@ -298,7 +298,7 @@ export const DashboardAdminAiMatching: React.FC = () => {
             </Card.Body>
           </Card.Root>
 
-          <Card.Root>
+          <Card.Root bg='bg.emphasized'>
             <Card.Body>
               <VStack
                 align='start'
@@ -308,7 +308,7 @@ export const DashboardAdminAiMatching: React.FC = () => {
                   fontSize='sm'
                   color='fg.muted'
                 >
-                  Total de Tags
+                  Total Tags
                 </Text>
                 <Text
                   fontSize='2xl'
@@ -321,7 +321,7 @@ export const DashboardAdminAiMatching: React.FC = () => {
             </Card.Body>
           </Card.Root>
 
-          <Card.Root>
+          <Card.Root bg='bg.emphasized'>
             <Card.Body>
               <VStack
                 align='start'
@@ -331,7 +331,7 @@ export const DashboardAdminAiMatching: React.FC = () => {
                   fontSize='sm'
                   color='fg.muted'
                 >
-                  Média Tags/Oportunidade
+                  Average Tags/Opportunity
                 </Text>
                 <Text
                   fontSize='2xl'
@@ -352,34 +352,35 @@ export const DashboardAdminAiMatching: React.FC = () => {
             color='fg.emphasized'
             mb='4'
           >
-            Histórico de Avaliações
+            Evaluation History
           </Heading>
           <Box
             borderWidth='1px'
-            borderColor='border.default'
+            borderColor='border.emphasized'
             borderRadius='lg'
             overflow='hidden'
           >
             <Table.Root
               size='lg'
               variant='outline'
+              bg='bg.panel'
             >
               <Table.Header>
                 <Table.Row>
-                  <Table.ColumnHeader>Data/Hora</Table.ColumnHeader>
-                  <Table.ColumnHeader>Duração</Table.ColumnHeader>
+                  <Table.ColumnHeader>Date/Time</Table.ColumnHeader>
+                  <Table.ColumnHeader>Duration</Table.ColumnHeader>
                   <Table.ColumnHeader>Status</Table.ColumnHeader>
-                  <Table.ColumnHeader>Oportunidades</Table.ColumnHeader>
-                  <Table.ColumnHeader>Tags Aplicadas</Table.ColumnHeader>
-                  <Table.ColumnHeader>Progresso</Table.ColumnHeader>
-                  <Table.ColumnHeader width='100px'>Ações</Table.ColumnHeader>
+                  <Table.ColumnHeader>Opportunities</Table.ColumnHeader>
+                  <Table.ColumnHeader>Tags Applied</Table.ColumnHeader>
+                  <Table.ColumnHeader>Progress</Table.ColumnHeader>
+                  <Table.ColumnHeader width='100px'>Actions</Table.ColumnHeader>
                 </Table.Row>
               </Table.Header>
               <Table.Body>
                 {evaluationHistory.map((evaluation) => (
                   <Table.Row key={evaluation.id}>
                     <Table.Cell>
-                      {new Date(evaluation.createdAt).toLocaleString('pt-BR')}
+                      {new Date(evaluation.createdAt).toLocaleString('en-US')}
                     </Table.Cell>
                     <Table.Cell>{getDuration(evaluation.createdAt, evaluation.endedAt)}</Table.Cell>
                     <Table.Cell>{getStatusBadge(evaluation.status)}</Table.Cell>
@@ -419,7 +420,7 @@ export const DashboardAdminAiMatching: React.FC = () => {
                         <IconButton
                           variant='ghost'
                           size='sm'
-                          aria-label='Ver detalhes'
+                          aria-label='View details'
                         >
                           <FiEye />
                         </IconButton>
@@ -428,7 +429,7 @@ export const DashboardAdminAiMatching: React.FC = () => {
                             variant='ghost'
                             size='sm'
                             colorPalette='blue'
-                            aria-label='Reexecutar'
+                            aria-label='Reexecute'
                           >
                             <FiRefreshCw />
                           </IconButton>
