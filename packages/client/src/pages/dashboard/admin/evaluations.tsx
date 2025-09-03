@@ -1,5 +1,19 @@
 import React from 'react';
-import { Box, Heading, Text, VStack, Button, Table, IconButton, HStack, Badge, Progress, Card, SimpleGrid, Alert } from '@chakra-ui/react';
+import {
+  Box,
+  Heading,
+  Text,
+  VStack,
+  Button,
+  Table,
+  IconButton,
+  HStack,
+  Badge,
+  Progress,
+  Card,
+  SimpleGrid,
+  Alert,
+} from '@chakra-ui/react';
 import { FiPlay, FiRefreshCw, FiEye, FiAlertCircle } from 'react-icons/fi';
 import { MdOutlineAutorenew } from 'react-icons/md';
 
@@ -64,11 +78,32 @@ export const DashboardAdminEvaluations: React.FC = () => {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'COMPLETED':
-        return <Badge colorPalette='green' variant='subtle'>Concluída</Badge>;
+        return (
+          <Badge
+            colorPalette='green'
+            variant='subtle'
+          >
+            Concluída
+          </Badge>
+        );
       case 'IN_PROGRESS':
-        return <Badge colorPalette='blue' variant='subtle'>Em Progresso</Badge>;
+        return (
+          <Badge
+            colorPalette='blue'
+            variant='subtle'
+          >
+            Em Progresso
+          </Badge>
+        );
       case 'FAILED':
-        return <Badge colorPalette='red' variant='subtle'>Falhou</Badge>;
+        return (
+          <Badge
+            colorPalette='red'
+            variant='subtle'
+          >
+            Falhou
+          </Badge>
+        );
       default:
         return <Badge variant='subtle'>{status}</Badge>;
     }
@@ -84,18 +119,25 @@ export const DashboardAdminEvaluations: React.FC = () => {
 
   return (
     <Box>
-      <VStack align='stretch' gap='6'>
+      <VStack
+        align='stretch'
+        gap='6'
+      >
         <HStack justify='space-between'>
           <Box>
-            <Heading size='2xl' color='fg.emphasized' mb='2'>
+            <Heading
+              size='2xl'
+              color='fg.emphasized'
+              mb='2'
+            >
               Avaliações
             </Heading>
             <Text color='fg.muted'>
               Gerencie o processo de avaliação e atribuição automática de tags às oportunidades
             </Text>
           </Box>
-          <Button 
-            colorPalette='brandPrimaryButton' 
+          <Button
+            colorPalette='brandPrimaryButton'
             size='lg'
             disabled={currentEvaluation?.status === 'IN_PROGRESS'}
           >
@@ -113,7 +155,8 @@ export const DashboardAdminEvaluations: React.FC = () => {
             <Alert.Content>
               <Alert.Title>Oportunidades sem tags</Alert.Title>
               <Alert.Description>
-                Existem {stats.untaggedOpportunities} oportunidades sem tags. Execute uma nova avaliação para atribuir tags automaticamente.
+                Existem {stats.untaggedOpportunities} oportunidades sem tags. Execute uma nova
+                avaliação para atribuir tags automaticamente.
               </Alert.Description>
             </Alert.Content>
           </Alert.Root>
@@ -121,44 +164,79 @@ export const DashboardAdminEvaluations: React.FC = () => {
 
         {/* Current evaluation in progress */}
         {currentEvaluation?.status === 'IN_PROGRESS' && (
-          <Card.Root borderColor='blue.200' borderWidth='2px'>
+          <Card.Root
+            borderColor='blue.200'
+            borderWidth='2px'
+          >
             <Card.Header>
               <HStack justify='space-between'>
                 <HStack gap='3'>
-                  <Box color='blue.500' animation='spin 2s linear infinite'>
+                  <Box
+                    color='blue.500'
+                    animation='spin 2s linear infinite'
+                  >
                     <MdOutlineAutorenew size='24' />
                   </Box>
-                  <VStack align='start' gap='0'>
-                    <Text fontWeight='semibold' fontSize='lg' color='fg.emphasized'>
+                  <VStack
+                    align='start'
+                    gap='0'
+                  >
+                    <Text
+                      fontWeight='semibold'
+                      fontSize='lg'
+                      color='fg.emphasized'
+                    >
                       Avaliação em Progresso
                     </Text>
-                    <Text fontSize='sm' color='fg.muted'>
-                      Iniciada às {new Date(currentEvaluation.startedAt).toLocaleTimeString('pt-BR')}
+                    <Text
+                      fontSize='sm'
+                      color='fg.muted'
+                    >
+                      Iniciada às{' '}
+                      {new Date(currentEvaluation.startedAt).toLocaleTimeString('pt-BR')}
                     </Text>
                   </VStack>
                 </HStack>
-                <VStack align='end' gap='0'>
-                  <Text fontSize='sm' color='fg.muted'>
+                <VStack
+                  align='end'
+                  gap='0'
+                >
+                  <Text
+                    fontSize='sm'
+                    color='fg.muted'
+                  >
                     Tempo estimado
                   </Text>
-                  <Text fontWeight='medium'>
-                    {currentEvaluation.estimatedTime}
-                  </Text>
+                  <Text fontWeight='medium'>{currentEvaluation.estimatedTime}</Text>
                 </VStack>
               </HStack>
             </Card.Header>
             <Card.Body>
               <VStack gap='4'>
                 <Box width='full'>
-                  <HStack justify='space-between' mb='2'>
-                    <Text fontSize='sm' color='fg.muted'>
-                      Progresso: {currentEvaluation.processedOpportunities} de {currentEvaluation.totalOpportunities} oportunidades
+                  <HStack
+                    justify='space-between'
+                    mb='2'
+                  >
+                    <Text
+                      fontSize='sm'
+                      color='fg.muted'
+                    >
+                      Progresso: {currentEvaluation.processedOpportunities} de{' '}
+                      {currentEvaluation.totalOpportunities} oportunidades
                     </Text>
-                    <Text fontWeight='medium' color='blue.500'>
+                    <Text
+                      fontWeight='medium'
+                      color='blue.500'
+                    >
                       {currentEvaluation.progress}%
                     </Text>
                   </HStack>
-                  <Progress.Root value={currentEvaluation.progress} colorPalette='blue' size='lg'>
+                  <Progress.Root
+                    value={currentEvaluation.progress}
+                    colorPalette='blue'
+                    size='lg'
+                  >
                     <Progress.Track>
                       <Progress.Range />
                     </Progress.Track>
@@ -170,14 +248,27 @@ export const DashboardAdminEvaluations: React.FC = () => {
         )}
 
         {/* Statistics */}
-        <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} gap='4'>
+        <SimpleGrid
+          columns={{ base: 1, md: 2, lg: 4 }}
+          gap='4'
+        >
           <Card.Root>
             <Card.Body>
-              <VStack align='start' gap='1'>
-                <Text fontSize='sm' color='fg.muted'>
+              <VStack
+                align='start'
+                gap='1'
+              >
+                <Text
+                  fontSize='sm'
+                  color='fg.muted'
+                >
                   Total de Oportunidades
                 </Text>
-                <Text fontSize='2xl' fontWeight='bold' color='fg.emphasized'>
+                <Text
+                  fontSize='2xl'
+                  fontWeight='bold'
+                  color='fg.emphasized'
+                >
                   {stats.totalOpportunities}
                 </Text>
               </VStack>
@@ -186,11 +277,21 @@ export const DashboardAdminEvaluations: React.FC = () => {
 
           <Card.Root>
             <Card.Body>
-              <VStack align='start' gap='1'>
-                <Text fontSize='sm' color='fg.muted'>
+              <VStack
+                align='start'
+                gap='1'
+              >
+                <Text
+                  fontSize='sm'
+                  color='fg.muted'
+                >
                   Sem Tags
                 </Text>
-                <Text fontSize='2xl' fontWeight='bold' color={stats.untaggedOpportunities > 0 ? 'orange.500' : 'fg.emphasized'}>
+                <Text
+                  fontSize='2xl'
+                  fontWeight='bold'
+                  color={stats.untaggedOpportunities > 0 ? 'orange.500' : 'fg.emphasized'}
+                >
                   {stats.untaggedOpportunities}
                 </Text>
               </VStack>
@@ -199,11 +300,21 @@ export const DashboardAdminEvaluations: React.FC = () => {
 
           <Card.Root>
             <Card.Body>
-              <VStack align='start' gap='1'>
-                <Text fontSize='sm' color='fg.muted'>
+              <VStack
+                align='start'
+                gap='1'
+              >
+                <Text
+                  fontSize='sm'
+                  color='fg.muted'
+                >
                   Total de Tags
                 </Text>
-                <Text fontSize='2xl' fontWeight='bold' color='fg.emphasized'>
+                <Text
+                  fontSize='2xl'
+                  fontWeight='bold'
+                  color='fg.emphasized'
+                >
                   {stats.totalTags}
                 </Text>
               </VStack>
@@ -212,11 +323,21 @@ export const DashboardAdminEvaluations: React.FC = () => {
 
           <Card.Root>
             <Card.Body>
-              <VStack align='start' gap='1'>
-                <Text fontSize='sm' color='fg.muted'>
+              <VStack
+                align='start'
+                gap='1'
+              >
+                <Text
+                  fontSize='sm'
+                  color='fg.muted'
+                >
                   Média Tags/Oportunidade
                 </Text>
-                <Text fontSize='2xl' fontWeight='bold' color='fg.emphasized'>
+                <Text
+                  fontSize='2xl'
+                  fontWeight='bold'
+                  color='fg.emphasized'
+                >
                   {stats.averageTagsPerOpportunity}
                 </Text>
               </VStack>
@@ -226,11 +347,23 @@ export const DashboardAdminEvaluations: React.FC = () => {
 
         {/* Evaluation history */}
         <Box>
-          <Heading size='lg' color='fg.emphasized' mb='4'>
+          <Heading
+            size='lg'
+            color='fg.emphasized'
+            mb='4'
+          >
             Histórico de Avaliações
           </Heading>
-          <Box borderWidth='1px' borderColor='border.default' borderRadius='lg' overflow='hidden'>
-            <Table.Root size='lg' variant='outline'>
+          <Box
+            borderWidth='1px'
+            borderColor='border.default'
+            borderRadius='lg'
+            overflow='hidden'
+          >
+            <Table.Root
+              size='lg'
+              variant='outline'
+            >
               <Table.Header>
                 <Table.Row>
                   <Table.ColumnHeader>Data/Hora</Table.ColumnHeader>
@@ -248,18 +381,22 @@ export const DashboardAdminEvaluations: React.FC = () => {
                     <Table.Cell>
                       {new Date(evaluation.createdAt).toLocaleString('pt-BR')}
                     </Table.Cell>
-                    <Table.Cell>
-                      {getDuration(evaluation.createdAt, evaluation.endedAt)}
-                    </Table.Cell>
+                    <Table.Cell>{getDuration(evaluation.createdAt, evaluation.endedAt)}</Table.Cell>
                     <Table.Cell>{getStatusBadge(evaluation.status)}</Table.Cell>
                     <Table.Cell>
-                      <Badge colorPalette='blue' variant='subtle'>
+                      <Badge
+                        colorPalette='blue'
+                        variant='subtle'
+                      >
                         {evaluation.opportunitiesProcessed}
                       </Badge>
                     </Table.Cell>
                     <Table.Cell>
                       {evaluation.tagsApplied > 0 ? (
-                        <Badge colorPalette='green' variant='subtle'>
+                        <Badge
+                          colorPalette='green'
+                          variant='subtle'
+                        >
                           {evaluation.tagsApplied}
                         </Badge>
                       ) : (
@@ -267,7 +404,11 @@ export const DashboardAdminEvaluations: React.FC = () => {
                       )}
                     </Table.Cell>
                     <Table.Cell>
-                      <Progress.Root value={evaluation.progress} size='sm' width='80px'>
+                      <Progress.Root
+                        value={evaluation.progress}
+                        size='sm'
+                        width='80px'
+                      >
                         <Progress.Track>
                           <Progress.Range />
                         </Progress.Track>

@@ -1,28 +1,75 @@
 import React from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { Box, Button, ButtonGroup, Heading, Text, VStack } from '@chakra-ui/react';
 
-import { useAuth } from '../contexts/auth-context';
+import { useAuth } from '../hooks/use-auth';
 import { LoadingSpinner } from './loading-spinner';
+import { UserRole } from '../services/api/api-service';
+import { routes } from '../lib/routes';
+import { useCurrentUser } from '../hooks/use-current-user';
 
-interface ProtectedRouteProps {
-  children: React.ReactNode;
+interface ProtectedRouteProps extends React.PropsWithChildren {
+  onlyAllowedRoles?: UserRole[];
 }
 
-export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
-  const { isAuthenticated, isLoading } = useAuth();
+export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, onlyAllowedRoles }) => {
+  const { status, signOut } = useAuth();
+  const currentUser = useCurrentUser();
   const location = useLocation();
+  const navigate = useNavigate();
 
-  if (isLoading) {
+  if (status === 'configuring' || currentUser.isLoading) {
     return <LoadingSpinner />;
   }
 
-  if (!isAuthenticated) {
+  if (status === 'unauthenticated') {
+    navigate(routes.auth.index, { state: { from: location }, replace: true });
+    return <LoadingSpinner />;
+  }
+
+  const isRoleInvalid =
+    currentUser.data?.role &&
+    onlyAllowedRoles !== undefined &&
+    onlyAllowedRoles.length > 0 &&
+    !onlyAllowedRoles.includes(currentUser.data.role);
+
+  const errors = [
+    currentUser.error?.message,
+    isRoleInvalid ? `Permissão insuficiente` : null,
+  ].filter((e): e is string => !!e);
+
+  if (errors.length > 0) {
     return (
-      <Navigate
-        to='/login'
-        state={{ from: location }}
-        replace
-      />
+      <Box p='8'>
+        <VStack
+          gap='4'
+          align='center'
+        >
+          <Heading
+            size='xl'
+            color='fg.emphasized'
+          >
+            Acesso Negado
+          </Heading>
+
+          <Text
+            color='fg.muted'
+            textAlign='center'
+          >
+            {errors.join('\n')}
+          </Text>
+
+          <Button
+            variant='outline'
+            colorPalette='brandPrimaryButton'
+            onClick={() => {
+              void signOut();
+            }}
+          >
+            Sair
+          </Button>
+        </VStack>
+      </Box>
     );
   }
 

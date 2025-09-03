@@ -15,7 +15,6 @@ import {
 import React from 'react';
 import { FaLinkedinIn } from 'react-icons/fa6';
 
-
 export type DetailsProps = FlexProps;
 
 export const Details: React.FC<DetailsProps> = ({ ...flexProps }) => {

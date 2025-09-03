@@ -1,4 +1,12 @@
-import { ApiService, Opportunity, OpportunitySearch, Planning, Tag, User, Evaluation } from './api-service';
+import {
+  ApiService,
+  Opportunity,
+  OpportunitySearch,
+  Planning,
+  Tag,
+  User,
+  Evaluation,
+} from './api-service';
 
 // Utility functions
 const success = <T>(data: T): Promise<ApiService.ApiServiceResponse<T>> =>
@@ -161,12 +169,20 @@ export class ApiServiceMock implements ApiService {
     },
   ];
 
+  withToken(input: ApiService.WithTokenInput): ApiService {
+    return this;
+  }
+
   // Users
   async listUsers(input: ApiService.ListUsersInput): Promise<ApiService.ListUsersOutput> {
     return success(this.users);
   }
 
   async getUser(input: ApiService.GetUserInput): Promise<ApiService.GetUserOutput> {
+    if (input.id === null) {
+      return success(this.users[0]);
+    }
+
     const user = this.users.find((user) => user.id === input.id);
     if (!user) return failure([{ code: 'NOT_FOUND', message: 'User not found' }]);
     return success(user);
@@ -411,11 +427,15 @@ export class ApiServiceMock implements ApiService {
   }
 
   // Evaluations
-  async listEvaluations(input: ApiService.ListEvaluationsInput): Promise<ApiService.ListEvaluationsOutput> {
+  async listEvaluations(
+    input: ApiService.ListEvaluationsInput
+  ): Promise<ApiService.ListEvaluationsOutput> {
     return success(this.evaluations);
   }
 
-  async createEvaluation(input: ApiService.CreateEvaluationInput): Promise<ApiService.CreateEvaluationOutput> {
+  async createEvaluation(
+    input: ApiService.CreateEvaluationInput
+  ): Promise<ApiService.CreateEvaluationOutput> {
     const ids = this.evaluations.map((evaluation) => Number(evaluation.id));
     const nextId = Math.max(...ids) + 1;
     const evaluation: Evaluation = {
@@ -426,17 +446,17 @@ export class ApiServiceMock implements ApiService {
       progress: 0,
     };
     this.evaluations.push(evaluation);
-    
+
     // Simulate evaluation progress
     setTimeout(() => {
-      const evalToUpdate = this.evaluations.find(e => e.id === evaluation.id);
+      const evalToUpdate = this.evaluations.find((e) => e.id === evaluation.id);
       if (evalToUpdate) {
         evalToUpdate.progress = 100;
         evalToUpdate.status = 'COMPLETED';
         evalToUpdate.endedAt = new Date().toISOString();
       }
     }, 5000);
-    
+
     return success(evaluation);
   }
 }

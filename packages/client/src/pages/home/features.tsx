@@ -11,7 +11,6 @@ import {
 
 import { AnimatedSection, GlassCard, ParallaxBox } from '../../components/animated-section';
 
-
 interface FeatureCardProps {
   icon: React.ReactElement;
   title: string;
@@ -161,7 +160,10 @@ export const Features: React.FC = () => {
           textAlign='center'
         >
           {/* Header */}
-          <AnimatedSection animation='fadeInUp' threshold={0.3}>
+          <AnimatedSection
+            animation='fadeInUp'
+            threshold={0.3}
+          >
             <VStack gap='6'>
               <Heading
                 size='3xl'
@@ -207,7 +209,10 @@ export const Features: React.FC = () => {
           </SimpleGrid>
 
           {/* CTA Section */}
-          <AnimatedSection animation='scaleIn' threshold={0.2}>
+          <AnimatedSection
+            animation='scaleIn'
+            threshold={0.2}
+          >
             <Box
               p='8'
               borderRadius='2xl'
@@ -251,7 +256,7 @@ export const Features: React.FC = () => {
                 background='radial-gradient(circle, rgba(255,255,255,0.4) 0%, transparent 70%)'
                 animation='floatLong'
               />
-              
+
               <Box
                 position='absolute'
                 top='-30%'

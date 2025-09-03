@@ -1,9 +1,8 @@
 import { Portal, Spinner, Stack, Toast, Toaster as ChakraToaster } from '@chakra-ui/react';
 import React from 'react';
+import { toasterStore } from './context';
 
-import { toasterStore } from './toaster-store';
-
-export const Toaster: React.FC = () => {
+export const ToasterProvider: React.FC = () => {
   return (
     <Portal>
       <ChakraToaster

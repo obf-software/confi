@@ -12,7 +12,6 @@ import {
 import React from 'react';
 import { RiDoubleQuotesL, RiStarFill } from 'react-icons/ri';
 
-
 interface TestimonialCardProps {
   quote: string;
   author: string;

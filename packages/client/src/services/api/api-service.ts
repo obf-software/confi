@@ -1,6 +1,9 @@
 // Port
 
 export interface ApiService {
+  // Core
+  withToken: (input: ApiService.WithTokenInput) => ApiService;
+
   // Users
   listUsers: (input: ApiService.ListUsersInput) => Promise<ApiService.ListUsersOutput>;
   getUser: (input: ApiService.GetUserInput) => Promise<ApiService.GetUserOutput>;
@@ -77,8 +80,7 @@ export interface ApiService {
 // Dtos
 
 export namespace ApiService {
-  // Core
-
+  // Core`
   export interface ApiServiceError {
     code: string;
     message: string;
@@ -87,6 +89,11 @@ export namespace ApiService {
   export type ApiServiceResponse<T> =
     | { success: true; data: T }
     | { success: false; errors: ApiServiceError[] };
+
+  export interface WithTokenInput {
+    token: string;
+  }
+  export type WithTokenOutput = ApiServiceResponse<void>;
 
   // Users
   export interface ListUsersInput {}

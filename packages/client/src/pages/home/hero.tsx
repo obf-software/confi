@@ -15,6 +15,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { ColorModeButton } from '../../components/color-mode';
 import { useParallax, useScrollAnimation } from '../../hooks/use-scroll-animations';
+import { routes } from '../../lib/routes';
 
 export type HeroProps = FlexProps;
 
@@ -286,7 +287,7 @@ export const Hero: React.FC<HeroProps> = ({ ...flexProps }) => {
                 transition: 'transform 0.6s ease',
               }}
               onClick={() => {
-                void navigate('/login');
+                void navigate(routes.auth.index);
               }}
             >
               🔥 Começar Agora{' '}
@@ -314,7 +315,7 @@ export const Hero: React.FC<HeroProps> = ({ ...flexProps }) => {
                 boxShadow: '0 10px 20px rgba(0, 0, 0, 0.2)',
               }}
               onClick={() => {
-                void navigate('/register');
+                void navigate(routes.auth.index);
               }}
             >
               ✨ Demo Gratuito

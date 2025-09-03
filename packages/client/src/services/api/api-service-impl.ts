@@ -1,7 +1,14 @@
 import { ApiService } from './api-service';
 
 export class ApiServiceImpl implements ApiService {
+  private token: string | null = null;
+
   constructor(private readonly apiUrl: string) {}
+
+  withToken(input: ApiService.WithTokenInput): ApiService {
+    this.token = input.token;
+    return this;
+  }
 
   // Users
   async listUsers(input: ApiService.ListUsersInput): Promise<ApiService.ListUsersOutput> {
@@ -132,6 +139,19 @@ export class ApiServiceImpl implements ApiService {
 
   // Files
   async getFileUrl(input: ApiService.GetFileUrlInput): Promise<ApiService.GetFileUrlOutput> {
+    throw new Error('Not implemented');
+  }
+
+  // Evaluations
+  async listEvaluations(
+    input: ApiService.ListEvaluationsInput
+  ): Promise<ApiService.ListEvaluationsOutput> {
+    throw new Error('Not implemented');
+  }
+
+  async createEvaluation(
+    input: ApiService.CreateEvaluationInput
+  ): Promise<ApiService.CreateEvaluationOutput> {
     throw new Error('Not implemented');
   }
 }

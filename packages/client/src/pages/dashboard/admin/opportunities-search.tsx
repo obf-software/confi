@@ -1,5 +1,15 @@
 import React from 'react';
-import { Box, Heading, Text, VStack, Button, Table, IconButton, HStack, Badge } from '@chakra-ui/react';
+import {
+  Box,
+  Heading,
+  Text,
+  VStack,
+  Button,
+  Table,
+  IconButton,
+  HStack,
+  Badge,
+} from '@chakra-ui/react';
 import { FiEdit2, FiTrash2, FiPlus, FiPlay, FiRefreshCw } from 'react-icons/fi';
 
 export const DashboardAdminOpportunitiesSearch: React.FC = () => {
@@ -42,13 +52,41 @@ export const DashboardAdminOpportunitiesSearch: React.FC = () => {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'COMPLETED':
-        return <Badge colorPalette='green' variant='subtle'>Concluída</Badge>;
+        return (
+          <Badge
+            colorPalette='green'
+            variant='subtle'
+          >
+            Concluída
+          </Badge>
+        );
       case 'IN_PROGRESS':
-        return <Badge colorPalette='blue' variant='subtle'>Em Progresso</Badge>;
+        return (
+          <Badge
+            colorPalette='blue'
+            variant='subtle'
+          >
+            Em Progresso
+          </Badge>
+        );
       case 'DRAFT':
-        return <Badge colorPalette='gray' variant='subtle'>Rascunho</Badge>;
+        return (
+          <Badge
+            colorPalette='gray'
+            variant='subtle'
+          >
+            Rascunho
+          </Badge>
+        );
       case 'FAILED':
-        return <Badge colorPalette='red' variant='subtle'>Falhou</Badge>;
+        return (
+          <Badge
+            colorPalette='red'
+            variant='subtle'
+          >
+            Falhou
+          </Badge>
+        );
       default:
         return <Badge variant='subtle'>{status}</Badge>;
     }
@@ -56,24 +94,40 @@ export const DashboardAdminOpportunitiesSearch: React.FC = () => {
 
   return (
     <Box>
-      <VStack align='stretch' gap='6'>
+      <VStack
+        align='stretch'
+        gap='6'
+      >
         <HStack justify='space-between'>
           <Box>
-            <Heading size='2xl' color='fg.emphasized' mb='2'>
+            <Heading
+              size='2xl'
+              color='fg.emphasized'
+              mb='2'
+            >
               Busca de Oportunidades
             </Heading>
-            <Text color='fg.muted'>
-              Configure e execute buscas automáticas de oportunidades
-            </Text>
+            <Text color='fg.muted'>Configure e execute buscas automáticas de oportunidades</Text>
           </Box>
-          <Button colorPalette='brandPrimaryButton' size='lg'>
+          <Button
+            colorPalette='brandPrimaryButton'
+            size='lg'
+          >
             <FiPlus />
             Nova Busca
           </Button>
         </HStack>
 
-        <Box borderWidth='1px' borderColor='border.default' borderRadius='lg' overflow='hidden'>
-          <Table.Root size='lg' variant='outline'>
+        <Box
+          borderWidth='1px'
+          borderColor='border.default'
+          borderRadius='lg'
+          overflow='hidden'
+        >
+          <Table.Root
+            size='lg'
+            variant='outline'
+          >
             <Table.Header>
               <Table.Row>
                 <Table.ColumnHeader>Nome</Table.ColumnHeader>
@@ -89,14 +143,21 @@ export const DashboardAdminOpportunitiesSearch: React.FC = () => {
                 <Table.Row key={search.id}>
                   <Table.Cell fontWeight='medium'>{search.name}</Table.Cell>
                   <Table.Cell>
-                    <Text truncate maxW='300px' color='fg.muted'>
+                    <Text
+                      truncate
+                      maxW='300px'
+                      color='fg.muted'
+                    >
                       {search.prompt}
                     </Text>
                   </Table.Cell>
                   <Table.Cell>{getStatusBadge(search.status)}</Table.Cell>
                   <Table.Cell>
                     {search.opportunities !== null ? (
-                      <Badge colorPalette='blue' variant='subtle'>
+                      <Badge
+                        colorPalette='blue'
+                        variant='subtle'
+                      >
                         {search.opportunities}
                       </Badge>
                     ) : (

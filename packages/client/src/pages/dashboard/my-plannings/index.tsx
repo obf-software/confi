@@ -1,11 +1,23 @@
 import React from 'react';
-import { Box, Heading, Text, VStack, Button, Card, HStack, Badge, SimpleGrid, IconButton, EmptyState } from '@chakra-ui/react';
+import {
+  Box,
+  Heading,
+  Text,
+  VStack,
+  Button,
+  Card,
+  HStack,
+  Badge,
+  SimpleGrid,
+  IconButton,
+  EmptyState,
+} from '@chakra-ui/react';
 import { FiPlus, FiDownload, FiEye, FiTrash2, FiCalendar, FiFileText } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 
 export const DashboardMyPlannings: React.FC = () => {
   const navigate = useNavigate();
-  
+
   // Mock data for demonstration
   const plannings = [
     {
@@ -40,11 +52,32 @@ export const DashboardMyPlannings: React.FC = () => {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'COMPLETED':
-        return <Badge colorPalette='green' variant='subtle'>Concluído</Badge>;
+        return (
+          <Badge
+            colorPalette='green'
+            variant='subtle'
+          >
+            Concluído
+          </Badge>
+        );
       case 'IN_PROGRESS':
-        return <Badge colorPalette='blue' variant='subtle'>Em Progresso</Badge>;
+        return (
+          <Badge
+            colorPalette='blue'
+            variant='subtle'
+          >
+            Em Progresso
+          </Badge>
+        );
       case 'FAILED':
-        return <Badge colorPalette='red' variant='subtle'>Falhou</Badge>;
+        return (
+          <Badge
+            colorPalette='red'
+            variant='subtle'
+          >
+            Falhou
+          </Badge>
+        );
       default:
         return <Badge variant='subtle'>{status}</Badge>;
     }
@@ -57,27 +90,39 @@ export const DashboardMyPlannings: React.FC = () => {
   if (plannings.length === 0) {
     return (
       <Box>
-        <VStack align='stretch' gap='6'>
+        <VStack
+          align='stretch'
+          gap='6'
+        >
           <Box>
-            <Heading size='2xl' color='fg.emphasized' mb='2'>
+            <Heading
+              size='2xl'
+              color='fg.emphasized'
+              mb='2'
+            >
               Meus Planejamentos
             </Heading>
-            <Text color='fg.muted'>
-              Visualize e gerencie seus planejamentos de oportunidades
-            </Text>
+            <Text color='fg.muted'>Visualize e gerencie seus planejamentos de oportunidades</Text>
           </Box>
-          
+
           <EmptyState.Root>
             <EmptyState.Content>
               <VStack gap='4'>
-                <Box color='fg.muted' fontSize='5xl'>
+                <Box
+                  color='fg.muted'
+                  fontSize='5xl'
+                >
                   <FiFileText />
                 </Box>
                 <EmptyState.Title>Nenhum planejamento encontrado</EmptyState.Title>
                 <EmptyState.Description>
                   Você ainda não criou nenhum planejamento. Comece buscando oportunidades.
                 </EmptyState.Description>
-                <Button colorPalette='brandPrimaryButton' size='lg' onClick={handleNewPlanning}>
+                <Button
+                  colorPalette='brandPrimaryButton'
+                  size='lg'
+                  onClick={handleNewPlanning}
+                >
                   <FiPlus />
                   Buscar Oportunidades
                 </Button>
@@ -91,57 +136,91 @@ export const DashboardMyPlannings: React.FC = () => {
 
   return (
     <Box>
-      <VStack align='stretch' gap='6'>
+      <VStack
+        align='stretch'
+        gap='6'
+      >
         <HStack justify='space-between'>
           <Box>
-            <Heading size='2xl' color='fg.emphasized' mb='2'>
+            <Heading
+              size='2xl'
+              color='fg.emphasized'
+              mb='2'
+            >
               Meus Planejamentos
             </Heading>
-            <Text color='fg.muted'>
-              Visualize e gerencie seus planejamentos de oportunidades
-            </Text>
+            <Text color='fg.muted'>Visualize e gerencie seus planejamentos de oportunidades</Text>
           </Box>
-          <Button colorPalette='brandPrimaryButton' size='lg' onClick={handleNewPlanning}>
+          <Button
+            colorPalette='brandPrimaryButton'
+            size='lg'
+            onClick={handleNewPlanning}
+          >
             <FiPlus />
             Novo Planejamento
           </Button>
         </HStack>
 
-        <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap='6'>
+        <SimpleGrid
+          columns={{ base: 1, md: 2, lg: 3 }}
+          gap='6'
+        >
           {plannings.map((planning) => (
             <Card.Root key={planning.id}>
               <Card.Header>
                 <HStack justify='space-between'>
-                  <VStack align='start' gap='1'>
-                    <Text fontWeight='semibold' fontSize='lg' color='fg.emphasized'>
+                  <VStack
+                    align='start'
+                    gap='1'
+                  >
+                    <Text
+                      fontWeight='semibold'
+                      fontSize='lg'
+                      color='fg.emphasized'
+                    >
                       {planning.title}
                     </Text>
-                    <Text fontSize='sm' color='fg.muted'>
+                    <Text
+                      fontSize='sm'
+                      color='fg.muted'
+                    >
                       Criado em {new Date(planning.createdAt).toLocaleDateString('pt-BR')}
                     </Text>
                   </VStack>
                   {getStatusBadge(planning.status)}
                 </HStack>
               </Card.Header>
-              
+
               <Card.Body>
-                <VStack align='stretch' gap='3'>
+                <VStack
+                  align='stretch'
+                  gap='3'
+                >
                   <HStack justify='space-between'>
                     <Text color='fg.muted'>Oportunidades:</Text>
-                    <Badge colorPalette='blue' variant='subtle'>
+                    <Badge
+                      colorPalette='blue'
+                      variant='subtle'
+                    >
                       {planning.opportunities}
                     </Badge>
                   </HStack>
-                  
+
                   <HStack gap='2'>
                     {planning.hasPdf && (
-                      <Badge variant='outline' size='sm'>
+                      <Badge
+                        variant='outline'
+                        size='sm'
+                      >
                         <FiFileText />
                         PDF
                       </Badge>
                     )}
                     {planning.hasIcs && (
-                      <Badge variant='outline' size='sm'>
+                      <Badge
+                        variant='outline'
+                        size='sm'
+                      >
                         <FiCalendar />
                         Calendário
                       </Badge>
@@ -149,10 +228,16 @@ export const DashboardMyPlannings: React.FC = () => {
                   </HStack>
                 </VStack>
               </Card.Body>
-              
+
               <Card.Footer>
-                <HStack gap='2' width='full'>
-                  <Button variant='outline' flex='1'>
+                <HStack
+                  gap='2'
+                  width='full'
+                >
+                  <Button
+                    variant='outline'
+                    flex='1'
+                  >
                     <FiEye />
                     Visualizar
                   </Button>

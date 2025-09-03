@@ -1,5 +1,16 @@
 import React from 'react';
-import { Box, Heading, Text, VStack, Button, Table, IconButton, HStack, Badge, Input } from '@chakra-ui/react';
+import {
+  Box,
+  Heading,
+  Text,
+  VStack,
+  Button,
+  Table,
+  IconButton,
+  HStack,
+  Badge,
+  Input,
+} from '@chakra-ui/react';
 import { FiEdit2, FiTrash2, FiPlus, FiSearch, FiEye } from 'react-icons/fi';
 
 export const DashboardAdminOpportunities: React.FC = () => {
@@ -42,11 +53,32 @@ export const DashboardAdminOpportunities: React.FC = () => {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'ACTIVE':
-        return <Badge colorPalette='green' variant='subtle'>Ativa</Badge>;
+        return (
+          <Badge
+            colorPalette='green'
+            variant='subtle'
+          >
+            Ativa
+          </Badge>
+        );
       case 'PENDING_REVIEW':
-        return <Badge colorPalette='yellow' variant='subtle'>Em Revisão</Badge>;
+        return (
+          <Badge
+            colorPalette='yellow'
+            variant='subtle'
+          >
+            Em Revisão
+          </Badge>
+        );
       case 'DISABLED':
-        return <Badge colorPalette='gray' variant='subtle'>Desativada</Badge>;
+        return (
+          <Badge
+            colorPalette='gray'
+            variant='subtle'
+          >
+            Desativada
+          </Badge>
+        );
       default:
         return <Badge variant='subtle'>{status}</Badge>;
     }
@@ -54,17 +86,25 @@ export const DashboardAdminOpportunities: React.FC = () => {
 
   return (
     <Box>
-      <VStack align='stretch' gap='6'>
+      <VStack
+        align='stretch'
+        gap='6'
+      >
         <HStack justify='space-between'>
           <Box>
-            <Heading size='2xl' color='fg.emphasized' mb='2'>
+            <Heading
+              size='2xl'
+              color='fg.emphasized'
+              mb='2'
+            >
               Oportunidades
             </Heading>
-            <Text color='fg.muted'>
-              Gerencie todas as oportunidades cadastradas no sistema
-            </Text>
+            <Text color='fg.muted'>Gerencie todas as oportunidades cadastradas no sistema</Text>
           </Box>
-          <Button colorPalette='brandPrimaryButton' size='lg'>
+          <Button
+            colorPalette='brandPrimaryButton'
+            size='lg'
+          >
             <FiPlus />
             Nova Oportunidade
           </Button>
@@ -76,13 +116,24 @@ export const DashboardAdminOpportunities: React.FC = () => {
             size='lg'
             flex='1'
           />
-          <IconButton size='lg' aria-label='Buscar'>
+          <IconButton
+            size='lg'
+            aria-label='Buscar'
+          >
             <FiSearch />
           </IconButton>
         </HStack>
 
-        <Box borderWidth='1px' borderColor='border.default' borderRadius='lg' overflow='hidden'>
-          <Table.Root size='lg' variant='outline'>
+        <Box
+          borderWidth='1px'
+          borderColor='border.default'
+          borderRadius='lg'
+          overflow='hidden'
+        >
+          <Table.Root
+            size='lg'
+            variant='outline'
+          >
             <Table.Header>
               <Table.Row>
                 <Table.ColumnHeader>Nome</Table.ColumnHeader>
@@ -102,7 +153,11 @@ export const DashboardAdminOpportunities: React.FC = () => {
                   <Table.Cell>
                     <HStack gap='1'>
                       {opp.tags.map((tag) => (
-                        <Badge key={tag} variant='outline' size='sm'>
+                        <Badge
+                          key={tag}
+                          variant='outline'
+                          size='sm'
+                        >
                           {tag}
                         </Badge>
                       ))}
@@ -110,11 +165,18 @@ export const DashboardAdminOpportunities: React.FC = () => {
                   </Table.Cell>
                   <Table.Cell>
                     {opp.searchId ? (
-                      <Badge variant='subtle' size='sm'>
+                      <Badge
+                        variant='subtle'
+                        size='sm'
+                      >
                         Busca automática
                       </Badge>
                     ) : (
-                      <Badge variant='subtle' size='sm' colorPalette='gray'>
+                      <Badge
+                        variant='subtle'
+                        size='sm'
+                        colorPalette='gray'
+                      >
                         Manual
                       </Badge>
                     )}

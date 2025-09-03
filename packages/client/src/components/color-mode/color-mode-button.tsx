@@ -2,19 +2,19 @@ import { ClientOnly, IconButton, IconButtonProps, Skeleton } from '@chakra-ui/re
 import React from 'react';
 
 import { ColorModeIcon } from './color-mode-icon';
-import { useColorMode } from './hooks';
+import { useTheme } from '../../contexts/theme';
 
 type ColorModeButtonProps = Omit<IconButtonProps, 'aria-label'>;
 
 export const ColorModeButton = React.forwardRef<HTMLButtonElement, ColorModeButtonProps>(
   function ColorModeButton(props, ref) {
-    const { toggleColorMode, colorMode } = useColorMode();
-    
+    const { toggleColorMode, colorMode } = useTheme();
+
     const handleClick = () => {
       console.log('Current color mode:', colorMode);
       toggleColorMode();
     };
-    
+
     return (
       <ClientOnly fallback={<Skeleton boxSize='8' />}>
         <IconButton

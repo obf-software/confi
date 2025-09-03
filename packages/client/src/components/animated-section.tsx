@@ -33,12 +33,12 @@ export const AnimatedSection: React.FC<AnimatedSectionProps> = ({
           ? animation === 'slideInUp'
             ? 'translateY(40px)'
             : animation === 'slideInLeft'
-            ? 'translateX(-40px)'
-            : animation === 'slideInRight'
-            ? 'translateX(40px)'
-            : animation === 'scaleIn'
-            ? 'scale(0.8)'
-            : 'translateY(30px)'
+              ? 'translateX(-40px)'
+              : animation === 'slideInRight'
+                ? 'translateX(40px)'
+                : animation === 'scaleIn'
+                  ? 'scale(0.8)'
+                  : 'translateY(30px)'
           : 'none'
       }
       animation={isVisible ? animationName : undefined}
@@ -62,9 +62,12 @@ export const GlassCard: React.FC<GlassCardProps> = ({
 }) => {
   const getOpacity = () => {
     switch (intensity) {
-      case 'low': return '0.05';
-      case 'high': return '0.15';
-      default: return '0.1';
+      case 'low':
+        return '0.05';
+      case 'high':
+        return '0.15';
+      default:
+        return '0.1';
     }
   };
 
@@ -100,11 +103,7 @@ export interface ParallaxBoxProps extends BoxProps {
   children: React.ReactNode;
 }
 
-export const ParallaxBox: React.FC<ParallaxBoxProps> = ({
-  speed = 0.5,
-  children,
-  ...boxProps
-}) => {
+export const ParallaxBox: React.FC<ParallaxBoxProps> = ({ speed = 0.5, children, ...boxProps }) => {
   const [offsetY, setOffsetY] = React.useState(0);
 
   React.useEffect(() => {

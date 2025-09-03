@@ -1,5 +1,16 @@
 import React from 'react';
-import { Box, Heading, Text, VStack, Table, IconButton, HStack, Badge, Tabs, Input } from '@chakra-ui/react';
+import {
+  Box,
+  Heading,
+  Text,
+  VStack,
+  Table,
+  IconButton,
+  HStack,
+  Badge,
+  Tabs,
+  Input,
+} from '@chakra-ui/react';
 import { FiEye, FiDownload, FiTrash2, FiSearch } from 'react-icons/fi';
 
 export const DashboardAdminPlannings: React.FC = () => {
@@ -50,11 +61,32 @@ export const DashboardAdminPlannings: React.FC = () => {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'COMPLETED':
-        return <Badge colorPalette='green' variant='subtle'>Concluído</Badge>;
+        return (
+          <Badge
+            colorPalette='green'
+            variant='subtle'
+          >
+            Concluído
+          </Badge>
+        );
       case 'IN_PROGRESS':
-        return <Badge colorPalette='blue' variant='subtle'>Em Progresso</Badge>;
+        return (
+          <Badge
+            colorPalette='blue'
+            variant='subtle'
+          >
+            Em Progresso
+          </Badge>
+        );
       case 'FAILED':
-        return <Badge colorPalette='red' variant='subtle'>Falhou</Badge>;
+        return (
+          <Badge
+            colorPalette='red'
+            variant='subtle'
+          >
+            Falhou
+          </Badge>
+        );
       default:
         return <Badge variant='subtle'>{status}</Badge>;
     }
@@ -62,14 +94,19 @@ export const DashboardAdminPlannings: React.FC = () => {
 
   return (
     <Box>
-      <VStack align='stretch' gap='6'>
+      <VStack
+        align='stretch'
+        gap='6'
+      >
         <Box>
-          <Heading size='2xl' color='fg.emphasized' mb='2'>
+          <Heading
+            size='2xl'
+            color='fg.emphasized'
+            mb='2'
+          >
             Planejamentos
           </Heading>
-          <Text color='fg.muted'>
-            Visualize todos os planejamentos criados pelos usuários
-          </Text>
+          <Text color='fg.muted'>Visualize todos os planejamentos criados pelos usuários</Text>
         </Box>
 
         <HStack gap='4'>
@@ -78,7 +115,10 @@ export const DashboardAdminPlannings: React.FC = () => {
             size='lg'
             flex='1'
           />
-          <IconButton size='lg' aria-label='Buscar'>
+          <IconButton
+            size='lg'
+            aria-label='Buscar'
+          >
             <FiSearch />
           </IconButton>
         </HStack>
@@ -92,8 +132,17 @@ export const DashboardAdminPlannings: React.FC = () => {
           </Tabs.List>
 
           <Tabs.Content value='all'>
-            <Box borderWidth='1px' borderColor='border.default' borderRadius='lg' overflow='hidden' mt='4'>
-              <Table.Root size='lg' variant='outline'>
+            <Box
+              borderWidth='1px'
+              borderColor='border.default'
+              borderRadius='lg'
+              overflow='hidden'
+              mt='4'
+            >
+              <Table.Root
+                size='lg'
+                variant='outline'
+              >
                 <Table.Header>
                   <Table.Row>
                     <Table.ColumnHeader>Título</Table.ColumnHeader>
@@ -111,21 +160,32 @@ export const DashboardAdminPlannings: React.FC = () => {
                       <Table.Cell fontWeight='medium'>{planning.title}</Table.Cell>
                       <Table.Cell>{planning.user}</Table.Cell>
                       <Table.Cell>
-                        <Badge colorPalette='blue' variant='subtle'>
+                        <Badge
+                          colorPalette='blue'
+                          variant='subtle'
+                        >
                           {planning.opportunities}
                         </Badge>
                       </Table.Cell>
                       <Table.Cell>{getStatusBadge(planning.status)}</Table.Cell>
-                      <Table.Cell>{new Date(planning.createdAt).toLocaleDateString('pt-BR')}</Table.Cell>
+                      <Table.Cell>
+                        {new Date(planning.createdAt).toLocaleDateString('pt-BR')}
+                      </Table.Cell>
                       <Table.Cell>
                         <HStack gap='2'>
                           {planning.hasPdf && (
-                            <Badge variant='outline' size='sm'>
+                            <Badge
+                              variant='outline'
+                              size='sm'
+                            >
                               PDF
                             </Badge>
                           )}
                           {planning.hasIcs && (
-                            <Badge variant='outline' size='sm'>
+                            <Badge
+                              variant='outline'
+                              size='sm'
+                            >
                               ICS
                             </Badge>
                           )}
@@ -169,19 +229,28 @@ export const DashboardAdminPlannings: React.FC = () => {
           </Tabs.Content>
 
           <Tabs.Content value='completed'>
-            <Text color='fg.muted' mt='4'>
+            <Text
+              color='fg.muted'
+              mt='4'
+            >
               Mostrando apenas planejamentos concluídos...
             </Text>
           </Tabs.Content>
 
           <Tabs.Content value='in_progress'>
-            <Text color='fg.muted' mt='4'>
+            <Text
+              color='fg.muted'
+              mt='4'
+            >
               Mostrando apenas planejamentos em progresso...
             </Text>
           </Tabs.Content>
 
           <Tabs.Content value='failed'>
-            <Text color='fg.muted' mt='4'>
+            <Text
+              color='fg.muted'
+              mt='4'
+            >
               Mostrando apenas planejamentos com falha...
             </Text>
           </Tabs.Content>

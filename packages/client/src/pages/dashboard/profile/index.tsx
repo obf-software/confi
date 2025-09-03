@@ -2,9 +2,9 @@ import { Button, Card, Heading, Input, Stack, Text, VStack } from '@chakra-ui/re
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { Field } from '../../components/field';
-import { toasterStore } from '../../components/toaster';
-import { useAuth } from '../../contexts/auth-context';
+import { Field } from '../../../components/field';
+import { useAuth } from '../../../hooks/use-auth';
+import { useToaster } from '../../../contexts/toaster';
 
 interface ProfileFormData {
   name: string;
@@ -17,6 +17,7 @@ interface ProfileFormData {
 export const DashboardProfile: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { user } = useAuth();
+  const toaster = useToaster();
 
   const {
     register,
@@ -39,7 +40,7 @@ export const DashboardProfile: React.FC = () => {
       // For now, we'll just show a success message
       await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate API call
 
-      toasterStore.create({
+      toaster.create({
         id: 'profile-success',
         title: 'Perfil atualizado',
         description: 'Suas informações foram atualizadas com sucesso',
@@ -49,7 +50,7 @@ export const DashboardProfile: React.FC = () => {
     } catch (error: unknown) {
       const errorMessage =
         error instanceof Error ? error.message : 'Não foi possível atualizar as informações';
-      toasterStore.create({
+      toaster.create({
         id: 'profile-error',
         title: 'Erro ao atualizar perfil',
         description: errorMessage,

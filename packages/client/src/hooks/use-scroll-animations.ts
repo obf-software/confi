@@ -15,7 +15,7 @@ export function useScrollAnimation(): ScrollAnimationState {
 
   useEffect(() => {
     let timeoutId: NodeJS.Timeout;
-    
+
     const handleScroll = () => {
       const scrollY = window.scrollY;
       const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -29,7 +29,7 @@ export function useScrollAnimation(): ScrollAnimationState {
 
       clearTimeout(timeoutId);
       timeoutId = setTimeout(() => {
-        setScrollState(prev => ({ ...prev, isScrolling: false }));
+        setScrollState((prev) => ({ ...prev, isScrolling: false }));
       }, 150);
     };
 
@@ -51,18 +51,12 @@ export interface IntersectionAnimationOptions {
   triggerOnce?: boolean;
 }
 
-export function useIntersectionAnimation(
-  options: IntersectionAnimationOptions = {}
-) {
+export function useIntersectionAnimation(options: IntersectionAnimationOptions = {}) {
   const [elementRef, setElementRef] = useState<HTMLElement | null>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [hasTriggered, setHasTriggered] = useState(false);
 
-  const {
-    threshold = 0.1,
-    rootMargin = '0px',
-    triggerOnce = true,
-  } = options;
+  const { threshold = 0.1, rootMargin = '0px', triggerOnce = true } = options;
 
   useEffect(() => {
     if (!elementRef) return;
@@ -70,7 +64,7 @@ export function useIntersectionAnimation(
     const observer = new IntersectionObserver(
       ([entry]) => {
         const visible = entry.isIntersecting;
-        
+
         if (visible && (!triggerOnce || !hasTriggered)) {
           setIsVisible(true);
           setHasTriggered(true);

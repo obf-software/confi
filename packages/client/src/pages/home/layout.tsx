@@ -2,9 +2,9 @@ import { Box, BoxProps } from '@chakra-ui/react';
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 
-export type MainLayoutProps = BoxProps;
+export type HomeLayoutProps = BoxProps;
 
-export const MainLayout: React.FC<MainLayoutProps> = ({ ...boxProps }) => {
+export const HomeLayout: React.FC<HomeLayoutProps> = ({ ...boxProps }) => {
   return (
     <Box
       width='100%'
