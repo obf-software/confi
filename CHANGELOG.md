@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.12.0](https://github.com/obf-software/confi/compare/v1.11.0...v1.12.0) (2025-09-03)
+
+
+### Features
+
+* **api:** implement planning management features and clean up unused components ([0e7e06e](https://github.com/obf-software/confi/commit/0e7e06ef37cd8ee6d1726764f4057964855e4869))
+* make it work ([d829e15](https://github.com/obf-software/confi/commit/d829e15c353c2e025d3ff1c6e4304661b5500cc1))
+
 ## [1.11.0](https://github.com/obf-software/confi/compare/v1.10.1...v1.11.0) (2025-09-03)
 
 
