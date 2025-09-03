@@ -51,6 +51,9 @@ export interface ApiService {
   deleteOpportunity: (
     input: ApiService.DeleteOpportunityInput
   ) => Promise<ApiService.DeleteOpportunityOutput>;
+  findOpportunities: (
+    input: ApiService.FindOpportunitiesInput
+  ) => Promise<ApiService.FindOpportunitiesOutput>;
 
   // Plannings
   listPlannings: (input: ApiService.ListPlanningsInput) => Promise<ApiService.ListPlanningsOutput>;
@@ -207,6 +210,11 @@ export namespace ApiService {
     id: string;
   }
   export type DeleteOpportunityOutput = ApiServiceResponse<void>;
+
+  export interface FindOpportunitiesInput {
+    formInput: Record<string, unknown>;
+  }
+  export type FindOpportunitiesOutput = ApiServiceResponse<Opportunity[]>;
 
   // Plannings
   export interface ListPlanningsInput {}
