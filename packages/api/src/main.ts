@@ -5,11 +5,8 @@ import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 import { CreatePlanning } from './application/create-planning';
-import { CreateTag } from './application/create-tag';
 import { FindOpportunities } from './application/find-opportunities';
-import { LoadOpportunities } from './application/load-opportunities';
 import { ActionsController } from './infrastructure/controller/actions-controller';
-import { TagsController } from './infrastructure/controller/tags-controller';
 import { bedrockClientFactory } from './infrastructure/factory/bedrock-client-factory';
 import { mongoClientFactory } from './infrastructure/factory/mongo-client-factory';
 import { s3ClientFactory } from './infrastructure/factory/s3-client-factory';
@@ -21,10 +18,6 @@ import {
   OpportunityRepository,
   OpportunityRepositoryDb,
 } from './infrastructure/services/opportunity-repository';
-import {
-  OpportunitySource,
-  OpportunitySourceSheets,
-} from './infrastructure/services/opportunity-source';
 import {
   OpportunityTransformer,
   OpportunityTransformerAwsBedrock,
@@ -39,17 +32,22 @@ import {
   TagTransformer,
   TagTransformerAwsBedrock,
 } from './infrastructure/services/tag-transformer';
+import {
+  PlanningRepository,
+  PlanningRepositoryDb,
+} from './infrastructure/services/planning-repository';
+import { ListPlannings } from './application/list-plannings';
 
 @Module({
   imports: [ConfigModule.forRoot({ isGlobal: true })],
-  controllers: [ActionsController, TagsController],
+  controllers: [ActionsController],
   providers: [
     // Services
     { provide: FileStorageService, useClass: FileStorageServiceS3 },
     { provide: OpportunityRepository, useClass: OpportunityRepositoryDb },
-    { provide: OpportunitySource, useClass: OpportunitySourceSheets },
     { provide: OpportunityTransformer, useClass: OpportunityTransformerAwsBedrock },
     { provide: PdfGenerator, useClass: PdfGeneratorPuppeteer },
+    { provide: PlanningRepository, useClass: PlanningRepositoryDb },
     { provide: PlanningTransformer, useClass: PlanningTransformerAwsBedrock },
     { provide: TagRepository, useClass: TagRepositoryDb },
     { provide: TagTransformer, useClass: TagTransformerAwsBedrock },
@@ -61,9 +59,8 @@ import {
 
     // Use Cases
     CreatePlanning,
-    CreateTag,
     FindOpportunities,
-    LoadOpportunities,
+    ListPlannings,
   ],
 })
 class AppModule {}

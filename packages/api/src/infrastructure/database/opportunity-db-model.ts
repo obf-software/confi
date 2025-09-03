@@ -1,5 +1,7 @@
 import { ObjectId } from 'bson';
 
+export type OpportunityStatusDbModel = 'ACTIVE' | 'DISABLED' | 'PENDING_REVIEW';
+
 export interface OpportunityDbModel {
   _id: ObjectId;
   name: string;
@@ -11,6 +13,8 @@ export interface OpportunityDbModel {
   requiredDocumentation: string[];
   link: string | null;
   tags: string[];
+  searchId?: ObjectId | null;
+  status?: OpportunityStatusDbModel;
   createdAt: Date;
   updatedAt: Date;
 }

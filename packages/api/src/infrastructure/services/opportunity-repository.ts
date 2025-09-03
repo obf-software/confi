@@ -33,6 +33,8 @@ export class OpportunityRepositoryDb implements OpportunityRepository {
       requiredDocumentation: opportunity.requiredDocumentation,
       link: opportunity.link,
       tags: opportunity.tags,
+      searchId: opportunity.searchId?.toHexString() ?? null,
+      status: opportunity.status ?? 'DISABLED',
       createdAt: opportunity.createdAt,
       updatedAt: opportunity.updatedAt,
     });
@@ -50,6 +52,8 @@ export class OpportunityRepositoryDb implements OpportunityRepository {
       requiredDocumentation: opportunity.requiredDocumentation,
       link: opportunity.link,
       tags: opportunity.tags,
+      searchId: opportunity.searchId ? new ObjectId(opportunity.searchId) : null,
+      status: opportunity.status,
       createdAt: opportunity.createdAt,
       updatedAt: opportunity.updatedAt,
     };

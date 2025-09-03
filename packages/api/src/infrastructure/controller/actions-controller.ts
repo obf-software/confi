@@ -2,7 +2,7 @@ import { Body, Controller, Post } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreatePlanning } from 'src/application/create-planning';
 import { FindOpportunities } from 'src/application/find-opportunities';
-import { LoadOpportunities } from 'src/application/load-opportunities';
+import { ListPlannings } from 'src/application/list-plannings';
 import { Opportunity } from 'src/domain/opportunity';
 import { Planning } from 'src/domain/planning';
 
@@ -11,25 +11,9 @@ import { Planning } from 'src/domain/planning';
 export class ActionsController {
   constructor(
     private readonly findOpportunities: FindOpportunities,
-    private readonly loadOpportunities: LoadOpportunities,
-    private readonly createPlanning: CreatePlanning
+    private readonly createPlanning: CreatePlanning,
+    private readonly listPlannings: ListPlannings
   ) {}
-
-  @ApiOperation({
-    summary: 'Load opportunities',
-    description:
-      'Load raw opportunities from the source, transform them into opportunities and save them to the database',
-  })
-  @ApiResponse({
-    status: 200,
-    description: 'The opportunities were loaded successfully',
-    type: [Opportunity],
-  })
-  @Post('load-opportunities')
-  async loadOpportunitiesHandler() {
-    const output = await this.loadOpportunities.execute();
-    return output.opportunities;
-  }
 
   @ApiOperation({
     summary: 'Find opportunities',
@@ -83,8 +67,25 @@ export class ActionsController {
     type: Planning,
   })
   @Post('create-planning')
-  async createPlanningHandler(@Body() body: { opportunitiesIds: string[] }) {
-    const output = await this.createPlanning.execute({ opportunitiesIds: body.opportunitiesIds });
+  async createPlanningHandler(@Body() body: { opportunitiesIds: string[]; title: string }) {
+    const output = await this.createPlanning.execute({
+      opportunitiesIds: body.opportunitiesIds,
+      title: body.title,
+    });
     return output.planning;
+  }
+
+  @ApiOperation({
+    summary: 'List plannings',
+    description: 'List all plannings',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'The plannings were listed successfully',
+  })
+  @Post('list-plannings')
+  async listPlanningsHandler() {
+    const output = await this.listPlannings.execute({});
+    return output.plannings;
   }
 }

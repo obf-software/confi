@@ -5,6 +5,8 @@ import utc from 'dayjs/plugin/utc';
 
 dayjs.extend(utc);
 
+export type OpportunityStatus = 'ACTIVE' | 'DISABLED' | 'PENDING_REVIEW';
+
 interface OpportunityProps {
   id: string;
   name: string;
@@ -15,9 +17,11 @@ interface OpportunityProps {
   preparationTime: string;
   requiredDocumentation: string[];
   link: string | null;
+  tags: string[];
+  searchId: string | null;
+  status: OpportunityStatus;
   createdAt: Date;
   updatedAt: Date;
-  tags: string[];
 }
 
 export class Opportunity {
@@ -76,6 +80,24 @@ export class Opportunity {
   link: string | null;
 
   @ApiProperty({
+    description: 'The tags of the opportunity',
+    example: ['tag1', 'tag2'],
+  })
+  tags: string[];
+
+  @ApiProperty({
+    description: 'The search ID of the opportunity',
+    example: '1',
+  })
+  searchId: string | null;
+
+  @ApiProperty({
+    description: 'The status of the opportunity',
+    example: 'ACTIVE',
+  })
+  status: OpportunityStatus;
+
+  @ApiProperty({
     description: 'The date and time the opportunity was created',
     example: '2021-01-01T00:00:00.000Z',
   })
@@ -87,12 +109,6 @@ export class Opportunity {
   })
   updatedAt: Date;
 
-  @ApiProperty({
-    description: 'The tags of the opportunity',
-    example: ['tag1', 'tag2'],
-  })
-  tags: string[];
-
   private constructor(props: OpportunityProps) {
     this.id = props.id;
     this.name = props.name;
@@ -103,9 +119,11 @@ export class Opportunity {
     this.preparationTime = props.preparationTime;
     this.requiredDocumentation = props.requiredDocumentation;
     this.link = props.link;
+    this.tags = props.tags;
+    this.searchId = props.searchId;
+    this.status = props.status;
     this.createdAt = props.createdAt;
     this.updatedAt = props.updatedAt;
-    this.tags = props.tags;
   }
 
   static readonly with = (props: OpportunityProps) => new Opportunity(props);
@@ -124,9 +142,11 @@ export class Opportunity {
       preparationTime: props.preparationTime,
       requiredDocumentation: props.requiredDocumentation,
       link: props.link,
+      tags: props.tags,
+      searchId: props.searchId,
+      status: props.status,
       createdAt: now,
       updatedAt: now,
-      tags: props.tags,
     });
   };
 }

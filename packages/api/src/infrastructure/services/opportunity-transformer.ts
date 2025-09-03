@@ -50,13 +50,13 @@ export class OpportunityTransformerAwsBedrock implements OpportunityTransformer 
             messages: [
               {
                 role: 'user',
-                content: prompt
-              }
+                content: prompt,
+              },
             ],
             max_tokens: 4000,
             temperature: 0.7,
-            anthropic_version: 'bedrock-2023-05-31'
-          })
+            anthropic_version: 'bedrock-2023-05-31',
+          }),
         })
       );
 
@@ -152,7 +152,7 @@ Retorne apenas o JSON estruturado sem texto adicional.
     const responseBody = JSON.parse(response.body.transformToString()) as BedrockResponse;
     const content = responseBody.content[0]?.text;
     if (!content) throw new Error('Failed to get response content');
-    
+
     const data = z
       .object({
         benefits: z.array(z.string()),
@@ -169,6 +169,6 @@ Retorne apenas o JSON estruturado sem texto adicional.
 
     const tags = data.tags.filter((tag) => availableTags.some((t) => t.slug === tag));
 
-    return Opportunity.create({ ...data, tags });
+    return Opportunity.create({ ...data, tags, searchId: null, status: 'ACTIVE' });
   }
 }

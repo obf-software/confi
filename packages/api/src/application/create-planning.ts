@@ -3,9 +3,11 @@ import { Planning } from 'src/domain/planning';
 import { FileStorageService } from 'src/infrastructure/services/file-storage-service/file-storage-service';
 import { OpportunityRepository } from 'src/infrastructure/services/opportunity-repository';
 import { PdfGenerator } from 'src/infrastructure/services/pdf-generator';
+import { PlanningRepository } from 'src/infrastructure/services/planning-repository';
 import { PlanningTransformer } from 'src/infrastructure/services/planning-transformer';
 
 export interface Input {
+  title: string;
   opportunitiesIds: string[];
 }
 
@@ -19,12 +21,20 @@ export class CreatePlanning {
 
   constructor(
     @Inject(OpportunityRepository) private readonly opportunityRepository: OpportunityRepository,
+    @Inject(PlanningRepository) private readonly planningRepository: PlanningRepository,
     @Inject(PlanningTransformer) private readonly planningTransformer: PlanningTransformer,
     @Inject(PdfGenerator) private readonly pdfGenerator: PdfGenerator,
     @Inject(FileStorageService) private readonly fileStorageService: FileStorageService
   ) {}
 
   async execute(input: Input): Promise<Output> {
+    const planning = Planning.create({
+      title: input.title,
+      opportunityIds: input.opportunitiesIds,
+    });
+
+    await this.planningRepository.save(planning);
+
     const opportunities = await this.opportunityRepository.findByIds(input.opportunitiesIds);
 
     const planningData =
@@ -56,7 +66,9 @@ export class CreatePlanning {
         .then(({ url }) => url),
     ]);
 
-    const planning = Planning.create({ pdfUrl, icsUrl });
+    planning.setPdfFileUrl(pdfUrl);
+    planning.setIcsFileUrl(icsUrl);
+    await this.planningRepository.update(planning);
 
     return { planning };
   }
