@@ -1,5 +1,34 @@
 # Changelog
 
+## [1.10.0](https://github.com/obf-software/confi/compare/v1.9.5...v1.10.0) (2025-09-03)
+
+
+### Features
+
+* **api:** add S3 bucket integration and update file storage service ([eeaa11f](https://github.com/obf-software/confi/commit/eeaa11f1cc5a65016c5bdeed23443ae5e051e9cc))
+* **api:** enhance API service configuration and environment validation ([3a81bf9](https://github.com/obf-software/confi/commit/3a81bf9b5c7dc03f7d1281b1e54a5034b976a254))
+* **api:** implement API service with mock and implementation classes ([31114bd](https://github.com/obf-software/confi/commit/31114bd94cec2174a6a319d90821223c0dc67379))
+* **api:** integrate AWS Bedrock client and update file storage service ([621f33a](https://github.com/obf-software/confi/commit/621f33a4a8aa84b0141a69dc5b4fc893f0f038c5))
+* **api:** update environment configuration and refactor transformers ([7aeac4b](https://github.com/obf-software/confi/commit/7aeac4b436edbe714a45729df0bafdf24333fb71))
+* **client:** add admin layout to dashboard with role-based access ([6a1d3b7](https://github.com/obf-software/confi/commit/6a1d3b70827fc8433b02c0c1cf7dc959d3c00130))
+* **client:** add cloudflare domain ([fa13ba2](https://github.com/obf-software/confi/commit/fa13ba2bebc274f3b69dd68a97d99f557f561e73))
+* **client:** enhance authentication and routing features ([d6f4e73](https://github.com/obf-software/confi/commit/d6f4e7386f5283e99e85d351fe8c41487abd7e86))
+* **client:** enhance authentication flow and UI components ([e1bd2fd](https://github.com/obf-software/confi/commit/e1bd2fdbd9c6391a5c09d7f379a36a806dabc194))
+* **client:** enhance dashboard with role-based access and new admin features ([33e7c4f](https://github.com/obf-software/confi/commit/33e7c4f95b973c700640fd1b5f83edb3ad2f5b4b))
+* **client:** implement multi-step form for finding opportunities ([84ae735](https://github.com/obf-software/confi/commit/84ae7357650cb4bf355a6eb3b7f83eb3a87e77e3))
+* **client:** introduce animated components and enhance UI interactions ([b5f6412](https://github.com/obf-software/confi/commit/b5f6412276237a6c751eadec12fb17e4bd0654c0))
+* **client:** refactor dashboard admin routes and introduce AI features ([1317e72](https://github.com/obf-software/confi/commit/1317e72fad55f062d6d3d83e1256563e1e24c5dc))
+* **client:** update dependencies and enhance UI components ([b44a1f6](https://github.com/obf-software/confi/commit/b44a1f6d03707700cbb5ba36d3eb2f28545973e6))
+* **client:** update UI components and enhance form usability ([3ffc6da](https://github.com/obf-software/confi/commit/3ffc6da9ac91dbf561a0c5c56c87fbf726e41ca1))
+* **client:** update UI components and enhance theme management ([ae85634](https://github.com/obf-software/confi/commit/ae856341b3ec48ca09f3cb63f8f0fa3e29c265a1))
+* **docker:** update MongoDB initialization and remove MinIO service ([539db0b](https://github.com/obf-software/confi/commit/539db0b9afd746966838058e765b103bb40a201e))
+
+
+### Bug Fixes
+
+* **ci:** add conditional to deployment ([855fd50](https://github.com/obf-software/confi/commit/855fd50eb2a205a3207f97193ee413b77036ba99))
+* **client:** improve authentication handling in ProtectedRoute and update Auth component ([e97d6ff](https://github.com/obf-software/confi/commit/e97d6ffc476ee6da79f605df493b793a865fd886))
+
 ## [1.9.5](https://github.com/obf-software/confi/compare/v1.9.4...v1.9.5) (2025-06-04)
 
 
