@@ -217,7 +217,9 @@ export namespace ApiService {
   export type FindOpportunitiesOutput = ApiServiceResponse<Opportunity[]>;
 
   // Plannings
-  export interface ListPlanningsInput {}
+  export interface ListPlanningsInput {
+    userId?: string;
+  }
   export type ListPlanningsOutput = ApiServiceResponse<Planning[]>;
 
   export interface GetPlanningInput {

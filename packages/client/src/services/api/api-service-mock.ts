@@ -133,7 +133,7 @@ export class ApiServiceMock implements ApiService {
       opportunityIds: ['1', '2'],
       pdfFileId: '1',
       icsFileId: '1',
-      status: 'IN_PROGRESS',
+      status: 'COMPLETED',
       userId: '1',
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
@@ -186,7 +186,24 @@ export class ApiServiceMock implements ApiService {
 
   async getUser(input: ApiService.GetUserInput): Promise<ApiService.GetUserOutput> {
     if (input.id === null) {
-      return success(this.users[0]);
+      const id = 'current';
+      const existingUser = this.users.find((user) => user.id === id);
+      if (!existingUser) {
+        const newUser: User = {
+          id,
+          name: 'User',
+          email: 'user@example.com',
+          phone: '1234567890',
+          organization: 'Some Org.',
+          position: 'Founder',
+          role: 'ADMIN',
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+        };
+        this.users.push(newUser);
+        return success(newUser);
+      }
+      return success(existingUser);
     }
 
     const user = this.users.find((user) => user.id === input.id);
@@ -415,7 +432,7 @@ export class ApiServiceMock implements ApiService {
       pdfFileId: null,
       icsFileId: null,
       status: 'IN_PROGRESS',
-      userId: '1',
+      userId: 'current',
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };

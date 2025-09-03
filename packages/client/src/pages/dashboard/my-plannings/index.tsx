@@ -15,40 +15,16 @@ import {
 import { FiPlus, FiDownload, FiEye, FiTrash2, FiCalendar, FiFileText } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 import { routes } from '../../../lib/routes';
+import { useListMyPlannings } from '../../../hooks/use-list-my-plannings';
+import { toasterStore, useToaster } from '../../../contexts/toaster';
+import { useFileUrl } from '../../../hooks/use-file-url';
 
 export const DashboardMyPlannings: React.FC = () => {
   const navigate = useNavigate();
-
-  // Mock data for demonstration
-  const plannings = [
-    {
-      id: '1',
-      title: 'Planejamento Q1 2024',
-      opportunities: 5,
-      status: 'COMPLETED',
-      createdAt: '2024-01-10',
-      hasPdf: true,
-      hasIcs: true,
-    },
-    {
-      id: '2',
-      title: 'Oportunidades de Inovação',
-      opportunities: 8,
-      status: 'IN_PROGRESS',
-      createdAt: '2024-01-15',
-      hasPdf: false,
-      hasIcs: false,
-    },
-    {
-      id: '3',
-      title: 'Editais Educação 2024',
-      opportunities: 3,
-      status: 'COMPLETED',
-      createdAt: '2024-01-12',
-      hasPdf: true,
-      hasIcs: true,
-    },
-  ];
+  const toaster = useToaster();
+  const planningsQuery = useListMyPlannings();
+  const fileUrlMutation = useFileUrl();
+  const plannings = planningsQuery.data ?? [];
 
   const getStatusBadge = (status: string) => {
     switch (status) {
@@ -203,29 +179,25 @@ export const DashboardMyPlannings: React.FC = () => {
                       colorPalette='blue'
                       variant='subtle'
                     >
-                      {planning.opportunities}
+                      {planning.opportunityIds.length}
                     </Badge>
                   </HStack>
 
                   <HStack gap='2'>
-                    {planning.hasPdf && (
-                      <Badge
-                        variant='outline'
-                        size='sm'
-                      >
-                        <FiFileText />
-                        PDF
-                      </Badge>
-                    )}
-                    {planning.hasIcs && (
-                      <Badge
-                        variant='outline'
-                        size='sm'
-                      >
-                        <FiCalendar />
-                        Calendar
-                      </Badge>
-                    )}
+                    <Badge
+                      variant='outline'
+                      size='sm'
+                    >
+                      <FiFileText />
+                      PDF
+                    </Badge>
+                    <Badge
+                      variant='outline'
+                      size='sm'
+                    >
+                      <FiCalendar />
+                      Calendar
+                    </Badge>
                   </HStack>
                 </VStack>
               </Card.Body>
@@ -238,26 +210,99 @@ export const DashboardMyPlannings: React.FC = () => {
                   <Button
                     variant='outline'
                     flex='1'
+                    aria-label='Download pdf'
+                    disabled={planning.pdfFileId === null || planning.status !== 'COMPLETED'}
+                    onClick={() => {
+                      if (!planning.pdfFileId) {
+                        toaster.create({
+                          id: 'failed-to-download-pdf',
+                          title: 'Unable to download pdf',
+                          description: 'The pdf file is not available',
+                          closable: true,
+                          type: 'error',
+                        });
+                        return;
+                      }
+
+                      fileUrlMutation.mutate(
+                        { id: planning.pdfFileId },
+                        {
+                          onError: (error) => {
+                            toaster.create({
+                              id: 'failed-to-download-pdf',
+                              title: 'Unable to download pdf',
+                              description: error.message,
+                              closable: true,
+                              type: 'error',
+                            });
+                          },
+                          onSuccess: (data) => {
+                            toaster.create({
+                              id: 'download-pdf',
+                              title: 'Downloading pdf',
+                              description: 'The pdf file is being downloaded',
+                              closable: true,
+                              type: 'success',
+                            });
+
+                            window.open(data, '_blank');
+                          },
+                        }
+                      );
+                    }}
                   >
-                    <FiEye />
-                    View
+                    <FiDownload />
+                    PDF
                   </Button>
-                  {planning.status === 'COMPLETED' && (
-                    <IconButton
-                      variant='solid'
-                      colorPalette='blue'
-                      aria-label='Download files'
-                    >
-                      <FiDownload />
-                    </IconButton>
-                  )}
-                  <IconButton
-                    variant='ghost'
-                    colorPalette='red'
-                    aria-label='Delete'
+
+                  <Button
+                    variant='outline'
+                    flex='1'
+                    colorPalette='gray'
+                    aria-label='Download calendar'
+                    disabled={planning.icsFileId === null || planning.status !== 'COMPLETED'}
+                    onClick={() => {
+                      if (!planning.icsFileId) {
+                        toaster.create({
+                          id: 'failed-to-download-ics',
+                          title: 'Unable to download ics',
+                          description: 'The ics file is not available',
+                          closable: true,
+                          type: 'error',
+                        });
+                        return;
+                      }
+
+                      fileUrlMutation.mutate(
+                        { id: planning.icsFileId },
+                        {
+                          onError: (error) => {
+                            toaster.create({
+                              id: 'failed-to-download-ics',
+                              title: 'Unable to download ics',
+                              description: error.message,
+                              closable: true,
+                              type: 'error',
+                            });
+                          },
+                          onSuccess: (data) => {
+                            toaster.create({
+                              id: 'download-ics',
+                              title: 'Downloading ics',
+                              description: 'The ics file is being downloaded',
+                              closable: true,
+                              type: 'success',
+                            });
+
+                            window.open(data, '_blank');
+                          },
+                        }
+                      );
+                    }}
                   >
-                    <FiTrash2 />
-                  </IconButton>
+                    <FiDownload />
+                    Calendar
+                  </Button>
                 </HStack>
               </Card.Footer>
             </Card.Root>
