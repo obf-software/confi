@@ -9,6 +9,7 @@ import { DiversityStep } from './diversity-step';
 import { NameStep } from './name-step';
 import { FormData, formDataSchema, FormPageId } from './protocols';
 import { useFindOpportunities } from '../../../hooks/use-find-opportunities';
+import { routes } from '../../../lib/routes';
 
 export const DashboardFindOpportunities: React.FC = () => {
   const [currentPageId, setCurrentPageId] = React.useState<FormPageId>('name');
@@ -34,7 +35,7 @@ export const DashboardFindOpportunities: React.FC = () => {
     await new Promise<void>((resolve) => {
       findOpportunities.mutate(data, {
         onSuccess: (opportunities) => {
-          void navigate('/dashboard/opportunities', { state: { opportunities } });
+          void navigate(routes.dashboard.createPlanning, { state: { opportunities } });
           resolve();
         },
         onError: (error) => {

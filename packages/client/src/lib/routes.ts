@@ -18,6 +18,7 @@ export const routes = {
     },
     findOpportunities: '/dashboard/find-opportunities',
     myPlannings: '/dashboard/my-plannings',
+    createPlanning: '/dashboard/create-planning',
     profile: '/dashboard/profile',
   },
 };

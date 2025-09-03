@@ -26,6 +26,7 @@ import { DashboardProfile } from './pages/dashboard/profile';
 import { Authenticator } from '@aws-amplify/ui-react';
 import { Auth } from './pages/auth';
 import { DashboardAdminLayout } from './pages/dashboard/admin/layout';
+import { DashboardCreatePlanning } from './pages/dashboard/create-planning';
 
 export const Provider: React.FC = () => {
   const router = createBrowserRouter([
@@ -110,6 +111,10 @@ export const Provider: React.FC = () => {
         {
           path: toChildPath(routes.dashboard.myPlannings),
           element: <DashboardMyPlannings />,
+        },
+        {
+          path: toChildPath(routes.dashboard.createPlanning),
+          element: <DashboardCreatePlanning />,
         },
         {
           path: toChildPath(routes.dashboard.profile),
