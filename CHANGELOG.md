@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.11.0](https://github.com/obf-software/confi/compare/v1.10.1...v1.11.0) (2025-09-03)
+
+
+### Features
+
+* **auth:** enhance email confirmation message with app URL and additional instructions ([10a72cc](https://github.com/obf-software/confi/commit/10a72cc8b73c2d68cf67e5115c52854cde07f262))
+* **client:** add create planning page and tooltip component ([ede48f6](https://github.com/obf-software/confi/commit/ede48f6c074c18291afbc83416f9fd8863024020))
+* **client:** implement hooks for planning management and file retrieval ([1e0e4c9](https://github.com/obf-software/confi/commit/1e0e4c9169983564406869cb29735b10ea50b9dc))
+
 ## [1.10.1](https://github.com/obf-software/confi/compare/v1.10.0...v1.10.1) (2025-09-03)
 
 
