@@ -7,6 +7,8 @@ import '@aws-amplify/ui-react/styles.css';
 export const Auth: React.FC = () => {
   return (
     <Authenticator
+      loginMechanism='email'
+      loginMechanisms={['email']}
       signUpAttributes={['email', 'name']}
       variation='modal'
     >

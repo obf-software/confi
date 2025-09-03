@@ -18,12 +18,13 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, onlyAl
   const location = useLocation();
   const navigate = useNavigate();
 
-  if (status === 'configuring' || currentUser.isLoading) {
-    return <LoadingSpinner />;
-  }
+  React.useEffect(() => {
+    if (status === 'unauthenticated') {
+      void navigate(routes.auth.index, { state: { from: location }, replace: true });
+    }
+  }, [status, navigate, location]);
 
-  if (status === 'unauthenticated') {
-    navigate(routes.auth.index, { state: { from: location }, replace: true });
+  if (status !== 'authenticated' || currentUser.isLoading) {
     return <LoadingSpinner />;
   }
 
