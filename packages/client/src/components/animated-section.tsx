@@ -73,12 +73,12 @@ export const GlassCard: React.FC<GlassCardProps> = ({
 
   return (
     <Box
-      bg='glass.bg'
+      bg='bg.surface'
       backdropFilter='blur(16px)'
       borderWidth='1px'
-      borderColor='glass.border'
+      borderColor='border.default'
       borderRadius='xl'
-      boxShadow='glass.shadow'
+      boxShadow='shadow.default'
       p='6'
       position='relative'
       overflow='hidden'
@@ -90,6 +90,7 @@ export const GlassCard: React.FC<GlassCardProps> = ({
         right: '0',
         height: '1px',
         bg: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)',
+        backdropFilter: 'blur(16px)',
       }}
       {...boxProps}
     >

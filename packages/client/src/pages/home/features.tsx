@@ -77,27 +77,27 @@ export const Features: React.FC = () => {
   const features = [
     {
       icon: <RiAiGenerate />,
-      title: 'IA Avançada',
+      title: 'Advanced AI',
       description:
-        'Algoritmos inteligentes que analisam milhares de oportunidades e encontram as melhores opções para seu perfil.',
+        'Intelligent algorithms that analyze thousands of opportunities and find the best options for your profile.',
     },
     {
       icon: <RiGlobalLine />,
-      title: 'Alcance Global',
+      title: 'Global Reach',
       description:
-        'Acesso a oportunidades internacionais em mais de 50 países, conectando você ao mundo.',
+        'Access to international opportunities in over 50 countries, connecting you to the world.',
     },
     {
       icon: <RiSearchEyeLine />,
-      title: 'Busca Inteligente',
+      title: 'Smart Matching',
       description:
-        'Sistema de filtros avançados que personaliza os resultados com base em seus objetivos e experiência.',
+        'Advanced matching system that personalizes results based on your goals and experience.',
     },
     {
       icon: <RiFileDownloadLine />,
-      title: 'Relatórios Personalizados',
+      title: 'Custom Reports',
       description:
-        'Gere PDFs e calendários com suas oportunidades selecionadas para um planejamento eficiente.',
+        'Generate PDFs and calendars with your selected opportunities for efficient planning.',
     },
   ];
 
@@ -176,7 +176,7 @@ export const Features: React.FC = () => {
                   '-webkit-text-fill-color': 'transparent',
                 }}
               >
-                Por que escolher o Confi?
+                Why choose Confi?
               </Heading>
 
               <Text
@@ -185,8 +185,8 @@ export const Features: React.FC = () => {
                 maxW='2xl'
                 lineHeight='1.6'
               >
-                Descubra as funcionalidades que tornam o Confi a melhor escolha para encontrar
-                oportunidades de funding internacional.
+                Discover the features that make Confi the best choice for finding international
+                funding opportunities.
               </Text>
             </VStack>
           </AnimatedSection>
@@ -233,15 +233,15 @@ export const Features: React.FC = () => {
                   size='xl'
                   fontWeight='bold'
                 >
-                  🚀 Pronto para começar?
+                  🚀 Ready to get started?
                 </Heading>
 
                 <Text
                   fontSize='lg'
                   opacity='0.9'
                 >
-                  Junte-se a centenas de empreendedores que já encontraram suas oportunidades ideais
-                  com o Confi.
+                  Join hundreds of entrepreneurs who have already found their ideal opportunities
+                  with Confi.
                 </Text>
               </VStack>
 

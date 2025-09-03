@@ -11,7 +11,7 @@ import {
 } from '@chakra-ui/react';
 import React from 'react';
 import { RiArrowRightLine, RiRocketLine, RiSparklingFill, RiStarFill } from 'react-icons/ri';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { ColorModeButton } from '../../components/color-mode';
 import { useParallax, useScrollAnimation } from '../../hooks/use-scroll-animations';
@@ -22,6 +22,7 @@ export type HeroProps = FlexProps;
 export const Hero: React.FC<HeroProps> = ({ ...flexProps }) => {
   const flexRef = React.useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
+  const location = useLocation();
   const [isVideoLoaded, setIsVideoLoaded] = React.useState(false);
 
   // Parallax and scroll effects
@@ -46,13 +47,14 @@ export const Hero: React.FC<HeroProps> = ({ ...flexProps }) => {
       >
         <ColorModeButton />
       </Box>
+
       {/* Video Background with Loading State */}
       <Box
         position='absolute'
         top='0'
         left='0'
         width='100%'
-        height='90vh'
+        height='100vh'
         bg='hero.bg'
         opacity={isVideoLoaded ? 0 : 1}
         transition='opacity 0.5s ease-in-out'
@@ -69,7 +71,7 @@ export const Hero: React.FC<HeroProps> = ({ ...flexProps }) => {
         style={{
           position: 'absolute',
           width: '100%',
-          height: '90vh',
+          height: '100vh',
           objectFit: 'cover',
           objectPosition: 'left',
           opacity: isVideoLoaded ? 1 : 0,
@@ -88,7 +90,7 @@ export const Hero: React.FC<HeroProps> = ({ ...flexProps }) => {
         top='0'
         left='0'
         width='100%'
-        height='90vh'
+        height='100vh'
         bg='hero.overlay'
         animation='pulse'
       />
@@ -128,7 +130,7 @@ export const Hero: React.FC<HeroProps> = ({ ...flexProps }) => {
         position='absolute'
         top='25%'
         left='5%'
-        color='brand.200'
+        color='teal.200'
         opacity='0.2'
         animation='floatSlow'
         transform={`translateY(${parallaxYSlow}px)`}
@@ -143,7 +145,7 @@ export const Hero: React.FC<HeroProps> = ({ ...flexProps }) => {
         position='absolute'
         top='75%'
         left='15%'
-        color='brand.300'
+        color='teal.300'
         opacity='0.25'
         animation='floatFast'
         transform={`translateY(${parallaxY * 0.6}px) rotate(${scrollProgress * 360}deg)`}
@@ -191,7 +193,6 @@ export const Hero: React.FC<HeroProps> = ({ ...flexProps }) => {
             fontWeight='normal'
             fontSize={{ base: '6xl', md: '8xl' }}
             lineHeight='1'
-            animation='fadeInUpDelay'
             background='linear-gradient(45deg, #FFFFFF 0%, #00C5CB 50%, #FFFFFF 100%)'
             backgroundSize='200% auto'
             backgroundClip='text'
@@ -204,7 +205,7 @@ export const Hero: React.FC<HeroProps> = ({ ...flexProps }) => {
             }}
             cursor='default'
           >
-            Oi, eu sou o <br />
+            Hi, I'm <br />
             <Box
               as='span'
               fontWeight='bold'
@@ -230,14 +231,14 @@ export const Hero: React.FC<HeroProps> = ({ ...flexProps }) => {
               fontSize={{ base: 'xl', md: '2xl' }}
               animation='fadeInUpDelay4'
             >
-              Seu Consultor de Funding Internacional.
+              Your International Funding Consultant.
             </Text>
             <Text
               color='rgba(255, 255, 255, 0.8)'
               fontSize={{ base: 'md', md: 'lg' }}
               animation='fadeInUpDelay6'
             >
-              🚀 Transforme oportunidades em realidade com IA
+              🚀 Transform opportunities into reality with AI
             </Text>
           </VStack>
 
@@ -287,38 +288,13 @@ export const Hero: React.FC<HeroProps> = ({ ...flexProps }) => {
                 transition: 'transform 0.6s ease',
               }}
               onClick={() => {
-                void navigate(routes.auth.index);
+                void navigate(routes.auth.index, { replace: true, state: { from: location } });
               }}
             >
-              🔥 Começar Agora{' '}
+              Lets Start{' '}
               <Icon transition='transform 0.3s ease'>
                 <RiArrowRightLine />
               </Icon>
-            </Button>
-
-            <Button
-              variant='outline'
-              borderRadius='full'
-              borderColor='white'
-              borderWidth='2px'
-              color='white'
-              size='2xl'
-              px='14'
-              position='relative'
-              overflow='hidden'
-              transition='all 0.3s ease'
-              _hover={{
-                bg: 'whiteAlpha.200',
-                borderColor: '#00C5CB',
-                color: '#00C5CB',
-                transform: 'translateY(-2px)',
-                boxShadow: '0 10px 20px rgba(0, 0, 0, 0.2)',
-              }}
-              onClick={() => {
-                void navigate(routes.auth.index);
-              }}
-            >
-              ✨ Demo Gratuito
             </Button>
           </Box>
         </VStack>

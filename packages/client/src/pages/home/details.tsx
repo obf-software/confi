@@ -23,7 +23,7 @@ export const Details: React.FC<DetailsProps> = ({ ...flexProps }) => {
   return (
     <Flex
       ref={flexRef}
-      bgColor={'brand.lightBlue'}
+      bgColor={'teal.500'}
       py='16'
       {...flexProps}
     >
@@ -33,30 +33,30 @@ export const Details: React.FC<DetailsProps> = ({ ...flexProps }) => {
           gap={{ base: '16', md: '4' }}
         >
           <GridItem colSpan={{ base: 1, md: 2 }}>
-            <Heading fontWeight='semibold'>Por que Confi?</Heading>
+            <Heading fontWeight='semibold'>Why Confi?</Heading>
             <Text
               pt='4'
-              color='brand.grayText'
+              color='fg.default'
               fontWeight='medium'
             >
-              O nome vem da sigla ConFFI, que significa Consultor de Funding & Financiamenti
-              Internacional. Além disso também remete à palavra do inglês Comfy (confortável) - que
-              reflete o tipo de experiencia que queremos dar pra você!
+              The name comes from the acronym ConFFI, which stands for Consultant of Funding &
+              International Financing. It also refers to the English word Comfy (comfortable) -
+              which reflects the type of experience we want to give you!
             </Text>
           </GridItem>
 
           <GridItem colSpan={{ base: 1, md: 2 }}>
-            <Heading fontWeight='semibold'>De onde vem o Confi?</Heading>
+            <Heading fontWeight='semibold'>Where does Confi come from?</Heading>
             <Text
               pt='4'
-              color='brand.grayText'
+              color='fg.default'
               fontWeight='medium'
             >
-              A ideia do Confi é parte de um trabalho de conclusão do programa de MBA do SEPT,
-              organização especializada no estudo de pequenas e médias empresas na Universidade de
-              Leipzig (Alemanha). A responsável, Tassia Jansen, desenvolveu a ferramenta com o
-              intuito de ampliar o acesso de negócios sociais à editais e oportunidades de funding e
-              financiamento internacionais.
+              The idea of Confi is part of a final project for the MBA program at SEPT, an
+              organization specialized in the study of small and medium enterprises at the
+              University of Leipzig (Germany). The responsible person, Tassia Jansen, developed the
+              tool with the intention of expanding access for social businesses to calls and
+              international funding and financing opportunities.
             </Text>
           </GridItem>
 

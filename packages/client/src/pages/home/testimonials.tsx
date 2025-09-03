@@ -111,7 +111,7 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
               </Text>
               <Text
                 fontSize='sm'
-                color='brand.grayText'
+                color='fg.default'
               >
                 {role}
               </Text>
@@ -134,7 +134,7 @@ export const Testimonials: React.FC = () => {
   const testimonials = [
     {
       quote:
-        'O Confi transformou completamente minha busca por financiamento. Em 2 semanas encontrei 3 oportunidades perfeitas para minha startup de tecnologia social.',
+        'Confi completely transformed my search for funding. In 2 weeks I found 3 perfect opportunities for my social technology startup.',
       author: 'Maria Silva',
       role: 'CEO & Fundadora',
       company: 'EcoTech Solutions',
@@ -143,7 +143,7 @@ export const Testimonials: React.FC = () => {
     },
     {
       quote:
-        'A IA do Confi é impressionante! Conseguiu identificar oportunidades que eu jamais teria encontrado sozinho. Hoje minha empresa opera em 4 países.',
+        "Confi's AI is impressive! It managed to identify opportunities I would never have found alone. Today my company operates in 4 countries.",
       author: 'João Santos',
       role: 'Diretor de Inovação',
       company: 'GreenEnergy Brasil',
@@ -152,7 +152,7 @@ export const Testimonials: React.FC = () => {
     },
     {
       quote:
-        'Interface intuitiva e resultados precisos. O Confi me ajudou a conseguir uma bolsa de estudos na Alemanha que mudou minha carreira completamente.',
+        'Intuitive interface and precise results. Confi helped me get a scholarship in Germany that completely changed my career.',
       author: 'Ana Costa',
       role: 'Pesquisadora',
       company: 'Instituto de Bioenergia',
@@ -165,7 +165,6 @@ export const Testimonials: React.FC = () => {
     <Box
       position='relative'
       py='24'
-      bg='white'
       overflow='hidden'
     >
       <Container maxW='8xl'>
@@ -189,17 +188,17 @@ export const Testimonials: React.FC = () => {
                 '-webkit-text-fill-color': 'transparent',
               }}
             >
-              O que nossos usuários dizem
+              What our users say
             </Heading>
 
             <Text
               fontSize='xl'
-              color='brand.grayText'
+              color='fg.default'
               maxW='2xl'
               lineHeight='1.6'
             >
-              Descubra como o Confi tem ajudado empreendedores e pesquisadores a encontrarem suas
-              oportunidades ideais.
+              Discover how Confi has helped entrepreneurs and researchers find their ideal
+              opportunities.
             </Text>
           </VStack>
 
@@ -237,20 +236,20 @@ export const Testimonials: React.FC = () => {
                   color='#00C5CB'
                   animation='floatStats'
                 >
-                  500+
+                  100+
                 </Text>
                 <Text
                   color='#0A274E'
                   fontWeight='medium'
                 >
-                  Usuários Ativos
+                  Active Users
                 </Text>
                 <Text
                   fontSize='sm'
-                  color='brand.grayText'
+                  color='fg.default'
                   textAlign='center'
                 >
-                  Empreendedores e pesquisadores confiando no Confi
+                  Entrepreneurs and researchers trusting Confi
                 </Text>
               </VStack>
 
@@ -267,14 +266,14 @@ export const Testimonials: React.FC = () => {
                   color='#0A274E'
                   fontWeight='medium'
                 >
-                  Taxa de Sucesso
+                  Success Rate
                 </Text>
                 <Text
                   fontSize='sm'
-                  color='brand.grayText'
+                  color='fg.default'
                   textAlign='center'
                 >
-                  Dos usuários encontram oportunidades relevantes
+                  Of users find relevant opportunities
                 </Text>
               </VStack>
 
@@ -291,14 +290,14 @@ export const Testimonials: React.FC = () => {
                   color='#0A274E'
                   fontWeight='medium'
                 >
-                  Países Atendidos
+                  Countries Served
                 </Text>
                 <Text
                   fontSize='sm'
-                  color='brand.grayText'
+                  color='fg.default'
                   textAlign='center'
                 >
-                  Oportunidades globais ao seu alcance
+                  Global opportunities within your reach
                 </Text>
               </VStack>
             </SimpleGrid>

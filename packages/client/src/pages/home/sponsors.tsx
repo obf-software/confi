@@ -26,7 +26,7 @@ export const Sponsors: React.FC<SponsorsProps> = ({ items, ...flexProps }) => {
     >
       <Container maxWidth={'8xl'}>
         <VStack>
-          <Heading>Apoio</Heading>
+          <Heading>Support</Heading>
 
           <SimpleGrid
             pt='4'

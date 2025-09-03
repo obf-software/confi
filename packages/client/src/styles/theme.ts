@@ -85,19 +85,6 @@ const config = defineConfig({
     },
     tokens: {
       colors: {
-        brand: {
-          50: { value: '#e6f9fa' },
-          100: { value: '#ccf2f3' },
-          200: { value: '#99e5e8' },
-          300: { value: '#66d8dc' },
-          400: { value: '#33cbd1' },
-          500: { value: '#00c5cb' },
-          600: { value: '#009ea2' },
-          700: { value: '#00767a' },
-          800: { value: '#004f51' },
-          900: { value: '#002729' },
-          950: { value: '#001314' },
-        },
         gray: {
           50: { value: '#f9fafb' },
           100: { value: '#f3f4f6' },
