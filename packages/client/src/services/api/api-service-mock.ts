@@ -24,6 +24,9 @@ export class ApiServiceMock implements ApiService {
       id: '1',
       name: 'John Doe',
       email: 'john.doe@example.com',
+      phone: '1234567890',
+      organization: 'Example Inc.',
+      position: 'Admin',
       role: 'ADMIN',
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
@@ -32,6 +35,9 @@ export class ApiServiceMock implements ApiService {
       id: '2',
       name: 'Jane Doe',
       email: 'jane.doe@example.com',
+      phone: '1234567890',
+      organization: 'Example Inc.',
+      position: 'User',
       role: 'USER',
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
@@ -368,6 +374,11 @@ export class ApiServiceMock implements ApiService {
     if (!opportunity) return failure([{ code: 'NOT_FOUND', message: 'Opportunity not found' }]);
     this.opportunities = this.opportunities.filter((opportunity) => opportunity.id !== input.id);
     return success(undefined);
+  }
+  async findOpportunities(
+    input: ApiService.FindOpportunitiesInput
+  ): Promise<ApiService.FindOpportunitiesOutput> {
+    return success(this.opportunities);
   }
 
   // Plannings

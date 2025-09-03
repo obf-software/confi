@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { Field } from '../../../components/field';
-import { useAuth } from '../../../hooks/use-auth';
 import { useToaster } from '../../../contexts/toaster';
+import { useCurrentUser } from '../../../hooks/use-current-user';
 
 interface ProfileFormData {
   name: string;
@@ -16,7 +16,7 @@ interface ProfileFormData {
 
 export const DashboardProfile: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const { user } = useAuth();
+  const currentUser = useCurrentUser();
   const toaster = useToaster();
 
   const {
@@ -25,11 +25,11 @@ export const DashboardProfile: React.FC = () => {
     formState: { errors },
   } = useForm<ProfileFormData>({
     defaultValues: {
-      name: user?.signInDetails?.loginId || '',
-      email: user?.username || '',
-      phone: '',
-      organization: '',
-      position: '',
+      name: currentUser.data?.name || '',
+      email: currentUser.data?.email || '',
+      phone: currentUser.data?.phone || '',
+      organization: currentUser.data?.organization || '',
+      position: currentUser.data?.position || '',
     },
   });
 
@@ -82,7 +82,7 @@ export const DashboardProfile: React.FC = () => {
         </Heading>
         <Text
           fontSize='lg'
-          color='gray.600'
+          colorPalette={'gray'}
         >
           Atualize suas informações pessoais e de contato
         </Text>
@@ -106,11 +106,12 @@ export const DashboardProfile: React.FC = () => {
               <Field
                 label='Nome completo'
                 required
+                disabled
                 invalid={!!errors.name}
                 errorText={errors.name?.message}
               >
                 <Input
-                  placeholder='Seu nome completo'
+                  colorPalette={'teal'}
                   {...register('name', {
                     required: 'Nome é obrigatório',
                     minLength: {
@@ -124,20 +125,20 @@ export const DashboardProfile: React.FC = () => {
               <Field
                 label='Email'
                 required
+                disabled
                 invalid={!!errors.email}
                 errorText={errors.email?.message}
               >
                 <Input
                   type='email'
-                  placeholder='seu@email.com'
-                  disabled
+                  colorPalette={'teal'}
                   {...register('email', {
                     required: 'Email é obrigatório',
                   })}
                 />
                 <Text
                   fontSize='sm'
-                  color='gray.500'
+                  colorPalette={'gray'}
                   mt='1'
                 >
                   O email não pode ser alterado
@@ -146,12 +147,13 @@ export const DashboardProfile: React.FC = () => {
 
               <Field
                 label='Telefone'
+                disabled
                 invalid={!!errors.phone}
                 errorText={errors.phone?.message}
               >
                 <Input
                   type='tel'
-                  placeholder='(11) 99999-9999'
+                  colorPalette={'teal'}
                   {...register('phone', {
                     pattern: {
                       value: /^\(\d{2}\)\s\d{4,5}-\d{4}$/,
@@ -163,31 +165,34 @@ export const DashboardProfile: React.FC = () => {
 
               <Field
                 label='Organização'
+                disabled
                 invalid={!!errors.organization}
                 errorText={errors.organization?.message}
               >
                 <Input
-                  placeholder='Nome da sua organização'
+                  colorPalette={'teal'}
                   {...register('organization')}
                 />
               </Field>
 
               <Field
                 label='Cargo'
+                disabled
                 invalid={!!errors.position}
                 errorText={errors.position?.message}
               >
                 <Input
-                  placeholder='Seu cargo na organização'
+                  colorPalette={'teal'}
                   {...register('position')}
                 />
               </Field>
 
               <Button
                 type='submit'
-                colorPalette='brandPrimaryButton'
+                colorPalette='teal'
                 size='lg'
                 loading={isLoading}
+                disabled
                 alignSelf='flex-start'
               >
                 Salvar alterações

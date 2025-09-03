@@ -99,7 +99,8 @@ export const NameStep: React.FC<NameStepProps> = ({ onNext }) => {
                     errorText={formMethods.formState.errors.organizationName?.message}
                   >
                     <Input
-                      variant='subtle'
+                      variant='outline'
+                      colorPalette='teal'
                       size='2xl'
                       {...formMethods.register('organizationName')}
                     />
@@ -108,8 +109,7 @@ export const NameStep: React.FC<NameStepProps> = ({ onNext }) => {
                   <Button
                     aria-label='Buscar'
                     rounded='full'
-                    colorPalette='brandPrimaryButton'
-                    color='white'
+                    colorPalette='teal'
                     size='xl'
                     onClick={onNext}
                   >

@@ -10,9 +10,9 @@ export interface SelectProps extends SelectRootProps {
 export const Select: React.FC<SelectProps> = ({ label, ...defaultProps }) => {
   return (
     <ChakraSelect.Root
-      {...defaultProps}
       size='lg'
-      variant='subtle'
+      variant='outline'
+      {...defaultProps}
     >
       <ChakraSelect.HiddenSelect />
       {label && <ChakraSelect.Label>{label}</ChakraSelect.Label>}

@@ -32,7 +32,7 @@ export const DiversityStep: React.FC<DiversityStep> = ({ onBack }) => {
   const formMethods = useFormContext<FormData>();
 
   return (
-    <Flex minH='100vh'>
+    <Flex minH='90vh'>
       <Container
         maxW='8xl'
         alignItems='center'
@@ -69,7 +69,7 @@ export const DiversityStep: React.FC<DiversityStep> = ({ onBack }) => {
             >
               <Input
                 placeholder='Ex.: SP, RJ e PR (atualmente expandindo para o RS também)'
-                variant='subtle'
+                variant='outline'
                 size='xl'
                 {...formMethods.register('activityRegion')}
               />
@@ -249,8 +249,7 @@ export const DiversityStep: React.FC<DiversityStep> = ({ onBack }) => {
             <Button
               aria-label='Buscar'
               rounded='full'
-              colorPalette='brandPrimaryButton'
-              color='white'
+              colorPalette='teal'
               size='xl'
               type='submit'
               loading={formMethods.formState.isSubmitting}

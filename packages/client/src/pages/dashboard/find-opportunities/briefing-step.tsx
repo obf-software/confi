@@ -26,7 +26,7 @@ export const BriefingStep: React.FC<BriefingStepProps> = ({ onBack, onNext }) =>
   const formMethods = useFormContext<FormData>();
 
   return (
-    <Flex minH='100vh'>
+    <Flex minH='90vh'>
       <Container
         maxW='8xl'
         alignItems='center'
@@ -98,7 +98,8 @@ export const BriefingStep: React.FC<BriefingStepProps> = ({ onBack, onNext }) =>
                 errorText={formMethods.formState.errors.organizationBriefing?.message}
               >
                 <Textarea
-                  variant='subtle'
+                  variant='outline'
+                  colorPalette='teal'
                   size='xl'
                   height='32'
                   resize='none'
@@ -125,8 +126,7 @@ export const BriefingStep: React.FC<BriefingStepProps> = ({ onBack, onNext }) =>
                 <Button
                   aria-label='Buscar'
                   rounded='full'
-                  colorPalette='brandPrimaryButton'
-                  color='white'
+                  colorPalette='teal'
                   size='xl'
                   onClick={onNext}
                 >

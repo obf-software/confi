@@ -108,6 +108,12 @@ export class ApiServiceImpl implements ApiService {
     throw new Error('Not implemented');
   }
 
+  async findOpportunities(
+    input: ApiService.FindOpportunitiesInput
+  ): Promise<ApiService.FindOpportunitiesOutput> {
+    throw new Error('Not implemented');
+  }
+
   // Plannings
   async listPlannings(
     input: ApiService.ListPlanningsInput
