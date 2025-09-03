@@ -7,6 +7,7 @@ import { HiOutlineDocumentReport } from 'react-icons/hi';
 import { ColorModeButton } from '../../../components/color-mode';
 import { SidebarLink } from './sidebar-link';
 import { User } from '../../../services/api';
+import { routes } from '../../../lib/routes';
 
 interface SidebarContentProps {
   user?: User;
@@ -55,42 +56,42 @@ export const SidebarContent: React.FC<SidebarContentProps> = ({
           {user?.role === 'ADMIN' && (
             <>
               <SidebarLink
-                to='/dashboard/statistics'
+                to={routes.dashboard.admin.statistics}
                 icon={<MdOutlineAnalytics />}
                 onClick={onCloseSidebar}
               >
                 Estatísticas
               </SidebarLink>
               <SidebarLink
-                to='/dashboard/tags'
+                to={routes.dashboard.admin.tags}
                 icon={<AiOutlineTag />}
                 onClick={onCloseSidebar}
               >
                 Tags
               </SidebarLink>
               <SidebarLink
-                to='/dashboard/admin/evaluations'
+                to={routes.dashboard.admin.evaluations}
                 icon={<MdOutlineAutoAwesome />}
                 onClick={onCloseSidebar}
               >
                 Avaliações
               </SidebarLink>
               <SidebarLink
-                to='/dashboard/admin/opportunities'
+                to={routes.dashboard.admin.opportunities}
                 icon={<MdOutlineLocalOffer />}
                 onClick={onCloseSidebar}
               >
                 Oportunidades
               </SidebarLink>
               <SidebarLink
-                to='/dashboard/admin/opportunities-search'
+                to={routes.dashboard.admin.opportunitiesSearch}
                 icon={<AiOutlineFileSearch />}
                 onClick={onCloseSidebar}
               >
                 Busca de Oportunidades
               </SidebarLink>
               <SidebarLink
-                to='/dashboard/admin/plannings'
+                to={routes.dashboard.admin.plannings}
                 icon={<HiOutlineDocumentReport />}
                 onClick={onCloseSidebar}
               >
@@ -103,21 +104,21 @@ export const SidebarContent: React.FC<SidebarContentProps> = ({
 
           {/* Common menu items for all users */}
           <SidebarLink
-            to='/dashboard/find-opportunities'
+            to={routes.dashboard.findOpportunities}
             icon={<BiSearch />}
             onClick={onCloseSidebar}
           >
             Buscar Oportunidades
           </SidebarLink>
           <SidebarLink
-            to='/dashboard/my-plannings'
+            to={routes.dashboard.myPlannings}
             icon={<BiCalendar />}
             onClick={onCloseSidebar}
           >
             Meus Planejamentos
           </SidebarLink>
           <SidebarLink
-            to='/dashboard/profile'
+            to={routes.dashboard.profile}
             icon={<BiUser />}
             onClick={onCloseSidebar}
           >
