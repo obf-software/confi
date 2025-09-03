@@ -35,41 +35,48 @@ export class CreatePlanning {
 
     await this.planningRepository.save(planning);
 
-    const opportunities = await this.opportunityRepository.findByIds(input.opportunitiesIds);
+    try {
+      const opportunities = await this.opportunityRepository.findByIds(input.opportunitiesIds);
 
-    const planningData =
-      await this.planningTransformer.transformOpportunitiesIntoPlanningData(opportunities);
+      const planningData =
+        await this.planningTransformer.transformOpportunitiesIntoPlanningData(opportunities);
 
-    const [pdfUrl, icsUrl] = await Promise.all([
-      this.pdfGenerator
-        .generatePdf(planningData)
-        .then((fileBuffer) =>
-          this.fileStorageService.upload({
-            content: fileBuffer,
-            contentType: 'application/pdf',
-            extension: 'pdf',
-          })
-        )
-        .then(({ fileInfo }) => this.fileStorageService.getFileDownloadUrl({ fileInfo }))
-        .then(({ url }) => url),
+      const [pdfUrl, icsUrl] = await Promise.all([
+        this.pdfGenerator
+          .generatePdf(planningData)
+          .then((fileBuffer) =>
+            this.fileStorageService.upload({
+              content: fileBuffer,
+              contentType: 'application/pdf',
+              extension: 'pdf',
+            })
+          )
+          .then(({ fileInfo }) => this.fileStorageService.getFileDownloadUrl({ fileInfo }))
+          .then(({ url }) => url),
 
-      this.planningTransformer
-        .transformPlanningDataIntoIcsContent(planningData)
-        .then((icsContent) =>
-          this.fileStorageService.upload({
-            content: icsContent,
-            contentType: 'text/calendar',
-            extension: 'ics',
-          })
-        )
-        .then(({ fileInfo }) => this.fileStorageService.getFileDownloadUrl({ fileInfo }))
-        .then(({ url }) => url),
-    ]);
+        this.planningTransformer
+          .transformPlanningDataIntoIcsContent(planningData)
+          .then((icsContent) =>
+            this.fileStorageService.upload({
+              content: icsContent,
+              contentType: 'text/calendar',
+              extension: 'ics',
+            })
+          )
+          .then(({ fileInfo }) => this.fileStorageService.getFileDownloadUrl({ fileInfo }))
+          .then(({ url }) => url),
+      ]);
 
-    planning.setPdfFileUrl(pdfUrl);
-    planning.setIcsFileUrl(icsUrl);
-    await this.planningRepository.update(planning);
+      planning.setPdfFileUrl(pdfUrl);
+      planning.setIcsFileUrl(icsUrl);
+      planning.setStatus('COMPLETED');
+      await this.planningRepository.update(planning);
 
-    return { planning };
+      return { planning };
+    } catch (error) {
+      planning.setStatus('FAILED');
+      await this.planningRepository.update(planning);
+      throw error;
+    }
   }
 }

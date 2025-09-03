@@ -4,6 +4,8 @@ import { FactoryProvider } from '@nestjs/common';
 export const s3ClientFactory: FactoryProvider = {
   provide: S3Client,
   useFactory: () => {
-    return new S3Client({});
+    return new S3Client({
+      region: 'us-east-2',
+    });
   },
 };

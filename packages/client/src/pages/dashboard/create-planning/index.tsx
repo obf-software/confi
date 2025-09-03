@@ -39,6 +39,15 @@ export const DashboardCreatePlanning: React.FC = () => {
       },
       {
         onSuccess: (planning) => {
+          toaster.create({
+            id: 'success-to-create-planning',
+            title: 'Planning created successfully',
+            description: 'The planning was created successfully',
+            closable: true,
+            type: 'success',
+          });
+        },
+        onSettled: () => {
           setIsLoading(false);
 
           queryClient.invalidateQueries({ queryKey: ['listMyPlannings'] });

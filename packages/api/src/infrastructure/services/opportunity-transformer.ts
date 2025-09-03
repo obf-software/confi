@@ -45,7 +45,7 @@ export class OpportunityTransformerAwsBedrock implements OpportunityTransformer 
       const prompt = this.buildPrompt(opportunity, availableTags);
       const response = await this.bedrockRuntimeClient.send(
         new InvokeModelCommand({
-          modelId: 'anthropic.claude-3-5-sonnet-20240620-v1:0',
+          modelId: 'us.anthropic.claude-3-5-sonnet-20241022-v2:0',
           body: JSON.stringify({
             messages: [
               {

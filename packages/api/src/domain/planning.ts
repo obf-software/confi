@@ -114,4 +114,9 @@ export class Planning {
     this.icsFileUrl = icsFileUrl;
     this.updatedAt = dayjs().utc().toDate();
   }
+
+  setStatus(status: PlanningStatus) {
+    this.status = status;
+    this.updatedAt = dayjs().utc().toDate();
+  }
 }

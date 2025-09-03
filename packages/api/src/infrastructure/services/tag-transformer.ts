@@ -42,18 +42,18 @@ export class TagTransformerAwsBedrock implements TagTransformer {
     const prompt = this.buildPrompt(data, availableTags);
     const response = await this.bedrockRuntimeClient.send(
       new InvokeModelCommand({
-        modelId: 'anthropic.claude-3-5-sonnet-20240620-v1:0',
+        modelId: 'us.anthropic.claude-3-5-sonnet-20241022-v2:0',
         body: JSON.stringify({
           messages: [
             {
               role: 'user',
-              content: prompt
-            }
+              content: prompt,
+            },
           ],
           max_tokens: 4000,
           temperature: 0.7,
-          anthropic_version: 'bedrock-2023-05-31'
-        })
+          anthropic_version: 'bedrock-2023-05-31',
+        }),
       })
     );
     return this.parseResponse(response, availableTags);
@@ -133,24 +133,20 @@ EXAMPLE RESPONSES (JSON):
   private parseResponse(response: InvokeModelCommandOutput, availableTags: Tag[]): Tag[] {
     const responseBody = JSON.parse(response.body.transformToString()) as BedrockResponse;
     const content = responseBody.content[0]?.text;
-    
+
     if (!content) {
       this.logger.error('No content in response');
       return [];
     }
 
-    const { success, data } = z
-      .object({
-        tags: z.array(z.string()).optional(),
-      })
-      .safeParse(JSON.parse(content));
+    const { success, data } = z.array(z.string()).optional().safeParse(JSON.parse(content));
 
     if (!success) {
       this.logger.error(`Error parsing response: ${content}`);
       return [];
     }
 
-    const tags = data.tags ?? [];
+    const tags = data ?? [];
 
     return availableTags.filter((tag) => tags.includes(tag.slug));
   }

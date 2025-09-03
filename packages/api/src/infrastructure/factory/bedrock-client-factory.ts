@@ -4,6 +4,8 @@ import { FactoryProvider } from '@nestjs/common';
 export const bedrockClientFactory: FactoryProvider = {
   provide: BedrockRuntimeClient,
   useFactory: () => {
-    return new BedrockRuntimeClient({});
+    return new BedrockRuntimeClient({
+      region: 'us-east-1',
+    });
   },
 };

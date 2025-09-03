@@ -36,18 +36,18 @@ export class PlanningTransformerAwsBedrock implements PlanningTransformer {
   ): Promise<PlanningData> {
     const response = await this.bedrockRuntimeClient.send(
       new InvokeModelCommand({
-        modelId: 'anthropic.claude-3-5-sonnet-20240620-v1:0',
+        modelId: 'us.anthropic.claude-3-5-sonnet-20241022-v2:0',
         body: JSON.stringify({
           messages: [
             {
               role: 'user',
-              content: `${this.getSystemPromptForPlanningData()}\n\n${this.buildPromptForPlanningData(opportunities)}`
-            }
+              content: `${this.getSystemPromptForPlanningData()}\n\n${this.buildPromptForPlanningData(opportunities)}`,
+            },
           ],
           max_tokens: 4000,
           temperature: 0.7,
-          anthropic_version: 'bedrock-2023-05-31'
-        })
+          anthropic_version: 'bedrock-2023-05-31',
+        }),
       })
     );
 
@@ -323,18 +323,18 @@ ${JSON.stringify(opportunitiesJson, null, 2)}`;
   async transformPlanningDataIntoIcsContent(planningData: PlanningData): Promise<string> {
     const response = await this.bedrockRuntimeClient.send(
       new InvokeModelCommand({
-        modelId: 'anthropic.claude-3-5-sonnet-20240620-v1:0',
+        modelId: 'us.anthropic.claude-3-5-sonnet-20241022-v2:0',
         body: JSON.stringify({
           messages: [
             {
               role: 'user',
-              content: `${this.getSystemPromptForIcsContent()}\n\n${this.buildPromptForIcsContent(planningData)}`
-            }
+              content: `${this.getSystemPromptForIcsContent()}\n\n${this.buildPromptForIcsContent(planningData)}`,
+            },
           ],
           max_tokens: 4000,
           temperature: 0.7,
-          anthropic_version: 'bedrock-2023-05-31'
-        })
+          anthropic_version: 'bedrock-2023-05-31',
+        }),
       })
     );
 

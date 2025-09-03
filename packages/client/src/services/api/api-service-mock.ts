@@ -175,7 +175,10 @@ export class ApiServiceMock implements ApiService {
     },
   ];
 
+  private token: string | null = null;
+
   withToken(input: ApiService.WithTokenInput): ApiService {
+    this.token = input.token;
     return this;
   }
 
@@ -395,14 +398,33 @@ export class ApiServiceMock implements ApiService {
   async findOpportunities(
     input: ApiService.FindOpportunitiesInput
   ): Promise<ApiService.FindOpportunitiesOutput> {
-    return success(this.opportunities);
+    const response = await fetch('https://3000.obfsoft.party/api/v0/actions/find-opportunities', {
+      method: 'POST',
+      body: JSON.stringify(input.formInput),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.token}`,
+      },
+    });
+
+    const data = (await response.json()) as Opportunity[];
+    return success(data);
   }
 
   // Plannings
   async listPlannings(
     input: ApiService.ListPlanningsInput
   ): Promise<ApiService.ListPlanningsOutput> {
-    return success(this.plannings);
+    const response = await fetch('https://3000.obfsoft.party/api/v0/actions/list-plannings', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.token}`,
+      },
+    });
+
+    const data = (await response.json()) as Planning[];
+    return success(data);
   }
 
   async getPlanning(input: ApiService.GetPlanningInput): Promise<ApiService.GetPlanningOutput> {
@@ -423,21 +445,20 @@ export class ApiServiceMock implements ApiService {
   async createPlanning(
     input: ApiService.CreatePlanningInput
   ): Promise<ApiService.CreatePlanningOutput> {
-    const ids = this.plannings.map((planning) => Number(planning.id));
-    const nextId = Math.max(...ids) + 1;
-    const planning: Planning = {
-      id: nextId.toString(),
-      title: input.planning.title,
-      opportunityIds: input.planning.opportunityIds,
-      pdfFileUrl: null,
-      icsFileUrl: null,
-      status: 'IN_PROGRESS',
-      userId: 'current',
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    };
-    this.plannings.push(planning);
-    return success(planning);
+    const response = await fetch('https://3000.obfsoft.party/api/v0/actions/create-planning', {
+      method: 'POST',
+      body: JSON.stringify({
+        opportunitiesIds: input.planning.opportunityIds,
+        title: input.planning.title,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.token}`,
+      },
+    });
+
+    const data = (await response.json()) as Planning;
+    return success(data);
   }
 
   async deletePlanning(

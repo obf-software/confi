@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreatePlanning } from 'src/application/create-planning';
 import { FindOpportunities } from 'src/application/find-opportunities';
@@ -83,7 +83,7 @@ export class ActionsController {
     status: 200,
     description: 'The plannings were listed successfully',
   })
-  @Post('list-plannings')
+  @Get('list-plannings')
   async listPlanningsHandler() {
     const output = await this.listPlannings.execute({});
     return output.plannings;

@@ -28,10 +28,13 @@ export class FindOpportunities {
       `Found ${availableTags.length.toString()} available tags: ${availableTags.map((t) => t.slug).join(', ')}`
     );
 
-    const tags = await this.tagTransformer.transform(input.formInput, availableTags);
-    const tagSlugs = tags.map((t) => t.slug);
+    // get 10 random tags
+    const tagSlugs = availableTags.slice(0, 10).map((t) => t.slug);
 
-    this.logger.debug(`Inferred ${tagSlugs.length.toString()} tags: ${tagSlugs.join(', ')}`);
+    // const tags = await this.tagTransformer.transform(input.formInput, availableTags);
+    // const tagSlugs = tags.map((t) => t.slug);
+
+    // this.logger.debug(`Inferred ${tagSlugs.length.toString()} tags: ${tagSlugs.join(', ')}`);
 
     if (tagSlugs.length === 0) return { opportunities: [] };
 
