@@ -7,8 +7,7 @@ const envValidation = z
     // CLOUDFLARE_DEFAULT_ACCOUNT_ID: z.string(),
     // CLOUDFLARE_TURNSTILE_SITE_KEY: z.string().default('1x00000000000000000000AA'),
     // CLOUDFLARE_TURNSTILE_SECRET_KEY: z.string().default('1x0000000000000000000000000000000AA'),
-
-    MONGODB_URI: z.string(),
+    // MONGODB_URI: z.string().optional,
   })
   .safeParse(process.env);
 
