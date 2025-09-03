@@ -44,7 +44,7 @@ export const DashboardAdminTags: React.FC = () => {
             <Text color='fg.muted'>Gerencie as tags para categorizar oportunidades</Text>
           </Box>
           <Button
-            colorPalette='brandPrimaryButton'
+            colorPalette='teal'
             size='lg'
           >
             <FiPlus />

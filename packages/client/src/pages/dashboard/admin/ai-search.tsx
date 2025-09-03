@@ -12,7 +12,7 @@ import {
 } from '@chakra-ui/react';
 import { FiEdit2, FiTrash2, FiPlus, FiPlay, FiRefreshCw } from 'react-icons/fi';
 
-export const DashboardAdminOpportunitiesSearch: React.FC = () => {
+export const DashboardAdminAiSearch: React.FC = () => {
   // Mock data for demonstration
   const searches = [
     {
@@ -110,7 +110,7 @@ export const DashboardAdminOpportunitiesSearch: React.FC = () => {
             <Text color='fg.muted'>Configure e execute buscas automáticas de oportunidades</Text>
           </Box>
           <Button
-            colorPalette='brandPrimaryButton'
+            colorPalette='teal'
             size='lg'
           >
             <FiPlus />

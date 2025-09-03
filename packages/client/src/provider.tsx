@@ -14,12 +14,12 @@ import { ProtectedRoute } from './components/protected-route';
 import { HomeLayout } from './pages/home/layout';
 import { Home } from './pages/home';
 import { DashboardLayout } from './pages/dashboard/layout';
-import { DashboardAdminStatistics } from './pages/dashboard/admin/statistics';
+import { DashboardAdminHome } from './pages/dashboard/admin/home';
 import { DashboardAdminTags } from './pages/dashboard/admin/tags';
 import { DashboardAdminOpportunities } from './pages/dashboard/admin/opportunities';
-import { DashboardAdminOpportunitiesSearch } from './pages/dashboard/admin/opportunities-search';
+import { DashboardAdminAiSearch } from './pages/dashboard/admin/ai-search';
 import { DashboardAdminPlannings } from './pages/dashboard/admin/plannings';
-import { DashboardAdminEvaluations } from './pages/dashboard/admin/evaluations';
+import { DashboardAdminAiMatching } from './pages/dashboard/admin/ai-matching';
 import { DashboardFindOpportunities } from './pages/dashboard/find-opportunities';
 import { DashboardMyPlannings } from './pages/dashboard/my-plannings';
 import { DashboardProfile } from './pages/dashboard/profile';
@@ -72,30 +72,30 @@ export const Provider: React.FC = () => {
               index: true,
               element: (
                 <Navigate
-                  to={routes.dashboard.admin.statistics}
+                  to={routes.dashboard.admin.home}
                   replace
                 />
               ),
             },
             {
-              path: toChildPath(routes.dashboard.admin.statistics),
-              element: <DashboardAdminStatistics />,
+              path: toChildPath(routes.dashboard.admin.home),
+              element: <DashboardAdminHome />,
             },
             {
               path: toChildPath(routes.dashboard.admin.tags),
               element: <DashboardAdminTags />,
             },
             {
-              path: toChildPath(routes.dashboard.admin.evaluations),
-              element: <DashboardAdminEvaluations />,
+              path: toChildPath(routes.dashboard.admin.aiMatching),
+              element: <DashboardAdminAiMatching />,
             },
             {
               path: toChildPath(routes.dashboard.admin.opportunities),
               element: <DashboardAdminOpportunities />,
             },
             {
-              path: toChildPath(routes.dashboard.admin.opportunitiesSearch),
-              element: <DashboardAdminOpportunitiesSearch />,
+              path: toChildPath(routes.dashboard.admin.aiSearch),
+              element: <DashboardAdminAiSearch />,
             },
             {
               path: toChildPath(routes.dashboard.admin.plannings),

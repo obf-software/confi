@@ -14,7 +14,7 @@ import {
 import { FiSearch, FiTag, FiCheckCircle, FiUsers, FiFileText } from 'react-icons/fi';
 import { MdOutlineAutoAwesome } from 'react-icons/md';
 
-export const DashboardAdminStatistics: React.FC = () => {
+export const DashboardAdminHome: React.FC = () => {
   return (
     <Box>
       <VStack

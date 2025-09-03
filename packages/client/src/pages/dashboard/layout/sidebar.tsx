@@ -1,7 +1,17 @@
-import { Box, Button, HStack, Icon, Separator, Stack, Text, VStack } from '@chakra-ui/react';
+import {
+  Avatar,
+  Box,
+  Button,
+  HStack,
+  Icon,
+  Separator,
+  Stack,
+  Text,
+  VStack,
+} from '@chakra-ui/react';
 import React from 'react';
 import { BiLogOut, BiSearch, BiUser, BiCalendar } from 'react-icons/bi';
-import { MdOutlineAnalytics, MdOutlineLocalOffer, MdOutlineAutoAwesome } from 'react-icons/md';
+import { MdOutlineLocalOffer, MdOutlineAutoAwesome, MdOutlineHome } from 'react-icons/md';
 import { AiOutlineTag, AiOutlineFileSearch } from 'react-icons/ai';
 import { HiOutlineDocumentReport } from 'react-icons/hi';
 import { ColorModeButton } from '../../../components/color-mode';
@@ -56,11 +66,11 @@ export const SidebarContent: React.FC<SidebarContentProps> = ({
           {user?.role === 'ADMIN' && (
             <>
               <SidebarLink
-                to={routes.dashboard.admin.statistics}
-                icon={<MdOutlineAnalytics />}
+                to={routes.dashboard.admin.home}
+                icon={<MdOutlineHome />}
                 onClick={onCloseSidebar}
               >
-                Estatísticas
+                Home
               </SidebarLink>
               <SidebarLink
                 to={routes.dashboard.admin.tags}
@@ -70,32 +80,32 @@ export const SidebarContent: React.FC<SidebarContentProps> = ({
                 Tags
               </SidebarLink>
               <SidebarLink
-                to={routes.dashboard.admin.evaluations}
-                icon={<MdOutlineAutoAwesome />}
-                onClick={onCloseSidebar}
-              >
-                Avaliações
-              </SidebarLink>
-              <SidebarLink
                 to={routes.dashboard.admin.opportunities}
                 icon={<MdOutlineLocalOffer />}
                 onClick={onCloseSidebar}
               >
-                Oportunidades
-              </SidebarLink>
-              <SidebarLink
-                to={routes.dashboard.admin.opportunitiesSearch}
-                icon={<AiOutlineFileSearch />}
-                onClick={onCloseSidebar}
-              >
-                Busca de Oportunidades
+                Opportunities
               </SidebarLink>
               <SidebarLink
                 to={routes.dashboard.admin.plannings}
                 icon={<HiOutlineDocumentReport />}
                 onClick={onCloseSidebar}
               >
-                Planejamentos
+                Plannings
+              </SidebarLink>
+              <SidebarLink
+                to={routes.dashboard.admin.aiSearch}
+                icon={<AiOutlineFileSearch />}
+                onClick={onCloseSidebar}
+              >
+                AI Searchs
+              </SidebarLink>
+              <SidebarLink
+                to={routes.dashboard.admin.aiMatching}
+                icon={<MdOutlineAutoAwesome />}
+                onClick={onCloseSidebar}
+              >
+                AI Matchings
               </SidebarLink>
 
               <Separator />
@@ -108,21 +118,21 @@ export const SidebarContent: React.FC<SidebarContentProps> = ({
             icon={<BiSearch />}
             onClick={onCloseSidebar}
           >
-            Buscar Oportunidades
+            Find Opportunities
           </SidebarLink>
           <SidebarLink
             to={routes.dashboard.myPlannings}
             icon={<BiCalendar />}
             onClick={onCloseSidebar}
           >
-            Meus Planejamentos
+            My Plannings
           </SidebarLink>
           <SidebarLink
             to={routes.dashboard.profile}
             icon={<BiUser />}
             onClick={onCloseSidebar}
           >
-            Perfil
+            Profile
           </SidebarLink>
         </Stack>
       </VStack>
@@ -133,23 +143,21 @@ export const SidebarContent: React.FC<SidebarContentProps> = ({
       >
         <Separator />
         <Box>
-          <Text
-            fontSize='sm'
-            color='fg.muted'
-            mb='2'
-          >
-            Logado como:
-          </Text>
-          <Text
-            fontSize='sm'
-            fontWeight='medium'
-            color='fg.default'
-            textOverflow='ellipsis'
-            overflow='hidden'
-            whiteSpace='nowrap'
-          >
-            {user?.email || 'Usuário'}
-          </Text>
+          <HStack>
+            <Avatar.Root size='xs'>
+              <Avatar.Fallback name={user?.name || 'User'} />
+            </Avatar.Root>
+            <Text
+              fontSize='sm'
+              fontWeight='medium'
+              color='fg.default'
+              textOverflow='ellipsis'
+              overflow='hidden'
+              whiteSpace='nowrap'
+            >
+              {user?.email || 'User'}
+            </Text>
+          </HStack>
         </Box>
         <Button
           variant='ghost'
@@ -163,7 +171,7 @@ export const SidebarContent: React.FC<SidebarContentProps> = ({
           <Icon mr='3'>
             <BiLogOut />
           </Icon>
-          Sair
+          Logout
         </Button>
       </VStack>
     </VStack>

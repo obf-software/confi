@@ -17,7 +17,7 @@ import {
 import { FiPlay, FiRefreshCw, FiEye, FiAlertCircle } from 'react-icons/fi';
 import { MdOutlineAutorenew } from 'react-icons/md';
 
-export const DashboardAdminEvaluations: React.FC = () => {
+export const DashboardAdminAiMatching: React.FC = () => {
   // Mock data for demonstration
   const currentEvaluation = {
     id: '1',
@@ -137,7 +137,7 @@ export const DashboardAdminEvaluations: React.FC = () => {
             </Text>
           </Box>
           <Button
-            colorPalette='brandPrimaryButton'
+            colorPalette='teal'
             size='lg'
             disabled={currentEvaluation?.status === 'IN_PROGRESS'}
           >

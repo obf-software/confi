@@ -102,7 +102,7 @@ export const DashboardAdminOpportunities: React.FC = () => {
             <Text color='fg.muted'>Gerencie todas as oportunidades cadastradas no sistema</Text>
           </Box>
           <Button
-            colorPalette='brandPrimaryButton'
+            colorPalette='teal'
             size='lg'
           >
             <FiPlus />
